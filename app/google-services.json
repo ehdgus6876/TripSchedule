@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "498933339398",
+    "firebase_url": "https://tripschedule-8491d.firebaseio.com",
+    "project_id": "tripschedule-8491d",
+    "storage_bucket": "tripschedule-8491d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498933339398:android:4e64b9b2f012ad759bfa87",
+        "android_client_info": {
+          "package_name": "com.example.tripschedule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498933339398-f8i1nsm2s5itnc84prqd5f7541obqvle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripschedule",
+            "certificate_hash": "654eeca415e46affad0c88a2502bd5c8f91af8b0"
+          }
+        },
+        {
+          "client_id": "498933339398-npvg6j46u6m8gkpq20t3031istadao9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5NxZ3xEr_DkM2_CsgTrhIADMVIm1n-18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498933339398-npvg6j46u6m8gkpq20t3031istadao9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
