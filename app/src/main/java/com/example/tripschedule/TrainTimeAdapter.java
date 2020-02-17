@@ -11,53 +11,68 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.FacebookSdk;
+
 import java.util.ArrayList;
 
 public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.TrainTimeViewHolder>{
 
-    private ArrayList<TrainItem> tList;
-    private LayoutInflater tInflate;
-    private Context tcontext;
+    private ArrayList<TrainItem> dataList;
+    private int itemLayout;
 
-    TrainTimeAdapter(Context context, ArrayList<TrainItem> items){
-        this.tList = items;
-        this.tInflate = LayoutInflater.from(context);
-        this.tcontext = context;
+    public TrainTimeAdapter(ArrayList<TrainItem> items,int itemLayout){
+        this.dataList=items;
+        this.itemLayout=itemLayout;
+
     }
     @NonNull
     @Override
     public TrainTimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = tInflate.inflate(R.layout.trainitem,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(itemLayout,parent,false);
         return new TrainTimeViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull TrainTimeAdapter.TrainTimeViewHolder holder, int position) {
-        holder.tv_arrplandtime.setText(tList.get(position).arrplandtime);
-        holder.tv_depplandtime.setText(tList.get(position).depplandtime);
-        holder.tv_traingradename.setText(tList.get(position).traingradename);
+        holder.startStationID.setText(dataList.get(position).getStartStationID());
+        holder.endStationID.setText(dataList.get(position).getEndStationID());
+        holder.trainClass.setText(dataList.get(position).getTrainClass());
+        holder.departureTime.setText(dataList.get(position).getDepartureTime());
+        holder.arrivalTime.setText(dataList.get(position).getArrivalTime());
+        holder.wasteTime.setText(dataList.get(position).getWasteTime());
+        holder.Fare.setText(dataList.get(position).getFare());
     }
     @Override
     public int getItemCount() {
-        return tList.size();
+        return dataList.size();
     }
 
-    class TrainTimeViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_arrplandtime;
-        TextView tv_depplandtime;
-        TextView tv_traingradename;
-        TrainTimeViewHolder(@NonNull View itemView) {
+    public class TrainTimeViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView startStationID;
+        public TextView endStationID;
+        public TextView trainClass;
+        public TextView departureTime;
+        public TextView arrivalTime;
+        public TextView wasteTime;
+        public TextView Fare;
+
+        public TrainTimeViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(tcontext,SelectLocation.class);
-                    tcontext.startActivity(intent);
+                    Intent intent = new Intent(v.getContext(),SelectLocation.class);
+                    v.getContext().startActivity(intent);
                 }
             });
 
-            tv_arrplandtime = itemView.findViewById(R.id.tv_arrplandtime);
-            tv_depplandtime = itemView.findViewById(R.id.tv_depplandtime);
-            tv_traingradename = itemView.findViewById(R.id.tv_traingradenam);
+            startStationID = itemView.findViewById(R.id.tv_startStation);
+            endStationID = itemView.findViewById(R.id.tv_endStation);
+            trainClass = itemView.findViewById(R.id.tv_trainClass);
+            departureTime = itemView.findViewById(R.id.tv_departureTime);
+            arrivalTime = itemView.findViewById(R.id.tv_arrivalTime);
+            wasteTime = itemView.findViewById(R.id.tv_wasteTime);
+            Fare = itemView.findViewById(R.id.tv_fare);
 
         }
     }
