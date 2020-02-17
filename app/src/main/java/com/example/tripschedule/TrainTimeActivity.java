@@ -1,129 +1,245 @@
 package com.example.tripschedule;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class TrainTimeActivity extends AppCompatActivity {
 
-    private String requestUrl;
-    private String openURL = "http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?ServiceKey=MjdakRRYxSARCsdeSrbLvR4Wh8EkubBvrOWPZ%2BZQENSGaGth%2FjCavsx%2FSccbUtWk5X7bm%2BrVy25ihgDdEbJd7Q%3D%3D";
-    private String ulsankey="NATH13717";
-    public String code;
-    ArrayList<TrainItem> list = null;
-    public TrainItem train = null;
-    public RecyclerView recyclerView;
-    static public String totalCount="200";
+    public int code;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private TrainTimeAdapter adapter;
+    Handler handler;
+    private ArrayList<TrainItem> arrayList;
+    private String uri;
+    private String apiKey;
+    private String startStationID;
+    private String endStationID;
+    private Intent intent;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_time);
-        Intent intent;
-        intent=getIntent();
-        code=intent.getStringExtra("code");
+        arrayList = new ArrayList<>();
+        intent = getIntent();
+        code = intent.getIntExtra("code", 0);
         recyclerView = findViewById(R.id.recycler_train);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager((layoutManager));
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        startStationID = String.valueOf(code);
+        endStationID = TrainFragment.Station;
+        apiKey = "8Th5C6lM/PWAAlWDvualgRNDftIgCTjjTRF6gvYDDqU";
+        uri = "https://api.odsay.com/v1/api/trainServiceTime?apiKey=" + apiKey + "&lang=0&startStationID=" + startStationID + "&endStationID=" + endStationID;
+
+        TrainTask TrainTask = new TrainTask(uri, null);
+        TrainTask.execute();
+
+        adapter = new TrainTimeAdapter(arrayList, R.layout.trainitem);
+
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setHasFixedSize(true);
+            }
+        }, 1000);
 
 
-
-        MyAsyncTask myAsyncTask = new MyAsyncTask();
-        myAsyncTask.execute();
     }
 
-    private class MyAsyncTask extends AsyncTask<String, Void,String> {
+    public class TrainTask extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public TrainTask(String url, ContentValues values) {
+            this.url = url;
+            this.values = values;
+
+        }
+
         @Override
-        protected String doInBackground(String... strings) {
-            requestUrl = openURL+ "&numOfRows="+totalCount+"&depPlaceId="+code+"&arrPlaceId="+TrainFragment.Station+"&depPlandTime="+CalendarActivity.sendStartDate;
-            try{
-                boolean b_arrplandtime =false;
-                boolean b_depplandtime = false;
-                boolean b_traingradename = false;
+        protected String doInBackground(Void... voids) {
+            String result; //요청 결과 저장 변수
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values);
 
-                URL url = new URL(requestUrl);
-                InputStream is = url.openStream();
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                XmlPullParser parser = factory.newPullParser();
-                parser.setInput(new InputStreamReader(is,"UTF-8"));
-                String tag;
-                int eventType = parser.getEventType();
 
-                while(eventType != XmlPullParser.END_DOCUMENT){
-                    switch(eventType){
-                        case XmlPullParser.START_DOCUMENT:
-                            list = new ArrayList<TrainItem>();
-                            break;
-                        case XmlPullParser.END_DOCUMENT:
-                            break;
-                        case XmlPullParser.END_TAG:
-                            if(parser.getName().equals("item")&& train !=null){
-                                list.add(train);
-                            }
-                            break;
-                        case XmlPullParser.START_TAG:
-                            if(parser.getName().equals("item")){
-                                train = new TrainItem();
-                            }
-                            if(parser.getName().equals("arrplandtime")) b_arrplandtime= true;
-                            else if(parser.getName().equals("depplandtime")) b_depplandtime= true;
-                            else if (parser.getName().equals("traingradename")) b_traingradename= true;
-                            break;
-                        case XmlPullParser.TEXT:
-                            if(b_arrplandtime){
-                                train.setArrplandtime(parser.getText());
-                                b_arrplandtime = false;
-                            }
-                            else if(b_depplandtime){
-                                train.setDepplandtime(parser.getText());
-                                b_depplandtime=false;
-                            }
-                            else if(b_traingradename){
-                                train.setTraingradename(parser.getText());
-                                b_traingradename=false;
-                            }
-                            break;
-                    }
-                    eventType=parser.next();
+            return result;
+        }
+    }
+
+    public class RequestHttpURLConnection {
+        public String request(String _url, ContentValues _params) {
+            HttpURLConnection urlConn = null;
+            StringBuffer sbParams = new StringBuffer();
+
+
+            try {
+                URL url = new URL(_url);
+                urlConn = (HttpURLConnection) url.openConnection();
+
+                urlConn.setRequestMethod("POST");
+                urlConn.setRequestProperty("Accept-Charset", "UTF-8");
+                urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+                String strParams = sbParams.toString();
+                OutputStream os = urlConn.getOutputStream();
+                os.write(strParams.getBytes("UTF-8"));
+                os.flush();
+                os.close();
+
+
+                if (urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)
+                    return null;
+
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
+
+                String line;
+                String page = "";
+
+                while ((line = reader.readLine()) != null) {
+                    page += line;
                 }
-            }catch(Exception e){
+                try {
+                    JSONObject json = new JSONObject(page);
+                    JSONObject json1 = json.getJSONObject("result");
+                    JSONArray json2 = json1.getJSONArray("station");
+                    String startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare;
+                    Log.d("json1",String.valueOf(json1));
+                    Log.d("json2",String.valueOf(json2));
+
+                    for (int k = 0; k < json2.length(); k++) {
+
+                        JSONObject json3 = json2.getJSONObject(k);
+                        String runDay = json3.getString("runDay");
+                        JSONObject json4 = json3.getJSONObject("generalFare");
+
+
+
+
+                        if (CalendarActivity.dateNum == 2 && CalendarActivity.dateNum == 3 && CalendarActivity.dateNum == 4 && CalendarActivity.dateNum == 5) {
+                            if (runDay.equals("매일") || runDay.equals("월") ||runDay.equals("월화수목") ||runDay.equals("화수목금토일") || runDay.equals("월화수")) {
+                                startStation = json1.getString("startStationName");
+                                endStation = json1.getString("endStationName");
+                                trainClass = json3.getString("trainClass");
+                                departureTime = json3.getString("departureTime");
+                                arrivalTime = json3.getString("arrivalTime");
+                                wasteTime = json3.getString("wasteTime");
+                                fare=json4.getString("weekday");
+                                Log.d("파싱결과",String.valueOf(CalendarActivity.dateNum));
+                                Log.d("파싱결과",startStation);
+                                Log.d("파싱결과",endStation);
+                                Log.d("파싱결과",trainClass);
+                                Log.d("파싱결과",departureTime);
+                                Log.d("파싱결과",arrivalTime);
+                                Log.d("파싱결과",wasteTime);
+                                Log.d("파싱결과",fare);
+                                arrayList.add(new TrainItem(startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare));
+
+                            }
+                        } else {
+                            if (runDay.equals("매일") || runDay.equals("금토일") || runDay.equals("금") || runDay.equals("금토") || runDay.equals("금일") || runDay.equals("토")) {
+                                startStation = json1.getString("startStationName");
+                                endStation = json1.getString("endStationName");
+                                trainClass = json3.getString("trainClass");
+                                departureTime = json3.getString("departureTime");
+                                arrivalTime = json3.getString("arrivalTime");
+                                wasteTime = json3.getString("wasteTime");
+                                fare=json4.getString("weekend");
+                                Log.d("파싱결과",startStation+endStation+trainClass+departureTime+arrivalTime+wasteTime+fare);
+                                arrayList.add(new TrainItem(startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare));
+
+
+                            }
+
+                        }
+
+
+                    }
+                    Collections.sort(arrayList, new Comparator<TrainItem>() {
+                        @Override
+                        public int compare(TrainItem o1, TrainItem o2) {
+                            if (o1.getDepartureTime().compareTo(o2.getDepartureTime()) < 0)
+                                return -1;
+                            else if (o1.getDepartureTime().compareTo(o2.getDepartureTime()) > 0)
+                                return 1;
+                            return 0;
+                        }
+                    });
+
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
-        }
-        @Override
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
 
-            TrainTimeAdapter adapter = new TrainTimeAdapter(getApplicationContext(),list);
-            recyclerView.setAdapter(adapter);
         }
     }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,7 @@ package com.example.tripschedule;
 
 public class TrainStation {
     private String Name;
-    private String code;
+    private int code;
 
     public TrainStation(){}
 
@@ -14,11 +14,11 @@ public class TrainStation {
         this.Name = Name;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

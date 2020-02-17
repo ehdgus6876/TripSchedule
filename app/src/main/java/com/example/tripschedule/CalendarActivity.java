@@ -27,6 +27,7 @@ public class CalendarActivity extends AppCompatActivity {
     private String finishdate;
     static public String sendStartDate;
     static public String sendFinishDate;
+    static public int dateNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class CalendarActivity extends AppCompatActivity {
                             Date date = dateFormat.parse(sendStartDate);
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(date);
-                            Log.d("요일",String.valueOf(cal.get(Calendar.DAY_OF_WEEK)));
+                            dateNum= cal.get(Calendar.DAY_OF_WEEK);
 
                         } catch (ParseException e) {
                             e.printStackTrace();

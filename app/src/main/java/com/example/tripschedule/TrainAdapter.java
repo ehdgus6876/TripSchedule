@@ -64,7 +64,7 @@ public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.TrainViewHol
                 public void onClick(View v) {
 
                     int pos=getAdapterPosition();
-                    String code=filteredItemList.get(pos).getCode();
+                    int code=filteredItemList.get(pos).getCode();
 
                     Intent intent= new Intent(context,TrainTimeActivity.class);
                     intent.putExtra("code",code);

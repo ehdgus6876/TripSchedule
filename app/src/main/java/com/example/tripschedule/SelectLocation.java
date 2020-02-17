@@ -44,6 +44,15 @@ public class SelectLocation extends AppCompatActivity {
                 transaction.commit();
             }
         });
+        btn_tour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+                TourFragment tourFragment=new TourFragment();
+                transaction.replace(R.id.frame,tourFragment);
+                transaction.commit();
+            }
+        });
 
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override

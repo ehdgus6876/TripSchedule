@@ -62,40 +62,61 @@ public class TrainFragment extends Fragment implements TextWatcher {
         cb_Ulsan=v.findViewById(R.id.cb_Ulsan);
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-        databaseReference=database.getReference("transport/train");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //반복문으로 데이터 List 추출해냄
-                    TrainStation TrainStation = snapshot.getValue(TrainStation.class); // 만들어뒀던 TrainStation 객체에 데이터를 담는다.
-                    arrayList.add(TrainStation); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-                }
-                adapter1.notifyDataSetChanged();
-                // 리스트 저장 및 새로고침
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 디비를 가져오던 중 에러 발생 시
-                Log.e("TrainFragment", String.valueOf(databaseError.toException()));
-            }
-        });
-
         cb_Ulsan.setOnClickListener(new CheckBox.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Station="NATH13717";
+                Station="3300300";
                 cb_TaeHwaKang.setChecked(false);
+                databaseReference=database.getReference("transport/train/Ulsan");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                        arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //반복문으로 데이터 List 추출해냄
+                            TrainStation TrainStation = snapshot.getValue(TrainStation.class); // 만들어뒀던 TrainStation 객체에 데이터를 담는다.
+                            arrayList.add(TrainStation); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                        }
+                        adapter1.notifyDataSetChanged();
+                        // 리스트 저장 및 새로고침
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // 디비를 가져오던 중 에러 발생 시
+                        Log.e("TrainFragment", String.valueOf(databaseError.toException()));
+                    }
+                });
+
                 Log.d("station",Station);
             }
         });
         cb_TaeHwaKang.setOnClickListener(new CheckBox.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Station="NAT750726";
+                Station="3300200";
                 Log.d("station",Station);
+                databaseReference=database.getReference("transport/train/TaeHwaGang");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                        arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //반복문으로 데이터 List 추출해냄
+                            TrainStation TrainStation = snapshot.getValue(TrainStation.class); // 만들어뒀던 TrainStation 객체에 데이터를 담는다.
+                            arrayList.add(TrainStation); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                        }
+                        adapter1.notifyDataSetChanged();
+                        // 리스트 저장 및 새로고침
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // 디비를 가져오던 중 에러 발생 시
+                        Log.e("TrainFragment", String.valueOf(databaseError.toException()));
+                    }
+                });
+
                 cb_Ulsan.setChecked(false);
             }
         });
