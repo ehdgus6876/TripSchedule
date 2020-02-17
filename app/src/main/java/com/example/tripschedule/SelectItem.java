@@ -1,9 +1,6 @@
 package com.example.tripschedule;
 
-import java.io.Serializable;
-
-public class FoodItem implements Serializable {
-    private static final long serialVersionUID=1L;
+public class SelectItem {
     private String address;
     private String detail;
     private String mapx;
@@ -12,17 +9,6 @@ public class FoodItem implements Serializable {
     private String tel;
     private String title;
     private String image;
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-
-
 
     public String getAddress() {
         return address;
@@ -78,6 +64,14 @@ public class FoodItem implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 
