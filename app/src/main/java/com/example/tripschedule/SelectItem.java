@@ -10,6 +10,15 @@ public class SelectItem {
     private String title;
     private String image;
 
+    public SelectItem(String title,String tel,String address,String detail,String image,String mapx,String mapy){
+        this.title=title;
+        this.tel=tel;
+        this.address=address;
+        this.detail=detail;
+        this.image=image;
+        this.mapx=mapx;
+        this.mapy=mapy;
+    }
     public String getAddress() {
         return address;
     }

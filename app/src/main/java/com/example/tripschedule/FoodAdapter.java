@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> implements Filterable {
+    public static final ArrayList<SelectItem> selectItems=new ArrayList<>();
     private ArrayList<FoodItem> filteredItemList;
     private ArrayList<FoodItem> unFilteredList;
     private Context context;
@@ -30,6 +32,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         this.context=context;
         this.unFilteredList=arrayList;
         this.filteredItemList=arrayList;
+
+
     }
 
     @NonNull
@@ -37,6 +41,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.cardview,parent,false);
         FoodViewHolder holder=new FoodViewHolder(view);
+
         return holder;
     }
 
@@ -47,15 +52,25 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.tv_Address.setText(filteredItemList.get(position).getAddress());
 
 
-        if(!filteredItemList.get(position).getImage().isEmpty()){
+
+        /*if(!filteredItemList.get(position).getImage().isEmpty()){
             Glide.with(holder.itemView)
                     .load(filteredItemList.get(position).getImage())
+                    .error(R.drawable.bus)
                     .into(holder.image);
 
-        }
+
+        }*/
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selectItems.add(new SelectItem(filteredItemList.get(position).getTitle(),
+                        filteredItemList.get(position).getTel(),
+                        filteredItemList.get(position).getAddress(),
+                        filteredItemList.get(position).getDetail(),
+                        filteredItemList.get(position).getImage(),
+                        filteredItemList.get(position).getMapx(),
+                        filteredItemList.get(position).getMapy()));
 
                 Toast.makeText(context,"장바구니에 담겼습니다",Toast.LENGTH_SHORT).show();
             }
@@ -94,7 +109,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             tv_Address=itemView.findViewById(R.id.tv_Address);
             btn_select=itemView.findViewById(R.id.btn_select);
             btn_detail=itemView.findViewById(R.id.btn_detail);
-            image=itemView.findViewById(R.id.image);
+
+
 
 
         }

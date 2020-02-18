@@ -10,18 +10,11 @@ import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.BufferedReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 
 
 public class SelectLocation extends AppCompatActivity {
+
     private Button btn_food;
     private Button btn_tour;
     private FloatingActionButton fab_main;
@@ -57,7 +50,7 @@ public class SelectLocation extends AppCompatActivity {
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),select_basket.class);
+                Intent intent = new Intent(getApplicationContext(), SelectBasket.class);
                 startActivity(intent);
             }
         });

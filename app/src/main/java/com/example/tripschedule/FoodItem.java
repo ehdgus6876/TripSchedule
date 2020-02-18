@@ -2,8 +2,7 @@ package com.example.tripschedule;
 
 import java.io.Serializable;
 
-public class FoodItem implements Serializable {
-    private static final long serialVersionUID=1L;
+public class FoodItem{
     private String address;
     private String detail;
     private String mapx;

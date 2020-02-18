@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".WebView" />
-        <activity android:name=".select_basket" />
+        <activity android:name=".SelectBasket" />
         <activity
             android:name=".Splashscreen"
             android:label="@string/app_name">
