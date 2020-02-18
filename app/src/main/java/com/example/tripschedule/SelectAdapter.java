@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder> {
 
@@ -30,7 +31,7 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SelectAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SelectAdapter.ViewHolder holder, final int position) {
         holder.tv_title.setText(dataList.get(position).getTitle());
         holder.tv_phone.setText(dataList.get(position).getTel());
         holder.tv_Address.setText(dataList.get(position).getAddress());
@@ -45,7 +46,9 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FoodAdapter.selectItems.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,dataList.size());
             }
         });
 
