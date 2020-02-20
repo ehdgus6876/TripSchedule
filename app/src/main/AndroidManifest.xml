@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".ScheduleActivity"></activity>
+        <activity android:name=".MapActivity" />
         <activity android:name=".WebView" />
         <activity android:name=".SelectBasket" />
         <activity

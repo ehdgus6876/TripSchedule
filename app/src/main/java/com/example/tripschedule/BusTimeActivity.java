@@ -54,7 +54,6 @@ public class BusTimeActivity extends AppCompatActivity {
         arrayList=new ArrayList<>();
         Intent intent = getIntent();
         int code = intent.getIntExtra("code", 0);
-        Log.d("dong",String.valueOf(code));
         int endStationID = 3600728;
         String apiKey = "8Th5C6lM/PWAAlWDvualgRNDftIgCTjjTRF6gvYDDqU";
         String uri = "https://api.odsay.com/v1/api/intercityServiceTime?apiKey=" + apiKey + "&lang=0&startStationID=" + code + "&endStationID=" + endStationID;
@@ -144,13 +143,14 @@ public class BusTimeActivity extends AppCompatActivity {
                 }
                 try{
                     String[] scheduleArr;
+                    Log.d("dong1",page.toString());
+                    Log.d("dong1","hi");
                     JSONObject json=new JSONObject(page.toString());
                     JSONObject json1=json.getJSONObject("result");
-                    Log.d("dong", String.valueOf(json1));
+
 
                     JSONArray json2=json1.getJSONArray("station");
 
-                    Log.d("dong", String.valueOf(json2));
 
 
 
@@ -166,7 +166,6 @@ public class BusTimeActivity extends AppCompatActivity {
                         String nightFare=json3.getString("nightFare");
                         String schedule=json3.getString("schedule");
                         String nightSchedule = json3.getString("nightSchedule");
-                        Log.d("dong", schedule);
 
 
                         scheduleArr=schedule.split("/|\n");
