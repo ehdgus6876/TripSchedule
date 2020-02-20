@@ -51,6 +51,7 @@ public class BusTimeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_time);
+
         arrayList=new ArrayList<>();
         Intent intent = getIntent();
         int code = intent.getIntExtra("code", 0);
@@ -143,8 +144,8 @@ public class BusTimeActivity extends AppCompatActivity {
                 }
                 try{
                     String[] scheduleArr;
-                    Log.d("dong1",page.toString());
-                    Log.d("dong1","hi");
+
+
                     JSONObject json=new JSONObject(page.toString());
                     JSONObject json1=json.getJSONObject("result");
 

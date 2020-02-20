@@ -148,8 +148,7 @@ public class TrainTimeActivity extends AppCompatActivity {
                     JSONObject json1 = json.getJSONObject("result");
                     JSONArray json2 = json1.getJSONArray("station");
                     String startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare;
-                    Log.d("json1",String.valueOf(json1));
-                    Log.d("json2",String.valueOf(json2));
+
 
                     for (int k = 0; k < json2.length(); k++) {
 
@@ -169,14 +168,6 @@ public class TrainTimeActivity extends AppCompatActivity {
                                 arrivalTime = json3.getString("arrivalTime");
                                 wasteTime = json3.getString("wasteTime");
                                 fare=json4.getString("weekday");
-                                Log.d("파싱결과",String.valueOf(CalendarActivity.dateNum));
-                                Log.d("파싱결과",startStation);
-                                Log.d("파싱결과",endStation);
-                                Log.d("파싱결과",trainClass);
-                                Log.d("파싱결과",departureTime);
-                                Log.d("파싱결과",arrivalTime);
-                                Log.d("파싱결과",wasteTime);
-                                Log.d("파싱결과",fare);
                                 arrayList.add(new TrainItem(startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare));
 
                             }
@@ -189,7 +180,6 @@ public class TrainTimeActivity extends AppCompatActivity {
                                 arrivalTime = json3.getString("arrivalTime");
                                 wasteTime = json3.getString("wasteTime");
                                 fare=json4.getString("weekend");
-                                Log.d("파싱결과",startStation+endStation+trainClass+departureTime+arrivalTime+wasteTime+fare);
                                 arrayList.add(new TrainItem(startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare));
 
 

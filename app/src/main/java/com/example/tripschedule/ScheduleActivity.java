@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -19,22 +20,82 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class ScheduleActivity extends AppCompatActivity {
-
+    Handler handler;
+    BufferedReader br;
+    StringBuilder searchResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        String uri="https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start={126.9783881,37.5666102}&goal={129.3112381,35.5396493}&option={} \\\n" +
-                "\t-H X-NCP-APIGW-API-KEY-ID: {7e7cc797q1} \\\n" +
-                "\t-H X-NCP-APIGW-API-KEY: {MrCQ9XX0nfNXHb1vw45otjiB7xGay2rxUC2q5jhu} -v";
 
 
-        ScheduleActivity.ScheduleTask scheduleTask=new ScheduleActivity.ScheduleTask(uri,null);
-        scheduleTask.execute();
+
+
+
+        Log.d("dong", "바보1");
+        searchNaver();
+        /*ScheduleActivity.ScheduleTask scheduleTask=new ScheduleActivity.ScheduleTask(uri,null);
+        scheduleTask.execute();*/
+
+
+    }
+    public void searchNaver() { // 검색어 = searchObject로 ;
+        final String clientId="7e7cc797q1";
+        final String clientSecret="MrCQ9XX0nfNXHb1vw45otjiB7xGay2rxUC2q5jhu";
+
+        // 네트워크 연결은 Thread 생성 필요
+        new Thread() {
+
+            @Override
+            public void run() {
+                try {
+
+                    String apiURL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?" +
+                            "start=127.1058342,37.359708&goal=129.075986,35.179470&option=trafast"; // json 결과
+                    // Json 형태로 결과값을 받아옴.
+                    URL url = new URL(apiURL);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("GET");
+                    con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
+                    con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
+                    con.connect();
+
+                    int responseCode = con.getResponseCode();
+
+
+                    if(responseCode==200) { // 정상 호출
+                        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    } else {  // 에러 발생
+                        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                    }
+
+                    searchResult = new StringBuilder();
+                    String inputLine;
+                    while ((inputLine = br.readLine()) != null) {
+                        searchResult.append(inputLine + "\n");
+
+                    }
+
+                    br.close();
+                    con.disconnect();
+                    Log.d("dong",searchResult.toString());
+
+
+
+
+
+                } catch (Exception e) {
+                    Log.d("dong", "error : " + e);
+                }
+
+            }
+        }.start();
 
     }
     public static double Calc(double Lat1,
@@ -59,7 +120,7 @@ public class ScheduleActivity extends AppCompatActivity {
         return dDistance;
     }
 
-    public class ScheduleTask extends AsyncTask<Void,Void,String> {
+    /*public class ScheduleTask extends AsyncTask<Void,Void,String> {
         private String url;
         private ContentValues values;
 
@@ -87,7 +148,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 URL url=new URL(_url);
                 urlConn=(HttpURLConnection) url.openConnection();
 
-                urlConn.setRequestMethod("POST");
+                urlConn.setRequestMethod("GET");
                 urlConn.setRequestProperty("Accept-Charset","UTF-8");
                 urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
@@ -106,7 +167,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
                 String line;
                 StringBuilder page= new StringBuilder();
-
+                Log.d("dong", "바보4");
                 while((line=reader.readLine())!=null){
                     page.append(line);
                 }
@@ -114,15 +175,15 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
 
-                Log.d("dong", page.toString());
+                Log.d("dong", "바보3");
 
 
 
 
 
-                /* catch (JSONException e) {
+                 catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
             } catch (ProtocolException e) {
                 e.printStackTrace();
             } catch (MalformedURLException e) {
@@ -132,5 +193,6 @@ public class ScheduleActivity extends AppCompatActivity {
             }
             return null;
         }
-    }
+
+    }*/
 }

@@ -55,7 +55,6 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
 
         intent=getIntent();
         code=intent.getIntExtra("code",0);
-        Log.d("dong",String.valueOf(code));
         startStationID=code;
         endStationID=3400090;
         apiKey="8Th5C6lM/PWAAlWDvualgRNDftIgCTjjTRF6gvYDDqU";
@@ -148,11 +147,11 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                     String[] scheduleArr;
                     JSONObject json=new JSONObject(page);
                     JSONObject json1=json.getJSONObject("result");
-                    Log.d("dong", String.valueOf(json1));
+
 
                     JSONArray json2=json1.getJSONArray("station");
 
-                    Log.d("dong", String.valueOf(json2));
+
 
 
 
@@ -170,7 +169,7 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                         String nightSpecialFare=json3.getString("nightSpecialFare");
                         String schedule=json3.getString("schedule");
                         String nightSchedule = json3.getString("nightSchedule");
-                        Log.d("dong", schedule);
+
 
                         scheduleArr=schedule.split("/|\n");
                         if(!scheduleArr[0].equals("")) {
@@ -180,12 +179,11 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                                     fare = specialFare;
                                     arrayList.add(new SpeedBus(startTerminal, destTerminal,
                                             wasteTime, fare, scheduleArr[i]));
-                                    Log.d("dong", startTerminal + destTerminal + wasteTime + fare + scheduleArr[i]);
+
                                 } else {
                                     fare = normalFare;
                                     arrayList.add(new SpeedBus(startTerminal, destTerminal,
                                             wasteTime, fare, scheduleArr[i]));
-                                    Log.d("dong", startTerminal + destTerminal + wasteTime + fare + scheduleArr[i]);
                                 }
 
                             }
@@ -199,12 +197,10 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                                     fare = nightSpecialFare;
                                     arrayList.add(new SpeedBus(startTerminal, destTerminal,
                                             wasteTime, fare, scheduleArr[j]));
-                                    Log.d("dong", startTerminal + destTerminal + wasteTime + fare + scheduleArr[j]);
                                 } else {
                                     fare = nightFare;
                                     arrayList.add(new SpeedBus(startTerminal, destTerminal,
                                             wasteTime, fare, scheduleArr[j]));
-                                    Log.d("dong", startTerminal + destTerminal + wasteTime + fare + scheduleArr[j]);
                                 }
                             }
                         }

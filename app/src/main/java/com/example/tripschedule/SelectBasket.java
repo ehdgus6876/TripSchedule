@@ -43,7 +43,6 @@ public class SelectBasket extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),MapActivity.class);
                 startActivity(intent);
-
             }
         });
         btn_select.setOnClickListener(new View.OnClickListener() {
