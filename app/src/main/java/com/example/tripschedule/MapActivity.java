@@ -27,12 +27,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        Marker marker = new Marker();
-        //marker.setPosition(new LatLng(Float.valueOf(FoodAdapter.selectItems.get(0).getMapx()),Float.valueOf(FoodAdapter.selectItems.get(0).getMapy())));
-        Utmk utmk = new Utmk(Float.valueOf(FoodAdapter.selectItems.get(0).getMapx()),Float.valueOf(FoodAdapter.selectItems.get(0).getMapy()));
-        LatLng latLng = utmk.toLatLng();
-        marker.setPosition(latLng);
-        marker.setMap(naverMap);
+        
 
     }
 }
