@@ -85,11 +85,6 @@ public class ScheduleActivity extends AppCompatActivity {
                     br.close();
                     con.disconnect();
                     Log.d("dong",searchResult.toString());
-
-
-
-
-
                 } catch (Exception e) {
                     Log.d("dong", "error : " + e);
                 }

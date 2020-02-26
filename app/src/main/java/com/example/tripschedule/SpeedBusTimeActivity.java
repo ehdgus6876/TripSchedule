@@ -1,5 +1,6 @@
 package com.example.tripschedule;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -88,6 +89,7 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
 
 
     }
+    @SuppressLint("StaticFieldLeak")
     public class SpeedBusTask extends AsyncTask<Void,Void,String>{
 
         private String url;
@@ -103,10 +105,6 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
             String result; //요청 결과 저장 변수
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             result = requestHttpURLConnection.request(url,values);
-
-
-
-
             return result;
         }
     }
@@ -123,6 +121,8 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                 urlConn.setRequestMethod("POST");
                 urlConn.setRequestProperty("Accept-Charset","UTF-8");
                 urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                urlConn.setDoInput(true);
+                urlConn.setDoOutput(true);
 
                 String strParams = sbParams.toString();
                 OutputStream os=urlConn.getOutputStream();
@@ -134,9 +134,7 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                 if(urlConn.getResponseCode()!= HttpURLConnection.HTTP_OK)
                     return null;
 
-
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(),"UTF-8"));
-
                 String line;
                 String page="";
 
@@ -147,13 +145,7 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                     String[] scheduleArr;
                     JSONObject json=new JSONObject(page);
                     JSONObject json1=json.getJSONObject("result");
-
-
                     JSONArray json2=json1.getJSONArray("station");
-
-
-
-
 
                     for(int k=0;k<json2.length();k++){
 
@@ -170,7 +162,6 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                         String schedule=json3.getString("schedule");
                         String nightSchedule = json3.getString("nightSchedule");
 
-
                         scheduleArr=schedule.split("/|\n");
                         if(!scheduleArr[0].equals("")) {
                             for (int i = 0; i < scheduleArr.length; i++) {
@@ -179,16 +170,13 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                                     fare = specialFare;
                                     arrayList.add(new SpeedBus(startTerminal, destTerminal,
                                             wasteTime, fare, scheduleArr[i]));
-
                                 } else {
                                     fare = normalFare;
                                     arrayList.add(new SpeedBus(startTerminal, destTerminal,
                                             wasteTime, fare, scheduleArr[i]));
                                 }
-
                             }
                         }
-
                         scheduleArr=nightSchedule.split("/|\n");
                         if(!scheduleArr[0].equals("")) {
                             for (int j = 0; j < scheduleArr.length; j++) {
