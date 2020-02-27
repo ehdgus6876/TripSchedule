@@ -11,6 +11,7 @@ public class FoodItem{
     private String tel;
     private String title;
     private String image;
+    private int code;
 
     public String getImage() {
         return image;
@@ -77,6 +78,14 @@ public class FoodItem{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
 

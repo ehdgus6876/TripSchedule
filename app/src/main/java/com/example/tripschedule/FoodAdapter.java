@@ -52,15 +52,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.tv_Address.setText(filteredItemList.get(position).getAddress());
 
 
-
-        /*if(!filteredItemList.get(position).getImage().isEmpty()){
-            Glide.with(holder.itemView)
-                    .load(filteredItemList.get(position).getImage())
-                    .error(R.drawable.bus)
-                    .into(holder.image);
-
-
-        }*/
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +61,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                         filteredItemList.get(position).getDetail(),
                         filteredItemList.get(position).getImage(),
                         filteredItemList.get(position).getMapx(),
-                        filteredItemList.get(position).getMapy()));
+                        filteredItemList.get(position).getMapy(),
+                        filteredItemList.get(position).getCode()));
+                Log.d("dong", String.valueOf(filteredItemList.get(position).getCode()));
 
                 Toast.makeText(context,"장바구니에 담겼습니다",Toast.LENGTH_SHORT).show();
             }
