@@ -24,14 +24,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:fontFamily="casual"
-        android:text="여행 일정을 등록해주세요"
+        android:text="출발날짜 클릭 후 날짜를 선택해주세요"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.344" />
 
     <Button
         android:id="@+id/btn_start"
@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.118" />
 
     <Button
         android:id="@+id/btn_finish"
@@ -57,39 +57,64 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_re"
         app:layout_constraintStart_toEndOf="@+id/btn_start"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.118" />
 
     <Button
         android:id="@+id/btn_re"
-        android:layout_width="39dp"
-        android:layout_height="44dp"
-        android:background="@drawable/refresh"
+        android:layout_width="35dp"
+        android:layout_height="43dp"
 
+        android:background="@drawable/refresh"
         android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_finish"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.479" />
+        app:layout_constraintVertical_bias="0.119"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btn_complete"
         android:layout_width="330dp"
         android:layout_height="52dp"
-        android:text="결정완료"
+        android:layout_marginBottom="50dp"
         android:background="#6CA4EE"
+        android:text="결정완료"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cb_transport"
+        android:layout_width="119dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginBottom="56dp"
+        android:text="대중교통"
+        app:layout_constraintBottom_toTopOf="@+id/btn_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cb_car"
+        app:layout_constraintTop_toBottomOf="@+id/btn_finish" />
+
+    <CheckBox
+        android:id="@+id/cb_car"
+        android:layout_width="119dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginBottom="56dp"
+        android:text="자차"
+        app:layout_constraintBottom_toTopOf="@+id/btn_complete"
+        app:layout_constraintEnd_toStartOf="@+id/cb_transport"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_re"
-        app:layout_constraintVertical_bias="0.253" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_start" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,6 +28,9 @@ public class CalendarActivity extends AppCompatActivity {
     private Button btn_complete;
     private String startdate;
     private String finishdate;
+    private TextView textView;
+    private CheckBox carButton;
+    private CheckBox transportButton;
     static public String sendStartDate;
     static public String sendFinishDate;
     static public int dateNum;
@@ -38,6 +44,9 @@ public class CalendarActivity extends AppCompatActivity {
         btn_finish=findViewById(R.id.btn_finish);
         btn_re=findViewById(R.id.btn_re);
         btn_complete=findViewById(R.id.btn_complete);
+        textView=findViewById(R.id.textView2);
+        carButton=findViewById(R.id.cb_car);
+        transportButton=findViewById(R.id.cb_transport);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +73,11 @@ public class CalendarActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+
                         startdate=year+"/"+(month+1)+"/"+dayOfMonth;
                         btn_start.setText(startdate);
+                        textView.setText("도착날짜 클릭 후 날짜를 선택해주세요");
+
 
                     }
                 });
@@ -87,12 +99,37 @@ public class CalendarActivity extends AppCompatActivity {
                         else if((month+1)<10&&dayOfMonth<10){
                             sendFinishDate=String.valueOf(year)+0+(month+1)+0+dayOfMonth;
                         }
+                        if(Integer.valueOf(sendFinishDate)>Integer.valueOf(sendStartDate)){
+                            finishdate=year+"/"+(month+1)+"/"+dayOfMonth;
+                            btn_finish.setText(finishdate);
+                            if(!carButton.isChecked() && !transportButton.isChecked()){
+                                textView.setText("교통수단을 선택해주세요");
+                            }
+                            else{
+                                textView.setText("결정완료 버튼을 눌러주세요");
+                            }
 
-                        finishdate=year+"/"+(month+1)+"/"+dayOfMonth;
-                        btn_finish.setText(finishdate);
+                        }
+                        else{
+                            Toast.makeText(CalendarActivity.this,"출발날짜보다 도착날짜가 더 빠릅니다!",Toast.LENGTH_SHORT).show();
+                        }
+
+
 
                     }
                 });
+            }
+        });
+        carButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transportButton.setChecked(false);
+            }
+        });
+        transportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carButton.setChecked(false);
             }
         });
 
@@ -101,6 +138,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 btn_start.setText("출발날짜");
                 btn_finish.setText("도착날짜");
+                textView.setText("출발날짜 클릭 후 날짜를 선택해주세요");
             }
         });
 
@@ -109,10 +147,19 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startdate=btn_start.getText().toString();
                 finishdate=btn_finish.getText().toString();
-                Intent intent=new Intent(getApplicationContext(),TransportActivity.class);
-                intent.putExtra("startdate",startdate);
-                intent.putExtra("finishdate",finishdate);
-                startActivity(intent);
+                if(carButton.isChecked()){
+                    Intent intent = new Intent(getApplicationContext(),SelectLocation.class);
+                    intent.putExtra("startdate",startdate);
+                    intent.putExtra("finishdate",finishdate);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(getApplicationContext(),TransportActivity.class);
+                    intent.putExtra("startdate",startdate);
+                    intent.putExtra("finishdate",finishdate);
+                    startActivity(intent);
+                }
+
             }
         });
     }

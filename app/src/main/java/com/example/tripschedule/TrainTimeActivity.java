@@ -73,7 +73,7 @@ public class TrainTimeActivity extends AppCompatActivity {
         TrainTask TrainTask = new TrainTask(uri, null);
         TrainTask.execute();
 
-        adapter = new TrainTimeAdapter(arrayList, R.layout.trainitem);
+        adapter = new TrainTimeAdapter(arrayList, R.layout.cardview_train);
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {

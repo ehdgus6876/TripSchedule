@@ -41,7 +41,6 @@ public class FoodFragment extends Fragment implements TextWatcher {
     private FoodAdapter adapter;
     private int tmpcode;
 
-
     public FoodFragment(){
 
     }
@@ -80,53 +79,71 @@ public class FoodFragment extends Fragment implements TextWatcher {
              @Override
              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                  if(position==0){
-                     tmpcode= 0;
+                     tmpcode=0;
+
                      databaseReference=database.getReference("food/cafe");
                      databaseReference();
 
                  }
                  else if(position==1){
-                     tmpcode= 1;
+                     tmpcode=1;
+
                      databaseReference=database.getReference("food/china");
                      databaseReference();
+
                  }
                  else if(position==2){
-                     tmpcode= 2;
+                     tmpcode=2;
+
                      databaseReference=database.getReference("food/Hansik");
                      databaseReference();
+
                  }
                  else if(position==3){
-                     tmpcode= 3;
+                     tmpcode=3;
+
                      databaseReference=database.getReference("food/gook");
                      databaseReference();
                  }
                  else if(position==4){
-                     tmpcode= 4;
+                     tmpcode=4;
+
                      databaseReference=database.getReference("food/meat");
                      databaseReference();
+
                  }
                  else if(position==5){
-                     tmpcode= 5;
+                     tmpcode=5;
+
                      databaseReference=database.getReference("food/noodle");
                      databaseReference();
+
                  }
                  else if(position==6){
-                     tmpcode= 6;
+                     tmpcode=6;
+
                      databaseReference=database.getReference("food/pizza");
                      databaseReference();
+
                  }
                  else if(position==7){
-                     tmpcode= 7;
+                     tmpcode=7;
+
                      databaseReference=database.getReference("food/sashimi");
                      databaseReference();
+
+
                  }
                  else if(position==8){
-                     tmpcode= 8;
+                     tmpcode=8;
+
                      databaseReference=database.getReference("food/Sul");
                      databaseReference();
+
                  }
                  else if(position==9){
-                     tmpcode= 9;
+                     tmpcode=9;
+
                      databaseReference=database.getReference("food/Boonsik");
                      databaseReference();
                  }
@@ -158,11 +175,12 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
     }
     void databaseReference(){
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayList.clear();
-                int i = 0;
+                int i=0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     FoodItem foodItem=snapshot.getValue(FoodItem.class);
                     arrayList.add(foodItem);
@@ -170,7 +188,6 @@ public class FoodFragment extends Fragment implements TextWatcher {
                     i++;
 
                 }
-
                 adapter.notifyDataSetChanged();
             }
 

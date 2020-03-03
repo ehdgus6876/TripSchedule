@@ -6,6 +6,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,13 +33,20 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
     }
     @Override
     public void onBindViewHolder(@NonNull TrainTimeAdapter.TrainTimeViewHolder holder, int position) {
-        holder.startStationID.setText(dataList.get(position).getStartStationID());
-        holder.endStationID.setText(dataList.get(position).getEndStationID());
-        holder.trainClass.setText(dataList.get(position).getTrainClass());
-        holder.departureTime.setText(dataList.get(position).getDepartureTime());
-        holder.arrivalTime.setText(dataList.get(position).getArrivalTime());
-        holder.wasteTime.setText(dataList.get(position).getWasteTime());
-        holder.Fare.setText(dataList.get(position).getFare());
+        holder.tv_ttitle.setText(dataList.get(position).getStartStationID()+"->"+dataList.get(position).getEndStationID());
+        holder.tv_tclass.setText(dataList.get(position).getTrainClass());
+        holder.tv_tstime.setText(dataList.get(position).getDepartureTime());
+        holder.tv_tdtime.setText(dataList.get(position).getArrivalTime());
+        holder.tv_twtime.setText(dataList.get(position).getWasteTime());
+        holder.tv_tcost.setText(dataList.get(position).getFare());
+
+        holder.btn_tsel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(v.getContext(),SelectLocation.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -47,31 +55,22 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
 
     public class TrainTimeViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView startStationID;
-        public TextView endStationID;
-        public TextView trainClass;
-        public TextView departureTime;
-        public TextView arrivalTime;
-        public TextView wasteTime;
-        public TextView Fare;
+        TextView tv_ttitle,tv_tclass,tv_tstime,tv_tdtime,tv_twtime,tv_tcost;
+        Button btn_tsel;
 
         public TrainTimeViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(),SelectLocation.class);
-                    v.getContext().startActivity(intent);
-                }
-            });
 
-            startStationID = itemView.findViewById(R.id.tv_startStation);
-            endStationID = itemView.findViewById(R.id.tv_endStation);
-            trainClass = itemView.findViewById(R.id.tv_trainClass);
-            departureTime = itemView.findViewById(R.id.tv_departureTime);
-            arrivalTime = itemView.findViewById(R.id.tv_arrivalTime);
-            wasteTime = itemView.findViewById(R.id.tv_wasteTime);
-            Fare = itemView.findViewById(R.id.tv_fare);
+            tv_ttitle=itemView.findViewById(R.id.tv_ttitle);
+            tv_tclass=itemView.findViewById(R.id.tv_tclass);
+            tv_tstime=itemView.findViewById(R.id.tv_tstime);
+            tv_tdtime=itemView.findViewById(R.id.tv_tdtime);
+            tv_twtime=itemView.findViewById(R.id.tv_twtime);
+            tv_tcost=itemView.findViewById(R.id.tv_tcost);
+            btn_tsel=itemView.findViewById(R.id.btn_tsel);
+
+
+
 
         }
     }
