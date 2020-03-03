@@ -9,6 +9,17 @@ public class TourItem {
     private String tel;
     private String title;
     private String image;
+    private int code;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+
 
     public String getImage() {
         return image;

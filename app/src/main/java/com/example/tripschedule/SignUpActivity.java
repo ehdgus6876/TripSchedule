@@ -39,6 +39,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SignUp(email.getText().toString(), password.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
 
             }
         });

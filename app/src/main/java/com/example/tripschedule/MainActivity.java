@@ -1,10 +1,12 @@
 package com.example.tripschedule;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,12 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "로그";
     private TextView tv_result; // 닉네임 text
     private ImageView iv_profile; // 이미지 뷰
     private ImageButton btn_myschedule;
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Intent intent = getIntent();
         String nickName=intent.getStringExtra("nickName");
         String photoUrl=intent.getStringExtra("photoUrl");
@@ -39,14 +48,29 @@ public class MainActivity extends AppCompatActivity {
         if(user==null){
                 MyStartActivity(LoginActivity.class);
         }else {
-            for (UserInfo profile : user.getProviderData()) {
-                String name = profile.getDisplayName();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("user").document(user.getUid());
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if(document !=null){
+                            if (document.exists()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
-                if (name == null) {
-                        MyStartActivity(MemberAcivity.class);
+                            } else {
+                                Log.d(TAG, "No such document");
+                                MyStartActivity(MemberAcivity.class);
+                            }
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
 
+                    }
                 }
-            }
+            });
+
         }
 
         tv_result = findViewById(R.id.tv_result);

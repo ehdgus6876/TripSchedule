@@ -7,17 +7,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Telephony;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
 
 public class MemberAcivity extends AppCompatActivity {
     private EditText Name;
@@ -39,6 +45,8 @@ public class MemberAcivity extends AppCompatActivity {
         Check_button = findViewById(R.id.Check_button);
         Cancel_button = findViewById(R.id.Cancel_button2);
 
+
+
         Check_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,30 +63,46 @@ public class MemberAcivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+    }
+
 
     private void profileUpdate() { //회원가입 했을때 일어나는 것
         String name = ((EditText) findViewById(R.id.Name)).getText().toString();
+        String Address = ((EditText) findViewById(R.id.Address)).getText().toString();
+        String Telphone = ((EditText) findViewById(R.id.Telphone)).getText().toString();
+        String Birthday = ((EditText) findViewById(R.id.Birthday)).getText().toString();
 
 
-        if (name.length()>0 ) {
+        if (name.length()>0 && Telphone.length()>10 && Birthday.length()>7 && Address.length()>0) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            MemberInfo memberInfo = new MemberInfo(name,Address,Telphone,Birthday);
+            if(user != null){
 
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name)
-                    .build();
-            if(user !=null) {
-                user.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                db.collection("users").document(user.getUid()).set(memberInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    startToast("회원정보 등록을 완료하였습니다.");
-                                    finish();
-                                }
+                            public void onSuccess(Void aVoid) {
+                                startToast("회원정보 등록을 성공하였습니다.");
+                                finish();
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                startToast("회원정보 등록을 실패하였습니다.");
+
                             }
                         });
+
             }
-            } else {
+
+        } else {
                 Toast.makeText(this, "회원정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
         }
@@ -90,6 +114,7 @@ public class MemberAcivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         }
+
 }
 
 

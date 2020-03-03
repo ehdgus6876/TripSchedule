@@ -70,7 +70,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                         filteredItemList.get(position).getDetail(),
                         filteredItemList.get(position).getImage(),
                         filteredItemList.get(position).getMapx(),
-                        filteredItemList.get(position).getMapy()));
+                        filteredItemList.get(position).getMapy(),
+                        filteredItemList.get(position).getCode()));
+                Log.d("코드", String.valueOf(filteredItemList.get(position).getCode()));
+
 
                 Toast.makeText(context,"장바구니에 담겼습니다",Toast.LENGTH_SHORT).show();
             }

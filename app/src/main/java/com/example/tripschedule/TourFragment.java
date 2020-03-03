@@ -39,6 +39,7 @@ public class TourFragment extends Fragment implements TextWatcher {
     private ArrayList<String> arrayListSpinner;
     private ArrayAdapter<String> arrayAdapterSpinner;
     private TourAdapter adapter;
+    private int tmpcode;
 
     public TourFragment(){
 
@@ -58,16 +59,13 @@ public class TourFragment extends Fragment implements TextWatcher {
         database=FirebaseDatabase.getInstance();
         arrayListSpinner=new ArrayList<>();
 
-        arrayListSpinner.add("카페");
-        arrayListSpinner.add("중식");
-        arrayListSpinner.add("한식");
-        arrayListSpinner.add("국밥");
-        arrayListSpinner.add("고깃집");
-        arrayListSpinner.add("국수");
-        arrayListSpinner.add("양식");
-        arrayListSpinner.add("일식");
-        arrayListSpinner.add("술집");
-        arrayListSpinner.add("분식");
+        arrayListSpinner.add("관광");
+        arrayListSpinner.add("축제");
+        arrayListSpinner.add("전시회");
+        arrayListSpinner.add("산");
+        arrayListSpinner.add("백화점");
+
+
 
         spinner=v.findViewById(R.id.spinner);
 
@@ -78,43 +76,28 @@ public class TourFragment extends Fragment implements TextWatcher {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    databaseReference=database.getReference("food/cafe");
+                    tmpcode=10;
+                    databaseReference=database.getReference("GwanGwang/tour");
                     databaseReference();
                 }
                 else if(position==1){
-                    databaseReference=database.getReference("food/china");
+                    tmpcode=11;
+                    databaseReference=database.getReference("GwanGwang/festival");
                     databaseReference();
                 }
                 else if(position==2){
-                    databaseReference=database.getReference("food/Hansik");
+                    tmpcode=12;
+                    databaseReference=database.getReference("GwanGwang/exhibition");
                     databaseReference();
                 }
                 else if(position==3){
-                    databaseReference=database.getReference("food/gook");
+                    tmpcode=13;
+                    databaseReference=database.getReference("GwanGwang/mountain");
                     databaseReference();
                 }
                 else if(position==4){
-                    databaseReference=database.getReference("food/meat");
-                    databaseReference();
-                }
-                else if(position==5){
-                    databaseReference=database.getReference("food/noodle");
-                    databaseReference();
-                }
-                else if(position==6){
-                    databaseReference=database.getReference("food/pizza");
-                    databaseReference();
-                }
-                else if(position==7){
-                    databaseReference=database.getReference("food/sashimi");
-                    databaseReference();
-                }
-                else if(position==8){
-                    databaseReference=database.getReference("food/Sul");
-                    databaseReference();
-                }
-                else if(position==9){
-                    databaseReference=database.getReference("food/Boonsik");
+                    tmpcode=14;
+                    databaseReference=database.getReference("GwanGwang/department");
                     databaseReference();
                 }
 
@@ -145,13 +128,17 @@ public class TourFragment extends Fragment implements TextWatcher {
 
     }
     void databaseReference(){
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayList.clear();
+                int i =0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     TourItem tourItem=snapshot.getValue(TourItem.class);
                     arrayList.add(tourItem);
+                    arrayList.get(i).setCode(tmpcode);
+                    i++;
                 }
 
                 adapter.notifyDataSetChanged();

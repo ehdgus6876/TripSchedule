@@ -9,8 +9,9 @@ public class SelectItem {
     private String tel;
     private String title;
     private String image;
+    private int code;
 
-    public SelectItem(String title,String tel,String address,String detail,String image,String mapx,String mapy){
+    public SelectItem(String title,String tel,String address,String detail,String image,String mapx,String mapy,int code){
         this.title=title;
         this.tel=tel;
         this.address=address;
@@ -18,6 +19,8 @@ public class SelectItem {
         this.image=image;
         this.mapx=mapx;
         this.mapy=mapy;
+        this.code=code;
+
     }
     public String getAddress() {
         return address;
@@ -82,6 +85,9 @@ public class SelectItem {
     public void setImage(String image) {
         this.image = image;
     }
+    public int getCode() { return code; }
+
+    public void setCode(int code) { this.code = code; }
 
 
 }

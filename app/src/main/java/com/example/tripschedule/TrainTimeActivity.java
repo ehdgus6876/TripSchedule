@@ -207,6 +207,8 @@ public class TrainTimeActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
