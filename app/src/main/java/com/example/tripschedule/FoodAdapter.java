@@ -51,6 +51,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.tv_phone.setText(filteredItemList.get(position).getTel());
         holder.tv_Address.setText(filteredItemList.get(position).getAddress());
 
+        if(!filteredItemList.get(position).getImage().isEmpty()){
+            Glide.with(holder.itemView)
+                    .load(filteredItemList.get(position).getImage())
+                    .override(540,402)
+                    .fitCenter()
+                    .error(R.drawable.error)
+                    .into(holder.image);
+
+        }
 
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +111,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             tv_Address=itemView.findViewById(R.id.tv_Address);
             btn_select=itemView.findViewById(R.id.btn_select);
             btn_detail=itemView.findViewById(R.id.btn_detail);
+            image=itemView.findViewById(R.id.image);
 
 
 

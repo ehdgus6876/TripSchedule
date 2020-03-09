@@ -72,7 +72,13 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,WebView.class);
-                intent.putExtra("url",filteredItemList.get(position).getDetail());
+                if(!filteredItemList.get(position).getLink().isEmpty()){
+                    intent.putExtra("url",filteredItemList.get(position).getLink());
+                }
+                else{
+                    intent.putExtra("url",filteredItemList.get(position).getDetail());
+                }
+
 
                 context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }

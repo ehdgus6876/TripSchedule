@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
                             } else {
                                 Log.d(TAG, "No such document");
-                                MyStartActivity(MemberAcivity.class);
+                                //MyStartActivity(MemberAcivity.class);
                             }
                         }
                     } else {
