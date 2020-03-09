@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 MyStartActivity(LoginActivity.class);
         }else {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference docRef = db.collection("users").document(user.getUid());
+            DocumentReference docRef = db.collection("user").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -58,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
                         if(document !=null){
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
                             } else {
-                                Log.d(TAG, "No such document"+ document.getData());
+                                Log.d(TAG, "No such document");
                                 MyStartActivity(MemberAcivity.class);
                             }
                         }
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
+
                     }
                 }
             });
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void MyStartActivity(Class c){
         Intent intent = new Intent(this,c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
     public void onBackPressed() {

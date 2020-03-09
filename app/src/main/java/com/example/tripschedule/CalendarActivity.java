@@ -3,6 +3,7 @@ package com.example.tripschedule;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -31,6 +33,7 @@ public class CalendarActivity extends AppCompatActivity {
     private TextView textView;
     private CheckBox carButton;
     private CheckBox transportButton;
+    static public int arrivaltime=0;
     static public String sendStartDate;
     static public String sendFinishDate;
     static public int dateNum;
@@ -148,10 +151,10 @@ public class CalendarActivity extends AppCompatActivity {
                 startdate=btn_start.getText().toString();
                 finishdate=btn_finish.getText().toString();
                 if(carButton.isChecked()){
-                    Intent intent = new Intent(getApplicationContext(),SelectLocation.class);
-                    intent.putExtra("startdate",startdate);
-                    intent.putExtra("finishdate",finishdate);
-                    startActivity(intent);
+                    TimePickerDialog dialog = new TimePickerDialog(CalendarActivity.this, listener, 12, 00, true);
+                    dialog.show();
+
+
                 }
                 else{
                     Intent intent=new Intent(getApplicationContext(),TransportActivity.class);
@@ -162,6 +165,19 @@ public class CalendarActivity extends AppCompatActivity {
 
             }
         });
+
     }
+    private TimePickerDialog.OnTimeSetListener listener=new TimePickerDialog.OnTimeSetListener(){
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            arrivaltime=hourOfDay*100+minute;
+            Log.d("dong", String.valueOf(arrivaltime));
+            Intent intent = new Intent(getApplicationContext(),SelectLocation.class);
+            intent.putExtra("startdate",startdate);
+            intent.putExtra("finishdate",finishdate);
+            startActivity(intent);
+        }
+    };
 
 }

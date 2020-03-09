@@ -2,6 +2,7 @@ package com.example.tripschedule;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SpeedAdapter extends RecyclerView.Adapter<SpeedAdapter.ViewHolder> {
     private ArrayList<SpeedBus> dataList;
+    String waste;
+    String star;
+    SimpleDateFormat df;
+    Calendar cal,cal1;
 
     SpeedAdapter(ArrayList<SpeedBus> items){
         this.dataList=items;
@@ -29,14 +37,40 @@ public class SpeedAdapter extends RecyclerView.Adapter<SpeedAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SpeedAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SpeedAdapter.ViewHolder holder, final int position) {
         holder.tv_title.setText(dataList.get(position).getStartTerminal()+"->"+dataList.get(position).getDestTerminal());
         holder.tv_time.setText(dataList.get(position).getWasteTime());
         holder.tv_cost.setText(dataList.get(position).getFare());
         holder.tv_stime.setText(dataList.get(position).getSchedule());
+
+        cal=Calendar.getInstance();
+        cal1=Calendar.getInstance();
+
+
+
+
         holder.btn_sel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                df=new SimpleDateFormat("HHmm");
+                waste=dataList.get(position).getWasteTime().replace(":","");
+                star=dataList.get(position).getSchedule().replace(":","").replace("(우등)","");
+                if(waste.length()==3){
+                    waste="0".concat(waste);
+                }
+
+                try{
+                    cal.setTime(df.parse(star));
+                    cal1.setTime(df.parse(waste));
+                    cal.add(Calendar.HOUR_OF_DAY,cal1.get(Calendar.HOUR_OF_DAY));
+                    cal.add(Calendar.MINUTE,cal1.get(Calendar.MINUTE));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                CalendarActivity.arrivaltime=Integer.valueOf(df.format(cal.getTime()));
+                Log.d("dong","W"+waste);
+                Log.d("dong","S"+star);
+                Log.d("dong", String.valueOf(CalendarActivity.arrivaltime));
                 Intent intent= new Intent(v.getContext(),SelectLocation.class);
                 v.getContext().startActivity(intent);
             }
