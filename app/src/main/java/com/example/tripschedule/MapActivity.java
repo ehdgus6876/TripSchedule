@@ -3,19 +3,19 @@ package com.example.tripschedule;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.google.firebase.database.collection.LLRBNode;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
-import com.naver.maps.geometry.Utmk;
 import com.naver.maps.geometry.WebMercatorCoord;
-import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -39,7 +39,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         naverMap.moveCamera(cameraUpdate);
         for(int i=0 ; i<FoodAdapter.selectItems.size();i++) {
             Marker marker = new Marker();
-            //marker.setPosition(new LatLng(Float.valueOf(FoodAdapter.selectItems.get(0).getMapx()),Float.valueOf(FoodAdapter.selectItems.get(0).getMapy())));
+            if(FoodAdapter.selectItems.get(i).getCode()!=0 && FoodAdapter.selectItems.get(i).getCode()!=10 && FoodAdapter.selectItems.get(i).getCode()!=100 && FoodAdapter.selectItems.get(i).getCode()==1000){
+                //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 음식점
+            } else if (FoodAdapter.selectItems.get(i).getCode()==0){
+                //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 카페
+            }else if (FoodAdapter.selectItems.get(i).getCode()==10){
+                //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 술집
+            }else if (FoodAdapter.selectItems.get(i).getCode()==100) {
+                //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 관광지
+            }else if (FoodAdapter.selectItems.get(i).getCode()==1000) {
+                //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 숙소
+            }
             marker.setCaptionText(FoodAdapter.selectItems.get(i).getTitle());
             Tm128 tm128 = new Tm128(Float.valueOf(FoodAdapter.selectItems.get(i).getMapx()), Float.valueOf(FoodAdapter.selectItems.get(i).getMapy()));
             LatLng latLng = tm128.toLatLng();

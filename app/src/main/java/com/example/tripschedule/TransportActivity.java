@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class TransportActivity extends AppCompatActivity {
 
-    ImageButton btn_bus,btn_air,btn_train;
+    ImageButton btn_bus,btn_train;
     private String startdate;
     private String finishdate;
     public TextView tv_date;
@@ -33,7 +33,6 @@ public class TransportActivity extends AppCompatActivity {
         tv_date.setText(startdate+"->"+finishdate);
 
         btn_bus= (ImageButton) findViewById(R.id.bus);
-        btn_air= (ImageButton) findViewById(R.id.airplane);
         btn_train= (ImageButton) findViewById(R.id.train);
 
 
@@ -48,15 +47,6 @@ public class TransportActivity extends AppCompatActivity {
             }
         });
 
-        btn_air.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                AirFragment airfragment=new AirFragment();
-                transaction.replace(R.id.frame,airfragment);
-                transaction.commit();
-            }
-        });
 
         btn_train.setOnClickListener(new View.OnClickListener(){
             @Override

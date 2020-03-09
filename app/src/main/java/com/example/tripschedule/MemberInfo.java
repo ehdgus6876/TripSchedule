@@ -2,11 +2,15 @@ package com.example.tripschedule;
 
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 public class MemberInfo {
     private String name;
     private String Address;
     private String Telphone;
     private String Birthday;
+
+
 
     public MemberInfo(String name,String Address,String Telphone,String Birthday){
         this.name = name;

@@ -135,7 +135,7 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
                  }
                  else if(position==8){
-                     tmpcode=8;
+                     tmpcode=10;
 
                      databaseReference=database.getReference("food/Sul");
                      databaseReference();

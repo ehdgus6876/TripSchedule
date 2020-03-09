@@ -27,29 +27,29 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class TourFragment extends Fragment implements TextWatcher {
+public class SleepFragment extends Fragment implements TextWatcher {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private EditText editText;
-    private ArrayList<TourItem> arrayList;
+    private ArrayList<SleepItem> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private Spinner spinner;
     private ArrayList<String> arrayListSpinner;
     private ArrayAdapter<String> arrayAdapterSpinner;
-    private TourAdapter adapter;
+    private SleepAdapter adapter;
     private int tmpcode;
 
-    public TourFragment(){
+    public SleepFragment(){
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_tour,container,false);
-        recyclerView=v.findViewById(R.id.rv_tour);
+        View v=inflater.inflate(R.layout.fragment_sleep,container,false);
+        recyclerView=v.findViewById(R.id.rv_Sleep);
         editText=v.findViewById(R.id.editTextFilter);
         recyclerView.setHasFixedSize(true);
         arrayList=new ArrayList<>();
@@ -59,11 +59,9 @@ public class TourFragment extends Fragment implements TextWatcher {
         database=FirebaseDatabase.getInstance();
         arrayListSpinner=new ArrayList<>();
 
-        arrayListSpinner.add("관광");
-        arrayListSpinner.add("축제");
-        arrayListSpinner.add("전시회");
-        arrayListSpinner.add("산");
-        arrayListSpinner.add("백화점");
+        arrayListSpinner.add("호텔");
+        arrayListSpinner.add("게스트하우스");
+
 
 
 
@@ -76,28 +74,13 @@ public class TourFragment extends Fragment implements TextWatcher {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    tmpcode=100;
-                    databaseReference=database.getReference("GwanGwang/tour");
+                    tmpcode=1000;
+                    databaseReference=database.getReference("Rooms/hotel");
                     databaseReference();
                 }
                 else if(position==1){
-                    tmpcode=100;
-                    databaseReference=database.getReference("GwanGwang/festival");
-                    databaseReference();
-                }
-                else if(position==2){
-                    tmpcode=100;
-                    databaseReference=database.getReference("GwanGwang/exhibition");
-                    databaseReference();
-                }
-                else if(position==3){
-                    tmpcode=100;
-                    databaseReference=database.getReference("GwanGwang/mountain");
-                    databaseReference();
-                }
-                else if(position==4){
-                    tmpcode=100;
-                    databaseReference=database.getReference("GwanGwang/department");
+                    tmpcode=1000;
+                    databaseReference=database.getReference("Rooms/guests");
                     databaseReference();
                 }
 
@@ -135,8 +118,8 @@ public class TourFragment extends Fragment implements TextWatcher {
                 arrayList.clear();
                 int i =0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    TourItem tourItem=snapshot.getValue(TourItem.class);
-                    arrayList.add(tourItem);
+                    SleepItem sleepItem=snapshot.getValue(SleepItem.class);
+                    arrayList.add(sleepItem);
                     arrayList.get(i).setCode(tmpcode);
                     i++;
                 }
@@ -146,10 +129,10 @@ public class TourFragment extends Fragment implements TextWatcher {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("TourFragment", String.valueOf(databaseError.toException()));
+                Log.e("SleepFragment", String.valueOf(databaseError.toException()));
             }
         });
-        adapter=new TourAdapter(arrayList,getActivity().getApplicationContext());
+        adapter=new SleepAdapter(arrayList,getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
 
     }

@@ -31,6 +31,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private SignInButton btn_google;// 구글 로그인 버튼
@@ -95,6 +100,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
+        Calendar cal = Calendar.getInstance();
+        Calendar cal1 = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        String i = "09:40";
+        String j = "12:40";
+        try {
+            cal.setTime(df.parse(i));
+            cal1.setTime(df.parse(j));
+            cal.add(Calendar.HOUR_OF_DAY,cal1.get(Calendar.HOUR_OF_DAY));
+            cal.add(Calendar.MINUTE,cal1.get(Calendar.MINUTE));
+            Log.d("time",df.format(cal.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
 
 
 
