@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.TrainTimeViewHolder>{
 
@@ -32,7 +33,7 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
         return new TrainTimeViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull TrainTimeAdapter.TrainTimeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TrainTimeAdapter.TrainTimeViewHolder holder, final int position) {
         holder.tv_ttitle.setText(dataList.get(position).getStartStationID()+"->"+dataList.get(position).getEndStationID());
         holder.tv_tclass.setText(dataList.get(position).getTrainClass());
         holder.tv_tstime.setText(dataList.get(position).getDepartureTime());
@@ -43,6 +44,7 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
         holder.btn_tsel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CalendarActivity.arrivaltime=dataList.get(position).getArrivalTime();
                 Intent intent= new Intent(v.getContext(),SelectLocation.class);
                 v.getContext().startActivity(intent);
             }

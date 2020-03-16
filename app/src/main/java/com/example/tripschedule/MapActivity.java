@@ -40,14 +40,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         for(int i=0 ; i<FoodAdapter.selectItems.size();i++) {
             Marker marker = new Marker();
             if(FoodAdapter.selectItems.get(i).getCode()!=0 && FoodAdapter.selectItems.get(i).getCode()!=10 && FoodAdapter.selectItems.get(i).getCode()!=100 && FoodAdapter.selectItems.get(i).getCode()==1000){
+                marker.setIconTintColor(Color.GRAY);
                 //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 음식점
             } else if (FoodAdapter.selectItems.get(i).getCode()==0){
+                marker.setIconTintColor(Color.GREEN);
                 //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 카페
             }else if (FoodAdapter.selectItems.get(i).getCode()==10){
                 //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 술집
             }else if (FoodAdapter.selectItems.get(i).getCode()==100) {
+                marker.setIconTintColor(Color.BLUE);
                 //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 관광지
             }else if (FoodAdapter.selectItems.get(i).getCode()==1000) {
+                marker.setIconTintColor(Color.YELLOW);
                 //marker.setIcon(OverlayImage.fromResource(R.drawable.)); 숙소
             }
             marker.setCaptionText(FoodAdapter.selectItems.get(i).getTitle());
