@@ -21,22 +21,41 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 public class ScheduleActivity extends AppCompatActivity {
     Handler handler;
     BufferedReader br;
     StringBuilder searchResult;
+    private long date;
+
+    private SimpleDateFormat df;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+        try {
+            df=new SimpleDateFormat("yyyymmdd");
+            Date scal=df.parse(CalendarActivity.sendStartDate);
+            Date dcal=df.parse(CalendarActivity.sendFinishDate);
 
-        //Log.d("dong", String.valueOf(distance(35.544029,129.256141,35.541496,129.335111,"kilometer")));
-        for(int i=0;i<FoodAdapter.selectItems.size();i++){
-            Log.d("dong", String.valueOf(FoodAdapter.selectItems.get(i).getCode()));
+            long calDate=dcal.getTime()-scal.getTime();
+            date=calDate/(24*60*60*1000);
+            date=Math.abs(date)+1;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+
+
+
+
 
 
     }

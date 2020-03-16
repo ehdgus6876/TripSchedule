@@ -67,7 +67,7 @@ public class SpeedAdapter extends RecyclerView.Adapter<SpeedAdapter.ViewHolder> 
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                CalendarActivity.arrivaltime=Integer.valueOf(df.format(cal.getTime()));
+                CalendarActivity.arrivaltime=String.valueOf(df.format(cal.getTime()));
                 Log.d("dong","W"+waste);
                 Log.d("dong","S"+star);
                 Log.d("dong", String.valueOf(CalendarActivity.arrivaltime));

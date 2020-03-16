@@ -33,7 +33,7 @@ public class CalendarActivity extends AppCompatActivity {
     private TextView textView;
     private CheckBox carButton;
     private CheckBox transportButton;
-    static public int arrivaltime=0;
+    static public String arrivaltime;
     static public String sendStartDate;
     static public String sendFinishDate;
     static public int dateNum;
@@ -66,6 +66,7 @@ public class CalendarActivity extends AppCompatActivity {
                         else if((month+1)<10&&dayOfMonth<10){
                             sendStartDate=String.valueOf(year)+0+(month+1)+0+dayOfMonth;
                         }
+
                         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                         try {
                             Date date = dateFormat.parse(sendStartDate);
@@ -80,8 +81,6 @@ public class CalendarActivity extends AppCompatActivity {
                         startdate=year+"/"+(month+1)+"/"+dayOfMonth;
                         btn_start.setText(startdate);
                         textView.setText("도착날짜 클릭 후 날짜를 선택해주세요");
-
-
                     }
                 });
             }
@@ -102,6 +101,7 @@ public class CalendarActivity extends AppCompatActivity {
                         else if((month+1)<10&&dayOfMonth<10){
                             sendFinishDate=String.valueOf(year)+0+(month+1)+0+dayOfMonth;
                         }
+
                         if(Integer.valueOf(sendFinishDate)>Integer.valueOf(sendStartDate)){
                             finishdate=year+"/"+(month+1)+"/"+dayOfMonth;
                             btn_finish.setText(finishdate);
@@ -171,7 +171,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            arrivaltime=hourOfDay*100+minute;
+            arrivaltime= String.valueOf(hourOfDay*100+minute);
             Log.d("dong", String.valueOf(arrivaltime));
             Intent intent = new Intent(getApplicationContext(),SelectLocation.class);
             intent.putExtra("startdate",startdate);

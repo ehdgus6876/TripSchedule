@@ -51,7 +51,6 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             Glide.with(holder.itemView)
                     .load(filteredItemList.get(position).getImage())
                     .into(holder.image);
-
         }
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
