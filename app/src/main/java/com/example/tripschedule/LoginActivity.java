@@ -100,26 +100,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
-        Calendar cal = Calendar.getInstance();
-        Calendar cal1 = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-        String i = "09:40";
-        String j = "12:40";
-        try {
-            cal.setTime(df.parse(i));
-            cal1.setTime(df.parse(j));
-            cal.add(Calendar.HOUR_OF_DAY,cal1.get(Calendar.HOUR_OF_DAY));
-            cal.add(Calendar.MINUTE,cal1.get(Calendar.MINUTE));
-            Log.d("time",df.format(cal.getTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
 
 
 
-
-        }
+    }
 
 
     public void onBackPressed() {
