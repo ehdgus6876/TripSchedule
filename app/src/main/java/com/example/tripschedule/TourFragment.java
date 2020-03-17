@@ -76,27 +76,27 @@ public class TourFragment extends Fragment implements TextWatcher {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    tmpcode=100;
+                    tmpcode=3;
                     databaseReference=database.getReference("GwanGwang/tour");
                     databaseReference();
                 }
                 else if(position==1){
-                    tmpcode=100;
+                    tmpcode=3;
                     databaseReference=database.getReference("GwanGwang/festival");
                     databaseReference();
                 }
                 else if(position==2){
-                    tmpcode=100;
+                    tmpcode=3;
                     databaseReference=database.getReference("GwanGwang/exhibition");
                     databaseReference();
                 }
                 else if(position==3){
-                    tmpcode=100;
+                    tmpcode=3;
                     databaseReference=database.getReference("GwanGwang/mountain");
                     databaseReference();
                 }
                 else if(position==4){
-                    tmpcode=100;
+                    tmpcode=3;
                     databaseReference=database.getReference("GwanGwang/department");
                     databaseReference();
                 }

@@ -74,12 +74,12 @@ public class SleepFragment extends Fragment implements TextWatcher {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    tmpcode=1000;
+                    tmpcode=4;
                     databaseReference=database.getReference("Rooms/hotel");
                     databaseReference();
                 }
                 else if(position==1){
-                    tmpcode=1000;
+                    tmpcode=4;
                     databaseReference=database.getReference("Rooms/guests");
                     databaseReference();
                 }

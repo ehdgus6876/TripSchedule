@@ -59,6 +59,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             LatLng latLng = tm128.toLatLng();
             marker.setPosition(latLng);
             marker.setMap(naverMap);
+
         }
     }
 }

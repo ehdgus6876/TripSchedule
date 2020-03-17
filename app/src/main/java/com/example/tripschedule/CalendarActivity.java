@@ -37,6 +37,7 @@ public class CalendarActivity extends AppCompatActivity {
     static public String sendStartDate;
     static public String sendFinishDate;
     static public int dateNum;
+    static public int transport=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 transportButton.setChecked(false);
+                transport=1;
             }
         });
         transportButton.setOnClickListener(new View.OnClickListener() {
@@ -171,8 +173,11 @@ public class CalendarActivity extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            arrivaltime= String.valueOf(hourOfDay*100+minute);
-            Log.d("dong", String.valueOf(arrivaltime));
+            arrivaltime = String.valueOf(hourOfDay * 100 + minute);
+            if( arrivaltime.length()==3){
+                arrivaltime="0"+arrivaltime;
+            }
+            Log.d("dong", arrivaltime);
             Intent intent = new Intent(getApplicationContext(),SelectLocation.class);
             intent.putExtra("startdate",startdate);
             intent.putExtra("finishdate",finishdate);

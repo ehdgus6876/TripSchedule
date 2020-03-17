@@ -70,6 +70,7 @@ public class BusFragment extends Fragment implements TextWatcher {
         cb_bus.setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CalendarActivity.transport=3;
                 cb_speedBus.setChecked(false);
                 check_bus=true;
                 check_speedbus=false;
@@ -101,6 +102,7 @@ public class BusFragment extends Fragment implements TextWatcher {
         cb_speedBus.setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CalendarActivity.transport=2;
                 cb_bus.setChecked(false);
                 check_bus=false;
                 check_speedbus=true;

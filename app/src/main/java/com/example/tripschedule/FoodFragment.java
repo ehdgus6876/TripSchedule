@@ -93,20 +93,20 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
                  }
                  else if(position==2){
-                     tmpcode=2;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/Hansik");
                      databaseReference();
 
                  }
                  else if(position==3){
-                     tmpcode=3;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/gook");
                      databaseReference();
                  }
                  else if(position==4){
-                     tmpcode=4;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/meat");
                      databaseReference();
@@ -120,14 +120,14 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
                  }
                  else if(position==6){
-                     tmpcode=6;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/pizza");
                      databaseReference();
 
                  }
                  else if(position==7){
-                     tmpcode=7;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/sashimi");
                      databaseReference();
@@ -135,14 +135,14 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
                  }
                  else if(position==8){
-                     tmpcode=10;
+                     tmpcode=2;
 
                      databaseReference=database.getReference("food/Sul");
                      databaseReference();
 
                  }
                  else if(position==9){
-                     tmpcode=9;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/Boonsik");
                      databaseReference();

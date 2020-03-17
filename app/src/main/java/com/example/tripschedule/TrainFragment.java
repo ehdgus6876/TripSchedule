@@ -65,6 +65,7 @@ public class TrainFragment extends Fragment implements TextWatcher {
         cb_Ulsan.setOnClickListener(new CheckBox.OnClickListener(){
             @Override
             public void onClick(View v) {
+                CalendarActivity.transport=4;
                 Station="3300300";
                 cb_TaeHwaKang.setChecked(false);
                 databaseReference=database.getReference("transport/train/Ulsan");
@@ -94,6 +95,7 @@ public class TrainFragment extends Fragment implements TextWatcher {
         cb_TaeHwaKang.setOnClickListener(new CheckBox.OnClickListener(){
             @Override
             public void onClick(View v) {
+                CalendarActivity.transport=5;
                 Station="3300200";
                 Log.d("station",Station);
                 databaseReference=database.getReference("transport/train/TaeHwaGang");
