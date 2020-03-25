@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SelectBasket extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class SelectBasket extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private SelectAdapter adapter;
     private Button btn_select,btn_map;
-
+    int count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,11 @@ public class SelectBasket extends AppCompatActivity {
         adapter=new SelectAdapter();
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
+        for(int i=0;i <FoodAdapter.selectItems.size();i++){
+            if(FoodAdapter.selectItems.get(i).getCode()==4){
+                count++;
+            }
+        }
 
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,11 +54,15 @@ public class SelectBasket extends AppCompatActivity {
         btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(getApplicationContext(),ScheduleActivity.class);
-                startActivity(intent1);
+                if(count==0){
+                    Toast.makeText(getApplicationContext(),"숙소를 최소 1개이상을 선택해주세요",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent1 = new Intent(getApplicationContext(), ScheduleActivity.class);
+                    startActivity(intent1);
+                }
             }
         });
-
 
     }
 }

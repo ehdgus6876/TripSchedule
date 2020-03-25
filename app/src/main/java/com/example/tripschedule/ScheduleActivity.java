@@ -1,39 +1,16 @@
 package com.example.tripschedule;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ContentValues;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-
-
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -118,7 +95,6 @@ public class ScheduleActivity extends AppCompatActivity {
                     Log.d("hhhh", String.valueOf(al[0].get(0).getTitle()));
                     p = i;
 
-
                 }
 
             }
@@ -126,16 +102,88 @@ public class ScheduleActivity extends AppCompatActivity {
         selectItems.remove(p);
         long day = date;
         day_array = new int[(int) date][5];
-        for (int j = 0; j < date; j++) {
-            String a = "";
-            for (int i = 0; i < code_array.length; i++) {
-                first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
-                day_array[j][i] = (int) (first_array[i]);
-                code_array[i] -= first_array[i];
+        if (arrivalTime >= 7 && arrivalTime < 12) {  //도착시간이 7~12시
+            for (int j = 0; j < date; j++) {
+                for (int i = 0; i < code_array.length; i++) {
+                    first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
+                    day_array[j][i] = (int) (first_array[i]);
+                    code_array[i] -= first_array[i];
 
+                }
+                day -= 1;
             }
-            day -= 1;
         }
+        else if (arrivalTime >= 12 && arrivalTime < 15){  //도착시간이 12~15시
+            for (int j = 0; j < date; j++) {
+                for (int i = 0; i < code_array.length; i++) {
+                    first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
+                    if((j==0 && i==0) ||(j==0 && i==1)){
+                        day_array[j][i]= (int) (first_array[i]-1);
+                        code_array[i] -= day_array[j][i];
+                        continue;
+                    }
+                    day_array[j][i] = (int) (first_array[i]);
+                    code_array[i] -= first_array[i];
+                }
+                day -= 1;
+            }
+        }
+        else if (arrivalTime >= 15 && arrivalTime < 18){  //도착시간이 15~18시
+            for (int j = 0; j < date; j++) {
+                for (int i = 0; i < code_array.length; i++) {
+                    first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
+                    if((j==0 && i==0) ||(j==0 && i==1)||(j==0 && i==3)){
+                        day_array[j][i]= (int) (first_array[i]-1);
+                        code_array[i] -= day_array[j][i];
+                        continue;
+                    }
+                    day_array[j][i] = (int) (first_array[i]);
+                    code_array[i] -= first_array[i];
+                }
+                day -= 1;
+            }
+        }
+        else if (arrivalTime >= 18 && arrivalTime < 21){  //도착시간이 18~21시
+            for (int j = 0; j < date; j++) {
+                for (int i = 0; i < code_array.length; i++) {
+                    first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
+                    if((j==0 && i==0) ||(j==0 && i==1)){
+                        day_array[j][i]= (int) (first_array[i]-1);
+                        code_array[i] -= day_array[j][i];
+                        continue;
+                    }
+                    if(j==0 && i ==3){
+                        if(code_array[i]/date >=3){
+                            day_array[0][3]=1;
+                            code_array[3]-=day_array[0][3];
+                        }
+                        else{
+                            day_array[0][3]=0;
+                        }
+                        continue;
+                    }
+                    day_array[j][i] = (int) (first_array[i]);
+                    code_array[i] -= first_array[i];
+                }
+                day -= 1;
+            }
+        }
+        else{
+            for (int j = 0; j < date; j++) {
+                for (int i = 0; i < code_array.length; i++) {
+                    first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
+                    if((j==0 && i==0) ||(j==0 && i==1)||(j==0 && i==3)){
+                        day_array[j][i]= 0;
+                        continue;
+                    }
+                    day_array[j][i] = (int) (first_array[i]);
+                    code_array[i] -= first_array[i];
+                }
+                day -= 1;
+            }
+
+        }
+
 
         float max = 0;
         for (int i = 0; i < day_array[0].length; i++) {
@@ -146,7 +194,8 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         }
         int Q=day_array[0][2];
-        if (arrivalTime > 7 && arrivalTime < 12) {
+
+        if (arrivalTime > 7 && arrivalTime < 12) { //07시~12시
             for (int i = 0; i < max; i++) {
                 if (day_array[0][1] > 0) {
                     select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 1, 0);
@@ -166,6 +215,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 Log.d("1일차", al[0].get(i).getTitle());
             }
         }
+
         int m=1;
         //시간 뒤에 더해야됨
         while (m<date) {
@@ -198,6 +248,10 @@ public class ScheduleActivity extends AppCompatActivity {
             if ( day_array[m][4]>0){
                 select_location(al[m].get(0).getMapx(), al[m].get(0).getMapy(), 4, m);   //숙소
             }
+            if(m!=date-1 && day_array[m][4]==0){
+                al[m].add(al[m].get(0));
+            }
+
             for (int i = 0; i < al[m].size(); i++) {
                 Log.d((m+1)+"일차", al[m].get(i).getTitle());
             }
