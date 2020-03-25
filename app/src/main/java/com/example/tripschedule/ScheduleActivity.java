@@ -102,7 +102,7 @@ public class ScheduleActivity extends AppCompatActivity {
         selectItems.remove(p);
         long day = date;
         day_array = new int[(int) date][5];
-        if (arrivalTime >= 7 && arrivalTime < 12) {  //도착시간이 7~12시
+        if (arrivalTime >= 6 && arrivalTime < 12) {  //도착시간이 6~12시
             for (int j = 0; j < date; j++) {
                 for (int i = 0; i < code_array.length; i++) {
                     first_array[i] = Math.round(Float.valueOf(code_array[i] / day));
