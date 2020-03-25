@@ -60,15 +60,19 @@ public class FoodFragment extends Fragment implements TextWatcher {
         arrayListSpinner=new ArrayList<>();
 
         arrayListSpinner.add("카페");
-        arrayListSpinner.add("중식");
-        arrayListSpinner.add("한식");
+        arrayListSpinner.add("술집");
+        arrayListSpinner.add("돈까스");
         arrayListSpinner.add("국밥");
         arrayListSpinner.add("고깃집");
         arrayListSpinner.add("국수");
-        arrayListSpinner.add("양식");
         arrayListSpinner.add("일식");
-        arrayListSpinner.add("술집");
+        arrayListSpinner.add("중식");
         arrayListSpinner.add("분식");
+        arrayListSpinner.add("김치찌개");
+        arrayListSpinner.add("치킨");
+        arrayListSpinner.add("햄버거");
+        arrayListSpinner.add("피자");
+
 
          spinner=v.findViewById(R.id.spinner);
 
@@ -86,16 +90,16 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
                  }
                  else if(position==1){
-                     tmpcode=1;
+                     tmpcode=2;
 
-                     databaseReference=database.getReference("food/china");
+                     databaseReference=database.getReference("food/Sul");
                      databaseReference();
 
                  }
                  else if(position==2){
                      tmpcode=1;
 
-                     databaseReference=database.getReference("food/Hansik");
+                     databaseReference=database.getReference("food/Dongas");
                      databaseReference();
 
                  }
@@ -113,7 +117,7 @@ public class FoodFragment extends Fragment implements TextWatcher {
 
                  }
                  else if(position==5){
-                     tmpcode=5;
+                     tmpcode=1;
 
                      databaseReference=database.getReference("food/noodle");
                      databaseReference();
@@ -122,29 +126,48 @@ public class FoodFragment extends Fragment implements TextWatcher {
                  else if(position==6){
                      tmpcode=1;
 
-                     databaseReference=database.getReference("food/pizza");
+                     databaseReference=database.getReference("food/sashimi");
                      databaseReference();
 
                  }
                  else if(position==7){
                      tmpcode=1;
 
-                     databaseReference=database.getReference("food/sashimi");
+                     databaseReference=database.getReference("food/china");
                      databaseReference();
 
 
                  }
                  else if(position==8){
-                     tmpcode=2;
+                     tmpcode=1;
 
-                     databaseReference=database.getReference("food/Sul");
+                     databaseReference=database.getReference("food/Dduck");
                      databaseReference();
 
                  }
+
                  else if(position==9){
                      tmpcode=1;
 
-                     databaseReference=database.getReference("food/Boonsik");
+                     databaseReference=database.getReference("food/kimchi");
+                     databaseReference();
+                 }
+                 else if(position==10){
+                     tmpcode=1;
+
+                     databaseReference=database.getReference("food/Chicken");
+                     databaseReference();
+                 }
+                 else if(position==11){
+                     tmpcode=1;
+
+                     databaseReference=database.getReference("food/Hamburger");
+                     databaseReference();
+                 }
+                 else if(position==12){
+                     tmpcode=1;
+
+                     databaseReference=database.getReference("food/pizza");
                      databaseReference();
                  }
 
