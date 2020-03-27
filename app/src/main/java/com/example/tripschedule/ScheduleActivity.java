@@ -1,11 +1,23 @@
 package com.example.tripschedule;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
@@ -14,13 +26,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity {
-    Handler handler;
-    BufferedReader br;
-    StringBuilder searchResult;
-    private long date;
+
+    public static long date;
     private  int arrivalTime;
+
     private SimpleDateFormat df;
     private float[] code_array={0,0,0,0,0};
     private float[] first_array={0,0,0,0,0};
@@ -29,17 +41,277 @@ public class ScheduleActivity extends AppCompatActivity {
     private ArrayList<SelectItem> selectItems;
     private int[][] day_array;
     int p;
-    private TextView tv_schedule;
-    private ArrayList<SelectItem> al[];
+
+    public static ArrayList<SelectItem> al[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         selectItems = new ArrayList<>();
         selectItems = FoodAdapter.selectItems;
-        tv_schedule=findViewById(R.id.tv_schedule);
+
+        RecyclerView recyclerView=findViewById(R.id.recycler_view);
+        RecyclerViewDragDropManager dragMgr=new RecyclerViewDragDropManager();
+
+        initAlgorithm();
+        dragMgr.setInitiateOnMove(false);
+        dragMgr.setInitiateOnLongPress(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(dragMgr.createWrappedAdapter(new MyAdapter()));
+
+        dragMgr.attachRecyclerView(recyclerView);
 
 
+
+
+    }
+    static class MyItem {
+        public final long id;
+        public final String text;
+
+        public MyItem(long id, String text) {
+            this.id = id;
+            this.text = text;
+        }
+    }
+
+    static class MyViewHolder extends AbstractDraggableItemViewHolder {
+        TextView textView;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(android.R.id.text1);
+        }
+    }
+
+    static class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements DraggableItemAdapter<MyViewHolder> {
+        List<MyItem> mItems;
+
+        public MyAdapter() {
+            setHasStableIds(true); // this is required for D&D feature.
+
+            mItems = new ArrayList<>();
+            int k=0;
+            for (int i=0;i<date;i++){
+                mItems.add(new MyItem(k,i+1+"일차"));
+                k=k+1;
+                for (int j=0;j<al[i].size();j++){
+                    mItems.add(new MyItem(k,al[i].get(j).getTitle()));
+                    k=k+1;
+                }
+
+            }
+            for(int q=0;q<mItems.size();q++){
+                Log.d("mitems1",mItems.get(q).text);
+            }
+
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return mItems.get(position).id; // need to return stable (= not change even after reordered) value
+        }
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_minimal, parent, false);
+            return new MyViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            MyItem item = mItems.get(position);
+            holder.textView.setText(item.text);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mItems.size();
+        }
+
+        @Override
+        public void onMoveItem(int fromPosition, int toPosition) {
+            Log.d("point1","from"+fromPosition+"to"+toPosition);
+            for(int q=0;q<mItems.size();q++){
+                Log.d("mitems2",mItems.get(q).text);
+            }
+            int i = 0;
+            int j = 0;
+            int breakpoint = 0;
+            SelectItem selectItem = null;
+            for (i = 0; i < date; i++) {
+                for (j = 0; j < al[i].size(); j++) {
+                    if (al[i].get(j).getTitle().equals(mItems.get(fromPosition).text)) {
+                        Log.d("point3","i"+i+"j"+j);
+                        selectItem = al[i].remove(j);
+                        breakpoint = 1;
+                        break;
+                    }
+                }
+                if (breakpoint == 1) {
+                    break;
+                }
+            }
+            breakpoint = 0;
+            for (int i1 = 0; i1 < date; i1++) {
+                for (int j1 = 0; j1 < al[i1].size(); j1++) {
+                    if (al[i1].get(j1).getTitle().equals(mItems.get(toPosition).text)) {
+                        Log.d("point3","i1"+i1+"j1"+j1);
+                        al[i1].add(j1, selectItem);
+                        breakpoint = 1;
+                        break;
+                    }
+                }
+                if (breakpoint == 1) {
+                    break;
+                }
+            }
+
+            for (int k = 0; k < date; k++) {
+                Log.d("dong",(k+1)+"일차");
+                for (int p = 0; p < al[k].size(); p++) {
+                    Log.d("dong", al[k].get(p).getTitle());
+                }
+            }
+            MyItem movedItem = mItems.remove(fromPosition);
+            mItems.add(toPosition, movedItem);
+            for(int q=0;q<mItems.size();q++){
+                Log.d("mitems3",mItems.get(q).text);
+            }
+
+
+        }
+
+        @Override
+        public boolean onCheckCanStartDrag(@NonNull MyViewHolder holder, int position, int x, int y) {
+            return true;
+        }
+
+        @Override
+        public ItemDraggableRange onGetItemDraggableRange(@NonNull MyViewHolder holder, int position) {
+            return null;
+        }
+
+        @Override
+        public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
+            return true;
+        }
+
+        @Override
+        public void onItemDragStarted(int position) {
+        }
+
+        @Override
+        public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
+            Log.d("point2","from"+fromPosition+"to"+toPosition);
+            if (result == true) {
+
+            }
+        }
+    }
+
+
+
+    /*public void searchNaver() { // 검색어 = searchObject로 ;
+        final String clientId="7e7cc797q1";
+        final String clientSecret="MrCQ9XX0nfNXHb1vw45otjiB7xGay2rxUC2q5jhu";
+
+        // 네트워크 연결은 Thread 생성 필요
+        new Thread() {
+
+            @Override
+            public void run() {
+                try {
+
+                    String apiURL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?" +
+                            "start=35.543968,129.256231&goal=35.540414,129.336337&option=trafast"; // json 결과
+                    // Json 형태로 결과값을 받아옴.
+                    URL url = new URL(apiURL);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("GET");
+                    con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
+                    con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
+                    con.connect();
+
+                    int responseCode = con.getResponseCode();
+
+
+                    if(responseCode==200) { // 정상 호출
+                        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    } else {  // 에러 발생
+                        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                    }
+
+                    searchResult = new StringBuilder();
+                    String inputLine;
+                    while ((inputLine = br.readLine()) != null) {
+                        searchResult.append(inputLine + "\n");
+
+                    }
+
+                    br.close();
+                    con.disconnect();
+                    Log.d("dong",searchResult.toString());
+                } catch (Exception e) {
+                    Log.d("dong", "error : " + e);
+                }
+
+            }
+        }.start();
+
+    }*/
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
+
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+    private void select_location(String x,String y,int code,int day){
+        double j=1000;
+        int k=0;
+        Tm128 Tm_Cafe = new Tm128(Float.valueOf(x),Float.valueOf(y));
+        LatLng LL_Cafe = Tm_Cafe.toLatLng();
+        for(int i =0 ; i<selectItems.size();i++){
+            if(selectItems.get(i).getCode()==code) {
+                Tm128 tm128 = new Tm128(Float.valueOf(selectItems.get(i).getMapx()), Float.valueOf(selectItems.get(i).getMapy()));
+                LatLng cafeLatLng = tm128.toLatLng();
+                if(j>distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude,"kilometer")){
+                    j=distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude,"kilometer");
+                    k=i;
+                }
+            }
+        }
+        day_array[day][code]-=1;
+        al[day].add(selectItems.get(k));
+        selectItems.remove(k);
+    }
+
+    private void initAlgorithm(){
         try {
             df = new SimpleDateFormat("yyyymmdd");
             Date scal = df.parse(CalendarActivity.sendStartDate);
@@ -241,7 +513,7 @@ public class ScheduleActivity extends AppCompatActivity {
             }
 
         }
-        
+
         float max = 0;
         for (int i = 0; i < day_array[0].length; i++) {
 
@@ -253,23 +525,23 @@ public class ScheduleActivity extends AppCompatActivity {
         int Q=day_array[0][2];
 
 
-            for (int i = 0; i < max; i++) {
-                if (day_array[0][1] > 0) {
-                    select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 1, 0);
-                }
-                if (day_array[0][0] > 0) {
-                    select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 0, 0);
-                }
-                if (day_array[0][3] > 0) {
-                    select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 3, 0);
-                }
-            }for(int i =0 ; i<Q;i++ )
-             {
-                select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 2, 0);
+        for (int i = 0; i < max; i++) {
+            if (day_array[0][1] > 0) {
+                select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 1, 0);
             }
-                al[0].add(al[0].get(0));
-            for (int i = 0; i < al[0].size(); i++) {
-                Log.d("1일차", al[0].get(i).getTitle());
+            if (day_array[0][0] > 0) {
+                select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 0, 0);
+            }
+            if (day_array[0][3] > 0) {
+                select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 3, 0);
+            }
+        }for(int i =0 ; i<Q;i++ )
+        {
+            select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 2, 0);
+        }
+        al[0].add(al[0].get(0));
+        for (int i = 0; i < al[0].size(); i++) {
+            Log.d("1일차", al[0].get(i).getTitle());
 
         }
 
@@ -316,104 +588,4 @@ public class ScheduleActivity extends AppCompatActivity {
 
         }
     }
-
-
-
-    /*public void searchNaver() { // 검색어 = searchObject로 ;
-        final String clientId="7e7cc797q1";
-        final String clientSecret="MrCQ9XX0nfNXHb1vw45otjiB7xGay2rxUC2q5jhu";
-
-        // 네트워크 연결은 Thread 생성 필요
-        new Thread() {
-
-            @Override
-            public void run() {
-                try {
-
-                    String apiURL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?" +
-                            "start=35.543968,129.256231&goal=35.540414,129.336337&option=trafast"; // json 결과
-                    // Json 형태로 결과값을 받아옴.
-                    URL url = new URL(apiURL);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    con.setRequestMethod("GET");
-                    con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
-                    con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
-                    con.connect();
-
-                    int responseCode = con.getResponseCode();
-
-
-                    if(responseCode==200) { // 정상 호출
-                        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    } else {  // 에러 발생
-                        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                    }
-
-                    searchResult = new StringBuilder();
-                    String inputLine;
-                    while ((inputLine = br.readLine()) != null) {
-                        searchResult.append(inputLine + "\n");
-
-                    }
-
-                    br.close();
-                    con.disconnect();
-                    Log.d("dong",searchResult.toString());
-                } catch (Exception e) {
-                    Log.d("dong", "error : " + e);
-                }
-
-            }
-        }.start();
-
-    }*/
-    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
-
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-
-        if (unit == "kilometer") {
-            dist = dist * 1.609344;
-        } else if(unit == "meter"){
-            dist = dist * 1609.344;
-        }
-
-        return (dist);
-    }
-
-
-    // This function converts decimal degrees to radians
-    private static double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    // This function converts radians to decimal degrees
-    private static double rad2deg(double rad) {
-        return (rad * 180 / Math.PI);
-    }
-    private void select_location(String x,String y,int code,int day){
-        double j=1000;
-        int k=0;
-        Tm128 Tm_Cafe = new Tm128(Float.valueOf(x),Float.valueOf(y));
-        LatLng LL_Cafe = Tm_Cafe.toLatLng();
-        for(int i =0 ; i<selectItems.size();i++){
-            if(selectItems.get(i).getCode()==code) {
-                Tm128 tm128 = new Tm128(Float.valueOf(selectItems.get(i).getMapx()), Float.valueOf(selectItems.get(i).getMapy()));
-                LatLng cafeLatLng = tm128.toLatLng();
-                if(j>distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude,"kilometer")){
-                    j=distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude,"kilometer");
-                    k=i;
-                }
-            }
-        }
-        day_array[day][code]-=1;
-        al[day].add(selectItems.get(k));
-        selectItems.remove(k);
-    }
-
 }
