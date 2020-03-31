@@ -56,11 +56,7 @@ public class SelectBasket extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        for(int i=0;i <FoodAdapter.selectItems.size();i++){
-            if(FoodAdapter.selectItems.get(i).getCode()==4){
-                count++;
-            }
-        }
+
 
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +68,11 @@ public class SelectBasket extends AppCompatActivity {
         btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(int i=0;i <FoodAdapter.selectItems.size();i++){
+                    if(FoodAdapter.selectItems.get(i).getCode()==4){
+                        count++;
+                    }
+                }
                 if(count==0){
                     Toast.makeText(getApplicationContext(),"숙소를 최소 1개이상을 선택해주세요",Toast.LENGTH_SHORT).show();
                 }

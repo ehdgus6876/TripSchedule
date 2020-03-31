@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -33,7 +34,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     public static long date;
     private  int arrivalTime;
-
+    Button btn_scheduleselect;
     private SimpleDateFormat df;
     private float[] code_array={0,0,0,0,0};
     private float[] first_array={0,0,0,0,0};
@@ -53,6 +54,7 @@ public class ScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schedule);
         selectItems = new ArrayList<>();
         selectItems.addAll(FoodAdapter.selectItems) ;
+        btn_scheduleselect=findViewById(R.id.btn_scheduleselect);
 
         initAlgorithm(); //알고리즘 시작
 
@@ -75,6 +77,30 @@ public class ScheduleActivity extends AppCompatActivity {
                 adapter.addItem(al[i].get(j));
             }
         }
+        btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int k =0;
+                for(int i =0;i<date;i++){
+                    al[i].clear();
+                    for(int j = k ; j<adapter.getArray().size();j++){
+                        if(!adapter.getArray().get(j).getTitle().equals((i+2)+"일차")) {
+                            al[i].add(adapter.getArray().get(j));
+                        }
+                        else {
+                            k=j;
+                            break;
+                        }
+                    }
+                }
+                for(int i =0;i<date;i++) {
+                    for (int j = 0; j < al[i].size(); j++) {
+                        Log.d("일정", al[i].get(j).getTitle());
+                    }
+                }
+            }
+        });
     }
 
 

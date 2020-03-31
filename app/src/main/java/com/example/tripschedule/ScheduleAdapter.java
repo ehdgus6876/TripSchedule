@@ -61,11 +61,15 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ItemVi
 
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+    public ArrayList<SelectItem> getArray(){
+        return items;
     }
     public void addItem(SelectItem selectItem){
         items.add(selectItem);
