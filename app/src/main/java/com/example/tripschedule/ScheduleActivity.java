@@ -2,6 +2,7 @@ package com.example.tripschedule;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,9 @@ public class ScheduleActivity extends AppCompatActivity {
     private ArrayList<SelectItem> selectItems;
     private int[][] day_array;
     int p;
+    RecyclerView rv;
+    ScheduleAdapter adapter;
+    ItemTouchHelper helper;
 
     public static ArrayList<SelectItem> al[];
     @Override
@@ -48,169 +52,33 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         selectItems = new ArrayList<>();
-        selectItems = FoodAdapter.selectItems;
+        selectItems.addAll(FoodAdapter.selectItems) ;
 
-        RecyclerView recyclerView=findViewById(R.id.recycler_view);
-        RecyclerViewDragDropManager dragMgr=new RecyclerViewDragDropManager();
+        initAlgorithm(); //알고리즘 시작
 
-        initAlgorithm();
-        dragMgr.setInitiateOnMove(false);
-        dragMgr.setInitiateOnLongPress(true);
+        rv = findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(manager);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(dragMgr.createWrappedAdapter(new MyAdapter()));
+        //RecyclerView의 Adapter 세팅
+        adapter = new ScheduleAdapter();
+        rv.setAdapter(adapter);
 
-        dragMgr.attachRecyclerView(recyclerView);
-
-
-
-
-    }
-    static class MyItem {
-        public final long id;
-        public final String text;
-
-        public MyItem(long id, String text) {
-            this.id = id;
-            this.text = text;
-        }
-    }
-
-    static class MyViewHolder extends AbstractDraggableItemViewHolder {
-        TextView textView;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
-        }
-    }
-
-    static class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements DraggableItemAdapter<MyViewHolder> {
-        List<MyItem> mItems;
-
-        public MyAdapter() {
-            setHasStableIds(true); // this is required for D&D feature.
-
-            mItems = new ArrayList<>();
-            int k=0;
-            for (int i=0;i<date;i++){
-                mItems.add(new MyItem(k,i+1+"일차"));
-                k=k+1;
-                for (int j=0;j<al[i].size();j++){
-                    mItems.add(new MyItem(k,al[i].get(j).getTitle()));
-                    k=k+1;
-                }
-
-            }
-            for(int q=0;q<mItems.size();q++){
-                Log.d("mitems1",mItems.get(q).text);
-            }
-
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return mItems.get(position).id; // need to return stable (= not change even after reordered) value
-        }
-
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_minimal, parent, false);
-            return new MyViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            MyItem item = mItems.get(position);
-            holder.textView.setText(item.text);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mItems.size();
-        }
-
-        @Override
-        public void onMoveItem(int fromPosition, int toPosition) {
-            Log.d("point1","from"+fromPosition+"to"+toPosition);
-            for(int q=0;q<mItems.size();q++){
-                Log.d("mitems2",mItems.get(q).text);
-            }
-            int i = 0;
-            int j = 0;
-            int breakpoint = 0;
-            SelectItem selectItem = null;
-            for (i = 0; i < date; i++) {
-                for (j = 0; j < al[i].size(); j++) {
-                    if (al[i].get(j).getTitle().equals(mItems.get(fromPosition).text)) {
-                        Log.d("point3","i"+i+"j"+j);
-                        selectItem = al[i].remove(j);
-                        breakpoint = 1;
-                        break;
-                    }
-                }
-                if (breakpoint == 1) {
-                    break;
-                }
-            }
-            breakpoint = 0;
-            for (int i1 = 0; i1 < date; i1++) {
-                for (int j1 = 0; j1 < al[i1].size(); j1++) {
-                    if (al[i1].get(j1).getTitle().equals(mItems.get(toPosition).text)) {
-                        Log.d("point3","i1"+i1+"j1"+j1);
-                        al[i1].add(j1, selectItem);
-                        breakpoint = 1;
-                        break;
-                    }
-                }
-                if (breakpoint == 1) {
-                    break;
-                }
-            }
-
-            for (int k = 0; k < date; k++) {
-                Log.d("dong",(k+1)+"일차");
-                for (int p = 0; p < al[k].size(); p++) {
-                    Log.d("dong", al[k].get(p).getTitle());
-                }
-            }
-            MyItem movedItem = mItems.remove(fromPosition);
-            mItems.add(toPosition, movedItem);
-            for(int q=0;q<mItems.size();q++){
-                Log.d("mitems3",mItems.get(q).text);
-            }
-
-
-        }
-
-        @Override
-        public boolean onCheckCanStartDrag(@NonNull MyViewHolder holder, int position, int x, int y) {
-            return true;
-        }
-
-        @Override
-        public ItemDraggableRange onGetItemDraggableRange(@NonNull MyViewHolder holder, int position) {
-            return null;
-        }
-
-        @Override
-        public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
-            return true;
-        }
-
-        @Override
-        public void onItemDragStarted(int position) {
-        }
-
-        @Override
-        public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
-            Log.d("point2","from"+fromPosition+"to"+toPosition);
-            if (result == true) {
-
+        //ItemTouchHelper 생성
+        helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //RecyclerView에 ItemTouchHelper 붙이기
+        helper.attachToRecyclerView(rv);
+        for(int i=0 ; i <date;i++){
+            SelectItem selectItem = new SelectItem((i+1)+"일차",null,null,null,"",null,null,9999);
+            adapter.addItem(selectItem);
+            for(int j =0;j<al[i].size();j++){
+                adapter.addItem(al[i].get(j));
             }
         }
     }
+
+
+
 
 
 
@@ -577,7 +445,7 @@ public class ScheduleActivity extends AppCompatActivity {
             if ( day_array[m][4]>0){
                 select_location(al[m].get(0).getMapx(), al[m].get(0).getMapy(), 4, m);   //숙소
             }
-            if(m!=date-1 && day_array[m][4]==0){
+            else if(m!=date-1 && day_array[m][4]==0){
                 al[m].add(al[m].get(0));
             }
 
