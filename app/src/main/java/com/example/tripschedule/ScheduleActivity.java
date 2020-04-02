@@ -1,34 +1,21 @@
 package com.example.tripschedule;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
-import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
-import java.io.BufferedReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 public class ScheduleActivity extends AppCompatActivity {
 
@@ -102,12 +89,6 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-
     /*public void searchNaver() { // 검색어 = searchObject로 ;
         final String clientId="7e7cc797q1";
         final String clientSecret="MrCQ9XX0nfNXHb1vw45otjiB7xGay2rxUC2q5jhu";
@@ -174,13 +155,10 @@ public class ScheduleActivity extends AppCompatActivity {
 
         return (dist);
     }
-
-
     // This function converts decimal degrees to radians
     private static double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
-
     // This function converts radians to decimal degrees
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
@@ -204,7 +182,6 @@ public class ScheduleActivity extends AppCompatActivity {
         al[day].add(selectItems.get(k));
         selectItems.remove(k);
     }
-
     private void initAlgorithm(){
         try {
             df = new SimpleDateFormat("yyyymmdd");
