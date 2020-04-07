@@ -41,6 +41,7 @@ public class FoodFragment extends Fragment implements TextWatcher {
     private FoodAdapter adapter;
     private int tmpcode;
 
+
     public FoodFragment(){
 
     }
@@ -58,6 +59,9 @@ public class FoodFragment extends Fragment implements TextWatcher {
         recyclerView.setLayoutManager(layoutManager);
         database=FirebaseDatabase.getInstance();
         arrayListSpinner=new ArrayList<>();
+
+
+
 
         arrayListSpinner.add("카페");
         arrayListSpinner.add("술집");

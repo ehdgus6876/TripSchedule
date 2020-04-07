@@ -4,17 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -31,10 +42,11 @@ public class ScheduleActivity extends AppCompatActivity {
     private int[][] day_array;
     int p;
     RecyclerView rv;
-    ScheduleAdapter adapter;
+    ScheduleAdapter adapter=new ScheduleAdapter();
     ItemTouchHelper helper;
-
+    Document doc = null;
     public static ArrayList<SelectItem> al[];
+    String[] date1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,32 +54,54 @@ public class ScheduleActivity extends AppCompatActivity {
         selectItems = new ArrayList<>();
         selectItems.addAll(FoodAdapter.selectItems) ;
         btn_scheduleselect=findViewById(R.id.btn_scheduleselect);
-
-        initAlgorithm(); //알고리즘 시작
-
         rv = findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(manager);
-
+        initAlgorithm();
         //RecyclerView의 Adapter 세팅
-        adapter = new ScheduleAdapter();
         rv.setAdapter(adapter);
-
+        date1 = new String[(int) date];
         //ItemTouchHelper 생성
         helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //RecyclerView에 ItemTouchHelper 붙이기
         helper.attachToRecyclerView(rv);
+        for(int i =0 ; i<date;i++) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            Date da = null;
+            Calendar cal = Calendar.getInstance();
+            try {
+                da = dateFormat.parse(CalendarActivity.sendStartDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cal.setTime(da);
+            cal.add(Calendar.DATE, i);
+            date1[i]=dateFormat.format(cal.getTime());
+        }
+        for ( int i =0;i<date1.length;i++){
+            Log.d("날짜",date1[i]);
+        }
+        for(int i=0 ; i<SelectBasket.weathers.size();i++) {
+            Log.d("날씨날짜" ,SelectBasket.weathers.get(i).getDate());
+        }
         for(int i=0 ; i <date;i++){
             SelectItem selectItem = new SelectItem((i+1)+"일차",null,null,null,"",null,null,9999);
+            for(int j =0;j<SelectBasket.weathers.size();j++){
+                if(date1[i].equals(SelectBasket.weathers.get(j).getDate())){
+                    selectItem.setLowTemp(SelectBasket.weathers.get(j).getLowTemp());
+                    selectItem.setHighTemp(SelectBasket.weathers.get(j).getHighTemp());
+                    selectItem.setWeather(SelectBasket.weathers.get(j).getWeather());
+                }
+            }
             adapter.addItem(selectItem);
             for(int j =0;j<al[i].size();j++){
                 adapter.addItem(al[i].get(j));
+                //Log.d("dong:weather1",weathers1.get(i).getDate());
             }
         }
         btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int k =0;
                 for(int i =0;i<date;i++){
                     al[i].clear();
@@ -83,11 +117,13 @@ public class ScheduleActivity extends AppCompatActivity {
                 }
                 for(int i =0;i<date;i++) {
                     for (int j = 0; j < al[i].size(); j++) {
-                        Log.d("일정", al[i].get(j).getTitle());
+                        Log.d("일정이름", al[i].get(j).getTitle());
+                        Log.d("일정날씨", al[i].get(j).getDetail());
                     }
                 }
             }
         });
+
     }
     /*public void searchNaver() { // 검색어 = searchObject로 ;
         final String clientId="7e7cc797q1";
@@ -459,4 +495,5 @@ public class ScheduleActivity extends AppCompatActivity {
 
         }
     }
+
 }

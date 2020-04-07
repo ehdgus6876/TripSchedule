@@ -66,6 +66,8 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                         else if((month+1)<10&&dayOfMonth<10){
                             sendStartDate=String.valueOf(year)+0+(month+1)+0+dayOfMonth;
+                        }else{
+                            sendStartDate=String.valueOf(year)+(month+1)+dayOfMonth;
                         }
 
                         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -101,9 +103,11 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                         else if((month+1)<10&&dayOfMonth<10){
                             sendFinishDate=String.valueOf(year)+0+(month+1)+0+dayOfMonth;
+                        }else{
+                            sendFinishDate=String.valueOf(year)+(month+1)+dayOfMonth;
                         }
 
-                        if(Integer.valueOf(sendFinishDate)>Integer.valueOf(sendStartDate)){
+                        /*if(Integer.parseInt(sendFinishDate)>Integer.parseInt(sendStartDate)){
                             finishdate=year+"/"+(month+1)+"/"+dayOfMonth;
                             btn_finish.setText(finishdate);
                             if(!carButton.isChecked() && !transportButton.isChecked()){
@@ -116,7 +120,7 @@ public class CalendarActivity extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(CalendarActivity.this,"출발날짜보다 도착날짜가 더 빠릅니다!",Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
 
 
 
@@ -164,6 +168,7 @@ public class CalendarActivity extends AppCompatActivity {
                     intent.putExtra("finishdate",finishdate);
                     startActivity(intent);
                 }
+                Log.d("시간",sendStartDate+"\n"+sendFinishDate);
 
             }
         });

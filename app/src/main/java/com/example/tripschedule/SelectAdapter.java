@@ -1,5 +1,6 @@
 package com.example.tripschedule;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder> {
 
     private ArrayList<SelectItem> dataList;
+    public static List<String> delete = new ArrayList<>();
 
     SelectAdapter(){
         dataList=FoodAdapter.selectItems;
@@ -46,9 +48,13 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                delete.add(FoodAdapter.selectItems.get(position).getTitle());
                 FoodAdapter.selectItems.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,dataList.size());
+                for(int i =0;i<delete.size();i++){
+                    Log.d("위시리스트삭제",delete.get(i));
+                }
             }
         });
 

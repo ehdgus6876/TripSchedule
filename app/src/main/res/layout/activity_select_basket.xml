@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="장바구니" />
+            android:text="위시리스트" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_speedBus"

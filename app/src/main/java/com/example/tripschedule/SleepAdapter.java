@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SleepAdapter extends RecyclerView.Adapter<SleepAdapter.SleepViewHolder> implements Filterable {
     private ArrayList<SleepItem> filteredItemList;
     private ArrayList<SleepItem> unFilteredList;
     private Context context;
+    private List<String> click = new ArrayList<>();
+    private String click_name = null;
 
     public SleepAdapter(ArrayList<SleepItem> arrayList,Context context){
         super();
@@ -41,7 +45,7 @@ public class SleepAdapter extends RecyclerView.Adapter<SleepAdapter.SleepViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SleepAdapter.SleepViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final SleepAdapter.SleepViewHolder holder, final int position) {
         holder.tv_title.setText(filteredItemList.get(position).getTitle());
         holder.tv_phone.setText(filteredItemList.get(position).getTel());
         holder.tv_Address.setText(filteredItemList.get(position).getAddress());
@@ -56,16 +60,46 @@ public class SleepAdapter extends RecyclerView.Adapter<SleepAdapter.SleepViewHol
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FoodAdapter.selectItems.add(new SelectItem(filteredItemList.get(position).getTitle(),
-                        filteredItemList.get(position).getTel(),
-                        filteredItemList.get(position).getAddress(),
-                        filteredItemList.get(position).getDetail(),
-                        filteredItemList.get(position).getImage(),
-                        filteredItemList.get(position).getMapx(),
-                        filteredItemList.get(position).getMapy(),
-                        filteredItemList.get(position).getCode()));
-                Log.d("코드",String.valueOf(filteredItemList.get(position).getCode()));
-                Toast.makeText(context,"장바구니에 담겼습니다",Toast.LENGTH_SHORT).show();
+                if (click.size()==0){
+                    click_name=null;
+                }
+                for (int i = 0; i < click.size(); i++) {
+                    if (click.get(i).equals(filteredItemList.get(position).getTitle())) {
+                        click_name = filteredItemList.get(position).getTitle();
+                        break;
+                    } else {
+                        click_name = null;
+                    }
+                }
+
+                if (click_name == null) {
+                    holder.btn_select.setSelected(true);
+                    click.add(filteredItemList.get(position).getTitle());
+                    FoodAdapter.selectItems.add(new SelectItem(filteredItemList.get(position).getTitle(),
+                            filteredItemList.get(position).getTel(),
+                            filteredItemList.get(position).getAddress(),
+                            filteredItemList.get(position).getDetail(),
+                            filteredItemList.get(position).getImage(),
+                            filteredItemList.get(position).getMapx(),
+                            filteredItemList.get(position).getMapy(),
+                            filteredItemList.get(position).getCode()));
+                    Toast.makeText(context, "위시리스트 추가", Toast.LENGTH_SHORT).show();
+                } else {
+                    int i = 0;
+                    holder.btn_select.setSelected(false);
+                    click.remove(filteredItemList.get(position).getTitle());
+                    for (i = 0; i < FoodAdapter.selectItems.size(); i++) {
+                        if (FoodAdapter.selectItems.get(i).getTitle().equals(filteredItemList.get(position).getTitle())) {
+                            FoodAdapter.selectItems.remove(i);
+                            break;
+                        }
+                    }
+                    Toast.makeText(context, "위시리스트 삭제", Toast.LENGTH_SHORT).show();
+                }
+                for (int i = 0; i < click.size(); i++) {
+                    Log.d("위시리스트", click.get(i));
+                }
+
             }
         });
         holder.btn_detail.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +125,7 @@ public class SleepAdapter extends RecyclerView.Adapter<SleepAdapter.SleepViewHol
         TextView tv_title;
         TextView tv_phone;
         TextView tv_Address;
-        Button btn_select;
+        ImageButton btn_select;
         Button btn_detail;
         ImageView image;
 

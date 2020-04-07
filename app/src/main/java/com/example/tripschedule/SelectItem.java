@@ -10,17 +10,22 @@ public class SelectItem {
     private String title;
     private String image;
     private int code;
+    String weather;
+    String lowTemp;
+    String highTemp;
 
-    public SelectItem(String title,String tel,String address,String detail,String image,String mapx,String mapy,int code){
-        this.title=title;
-        this.tel=tel;
-        this.address=address;
-        this.detail=detail;
-        this.image=image;
-        this.mapx=mapx;
-        this.mapy=mapy;
-        this.code=code;
+
+    public SelectItem(String title, String tel, String address, String detail, String image, String mapx, String mapy, int code) {
+        this.title = title;
+        this.tel = tel;
+        this.address = address;
+        this.detail = detail;
+        this.image = image;
+        this.mapx = mapx;
+        this.mapy = mapy;
+        this.code = code;
     }
+
     public String getAddress() {
         return address;
     }
@@ -93,6 +98,29 @@ public class SelectItem {
         this.code = code;
     }
 
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
+
+    public String getLowTemp() {
+        return lowTemp;
+    }
+
+    public void setLowTemp(String lowTemp) {
+        this.lowTemp = lowTemp;
+    }
+
+    public String getHighTemp() {
+        return highTemp;
+    }
+
+    public void setHighTemp(String highTemp) {
+        this.highTemp = highTemp;
+    }
 
 
 }
