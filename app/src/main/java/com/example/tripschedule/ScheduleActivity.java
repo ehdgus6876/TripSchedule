@@ -1,15 +1,28 @@
 package com.example.tripschedule;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
@@ -28,7 +41,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 
-public class ScheduleActivity extends AppCompatActivity {
+public class ScheduleActivity extends Fragment {
 
     public static long date;
     private  int arrivalTime;
@@ -47,15 +60,19 @@ public class ScheduleActivity extends AppCompatActivity {
     Document doc = null;
     public static ArrayList<SelectItem> al[];
     String[] date1;
+    public ScheduleActivity(){
+
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v=inflater.inflate(R.layout.activity_schedule,container,false);
         selectItems = new ArrayList<>();
         selectItems.addAll(FoodAdapter.selectItems) ;
-        btn_scheduleselect=findViewById(R.id.btn_scheduleselect);
-        rv = findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        btn_scheduleselect=v.findViewById(R.id.btn_scheduleselect);
+        rv = v.findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(manager);
         initAlgorithm();
@@ -102,6 +119,7 @@ public class ScheduleActivity extends AppCompatActivity {
         btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String plan= "";
                 int k =0;
                 for(int i =0;i<date;i++){
                     al[i].clear();
@@ -117,13 +135,18 @@ public class ScheduleActivity extends AppCompatActivity {
                 }
                 for(int i =0;i<date;i++) {
                     for (int j = 0; j < al[i].size(); j++) {
-                        Log.d("일정이름", al[i].get(j).getTitle());
-                        Log.d("일정날씨", al[i].get(j).getDetail());
+                        plan+=al[i].get(j).getTitle();
+                        Log.d("선택완료일정", al[i].get(j).getTitle());
                     }
                 }
-            }
-        });
+                Log.d("선택완료plan",plan);
+                storeUpload(plan);
 
+            }
+
+
+        });
+        return v;
     }
     /*public void searchNaver() { // 검색어 = searchObject로 ;
         final String clientId="7e7cc797q1";
@@ -139,6 +162,8 @@ public class ScheduleActivity extends AppCompatActivity {
                     String apiURL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?" +
                             "start=35.543968,129.256231&goal=35.540414,129.336337&option=trafast"; // json 결과
                     // Json 형태로 결과값을 받아옴.
+                    WebMercatorCoord webMercatorCoord = new WebMercatorCoord(14394868.003024507,4237437.772808846);
+                    LatLng cityhall = webMercatorCoord.toLatLng();
                     URL url = new URL(apiURL);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     con.setRequestMethod("GET");
@@ -494,6 +519,36 @@ public class ScheduleActivity extends AppCompatActivity {
             m++;
 
         }
+    }
+    private void storeUpload(String schedule) { //회원가입 했을때 일어나는 것
+
+         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            Scheduleinfo Scheduleinfo = new Scheduleinfo(schedule,user.getUid());
+            db.collection("schedule")
+                    .add(Scheduleinfo)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            startToast("여행일정을 저장하였습니다.");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            startToast("여행일정 저장을 실파해였습니다.");
+                        }
+                    });
+
+
+
+
+
+
+
+    }
+    private void startToast(String msg){
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
 }

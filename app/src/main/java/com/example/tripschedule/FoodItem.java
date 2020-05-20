@@ -12,7 +12,6 @@ public class FoodItem{
     private String title;
     private String image;
     private int code;
-
     public String getImage() {
         return image;
     }

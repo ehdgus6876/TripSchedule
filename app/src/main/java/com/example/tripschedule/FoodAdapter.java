@@ -33,8 +33,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     private ArrayList<FoodItem> unFilteredList;
     private Context context;
     private List<String> click = new ArrayList<>();
-    private String click_name = null;
-    int check=0;
     private SparseBooleanArray mSelecteditems = new SparseBooleanArray(0);
 
     public FoodAdapter(ArrayList<FoodItem> arrayList, Context context) {
@@ -72,51 +70,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         }
         holder.btn_select.setSelected(isItemSelected(position));
 
-        /*holder.btn_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (click.size()==0){
-                    click_name=null;
-                }
-                for (int i = 0; i < click.size(); i++) {
-                    if (click.get(i).equals(filteredItemList.get(position).getTitle())) {
-                        click_name = filteredItemList.get(position).getTitle();
-                        break;
-                    } else {
-                        click_name = null;
-                    }
-                }
-
-                if (click_name == null) {
-                    holder.btn_select.setSelected(true);
-                    click.add(filteredItemList.get(position).getTitle());
-                    selectItems.add(new SelectItem(filteredItemList.get(position).getTitle(),
-                            filteredItemList.get(position).getTel(),
-                            filteredItemList.get(position).getAddress(),
-                            filteredItemList.get(position).getDetail(),
-                            filteredItemList.get(position).getImage(),
-                            filteredItemList.get(position).getMapx(),
-                            filteredItemList.get(position).getMapy(),
-                            filteredItemList.get(position).getCode()));
-                    Toast.makeText(context,  position+"번 추가", Toast.LENGTH_SHORT).show();
-                } else {
-                    int i = 0;
-                    holder.btn_select.setSelected(false);
-                    click.remove(filteredItemList.get(position).getTitle());
-                    for (i = 0; i < selectItems.size(); i++) {
-                        if (selectItems.get(i).getTitle().equals(filteredItemList.get(position).getTitle())) {
-                            selectItems.remove(i);
-                            break;
-                        }
-                    }
-                    Toast.makeText(context, position+"번 삭제", Toast.LENGTH_SHORT).show();
-                }
-                for (int i = 0; i < click.size(); i++) {
-                    Log.d("위시리스트", click.get(i));
-                }
-
-            }
-        });*/
         holder.btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

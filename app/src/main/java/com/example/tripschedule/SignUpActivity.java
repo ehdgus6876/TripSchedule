@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordCheck = findViewById(R.id.PasswordCheck);
         signup_button = findViewById(R.id.send_button);
         Cancel_button = findViewById(R.id.Cancle_button);
-
+        Log.d("dong naver", String.valueOf(LoginActivity.naver));
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

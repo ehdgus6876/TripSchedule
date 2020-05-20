@@ -102,7 +102,7 @@ public class SelectBasket extends AppCompatActivity {
                 } else if (count >= date) {
                     Toast.makeText(getApplicationContext(), "숙소가 너무 많이 선택되어 있습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent1 = new Intent(getApplicationContext(), ScheduleActivity.class);
+                    Intent intent1 = new Intent(getApplicationContext(), PlanActivity.class);
                     startActivity(intent1);
                 }
             }
