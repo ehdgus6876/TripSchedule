@@ -6,10 +6,11 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class PlanActivity extends AppCompatActivity {
 
-    Button btn_plan1,btn_plan2;
+    ImageButton btn_plan1,btn_plan2;
 
     @SuppressLint({"SetTextI18n", "WrongViewCast"})
     @Override

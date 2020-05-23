@@ -131,7 +131,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         TextView tv_phone;
         TextView tv_Address;
         ImageButton btn_select;
-        Button btn_detail;
+        ImageButton btn_detail;
         ImageView image;
 
         public TourViewHolder(@NonNull View itemView) {

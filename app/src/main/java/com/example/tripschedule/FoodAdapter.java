@@ -92,7 +92,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         TextView tv_phone;
         TextView tv_Address;
         ImageButton btn_select;
-        Button btn_detail;
+        ImageButton btn_detail;
         ImageView image;
 
         public FoodViewHolder(@NonNull View itemView) {

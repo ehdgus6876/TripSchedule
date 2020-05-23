@@ -31,7 +31,7 @@
                 android:layout_width="108dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:background="ffffff"
+                android:background="#ffffff"
                 android:src="@drawable/date_button2" />
 
 

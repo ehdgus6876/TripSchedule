@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,8 +70,8 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         TextView tv_title;
         TextView tv_phone;
         TextView tv_Address;
-        Button btn_delete;
-        Button btn_detail;
+        ImageButton btn_delete;
+        ImageButton btn_detail;
         ImageView image;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -126,7 +126,7 @@ public class SleepAdapter extends RecyclerView.Adapter<SleepAdapter.SleepViewHol
         TextView tv_phone;
         TextView tv_Address;
         ImageButton btn_select;
-        Button btn_detail;
+        ImageButton btn_detail;
         ImageView image;
 
         public SleepViewHolder(@NonNull View itemView) {
