@@ -5,85 +5,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="13dp"
     app:cardElevation="5dp"
-    android:layout_margin="13dp"
-    app:cardUseCompatPadding="true">
+    android:layout_margin="5dp">
 
 
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_title"
+
+
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="제목" />
+            android:layout_height="134dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                android:layout_weight="5"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/phone" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="전화번호" />
+
+
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="180dp"
-                android:layout_height="134dp"
-                />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="전화번호" />
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
 
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
 
-                    android:text="주소"/>
-                <TextView
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_Address"
-                    />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_Address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="주소" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_select"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/delete" />
+
+
+                    <ImageButton
+                        android:id="@+id/btn_detail"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/detail" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
+
+
+
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_select"
-            android:layout_width="205dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
-            android:text="삭제" />
-
-        <Button
-            android:id="@+id/btn_detail"
-            android:layout_width="205dp"
-            android:layout_height="wrap_content"
-
-            android:text="상세정보보기"
-            android:layout_marginTop="160dp"/>
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

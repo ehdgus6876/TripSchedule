@@ -10,17 +10,40 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="제목" />
 
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="134dp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="제목"
+        android:layout_weight="5"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/phone" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:text="전화번호" />
+
+
+
+
+</LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,19 +63,7 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <TextView
 
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:text="전화번호" />
-
-                    <TextView
-                        android:id="@+id/tv_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="굿" />
 
                 </LinearLayout>
 
@@ -62,37 +73,42 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="주소" />
 
                     <TextView
                         android:id="@+id/tv_Address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="배드" />
+                        android:text="주소" />
+
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_select"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_location" />
+
+
+                    <ImageButton
+                        android:id="@+id/btn_detail"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/detail" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
-            <ImageButton
-                android:id="@+id/btn_select"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerInside"
-                android:background="@drawable/select_location">
-            </ImageButton>
+
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="상세정보보기" />
     </LinearLayout>
 
 

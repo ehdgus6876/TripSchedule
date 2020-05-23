@@ -32,7 +32,6 @@
         android:id="@+id/btn_myschedule"
         android:layout_width="211dp"
         android:layout_height="51dp"
-        android:background="@drawable/selectorr"
         app:layout_constraintBottom_toTopOf="@+id/btn_planstart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,4 +64,10 @@
         app:layout_constraintStart_toStartOf="@+id/btn_planstart"
         app:layout_constraintTop_toBottomOf="@+id/btn_planstart" />
 
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="38dp"
+        android:background="@drawable/editor"
+        tools:layout_editor_absoluteX="355dp"
+        tools:layout_editor_absoluteY="38dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

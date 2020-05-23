@@ -17,6 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
+            <Button
+                android:layout_width="323dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:text="전체"
+                android:background="#ffffff"/>
 
             <Button
                 android:id="@+id/btn_food"
@@ -24,7 +31,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
-                android:text="음식" />
+                android:text="음식"
+                android:background="#ffffff"/>
 
             <Button
                 android:id="@+id/btn_tour"
@@ -32,7 +40,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
-                android:text="관광" />
+                android:text="관광"
+                android:background="#ffffff"/>
 
             <Button
                 android:id="@+id/btn_sleep"
@@ -40,7 +49,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
 
-                android:text="숙박" />
+                android:text="숙박"
+                android:background="#ffffff"/>
 
 
         </LinearLayout>
@@ -57,7 +67,9 @@
                     android:id="@+id/fab_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/plus"
+                    android:src="@drawable/wish"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:fabSize="normal"
                     app:borderWidth="0dp"
                     android:layout_margin="16dp"

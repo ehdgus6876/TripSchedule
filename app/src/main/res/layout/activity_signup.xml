@@ -4,56 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_back"
+    android:background="@drawable/signup_back"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="373dp"
+        android:layout_height="43dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="152dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/Email"
-        app:layout_constraintStart_toStartOf="@+id/Email"
-        app:layout_constraintTop_toBottomOf="@+id/Email" />
-
-    <EditText
-        android:id="@+id/PasswordCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="PasswordCheck"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/Password"
-        app:layout_constraintStart_toStartOf="@+id/Password"
-        app:layout_constraintTop_toBottomOf="@+id/Password" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="315dp"
+        android:layout_width="430dp"
+        android:layout_height="236dp"
+        android:layout_marginTop="424dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="-10dp"
+        tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/send_button"
@@ -72,6 +50,29 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:text="돌아가기" />
+
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="373dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="265dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/PasswordCheck"
+        android:layout_width="373dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="PasswordCheck"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="367dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectLocation">
+    tools:context=".SelectLocation"
+    android:background="@drawable/schedule_back">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,19 +18,21 @@
             android:layout_height="50dp">
 
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_plan1"
-                android:layout_width="323dp"
+                android:layout_width="108dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="일정1" />
+                android:layout_marginLeft="20dp"
+                android:background="#ffffff"
+                android:src="@drawable/date_button" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_plan2"
-                android:layout_width="323dp"
+                android:layout_width="108dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="일정2" />
+                android:layout_marginLeft="5dp"
+                android:background="ffffff"
+                android:src="@drawable/date_button2" />
 
 
         </LinearLayout>
@@ -38,12 +41,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
             <FrameLayout
                 android:id="@+id/frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
             </FrameLayout>
+
+
         </LinearLayout>
+
 
 
     </LinearLayout>
