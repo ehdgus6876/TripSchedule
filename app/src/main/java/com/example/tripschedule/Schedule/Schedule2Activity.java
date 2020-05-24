@@ -405,6 +405,7 @@ public class Schedule2Activity extends Fragment {
             }
         }
         for (int i =0;i<date;i++){
+            Log.d("일정",String.valueOf((day_array[i][0])+day_array[i][1]));
             if(i!=0){
                 al[i].add(al[i-1].get(al[i-1].size()-1));
             }

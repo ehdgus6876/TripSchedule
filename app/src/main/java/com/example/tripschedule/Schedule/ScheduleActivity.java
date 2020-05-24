@@ -43,7 +43,7 @@ public class ScheduleActivity extends Fragment {
 
     public static long date;
     private  int arrivalTime;
-    Button btn_scheduleselect;
+    private Button btn_scheduleselect;
     private SimpleDateFormat df;
     private float[] code_array={0,0,0,0,0};
     private float[] first_array={0,0,0,0,0};
@@ -106,6 +106,9 @@ public class ScheduleActivity extends Fragment {
                     selectItem.setLowTemp(SelectBasket.weathers.get(j).getLowTemp());
                     selectItem.setHighTemp(SelectBasket.weathers.get(j).getHighTemp());
                     selectItem.setWeather(SelectBasket.weathers.get(j).getWeather());
+                    Log.d("날씨 최저" ,SelectBasket.weathers.get(i).getDate()+SelectBasket.weathers.get(j).getLowTemp());
+                    Log.d("날씨 최고" ,SelectBasket.weathers.get(i).getDate()+SelectBasket.weathers.get(j).getHighTemp());
+                    Log.d("날씨 날씨" ,SelectBasket.weathers.get(i).getDate()+SelectBasket.weathers.get(j).getWeather());
                 }
             }
             adapter.addItem(selectItem);

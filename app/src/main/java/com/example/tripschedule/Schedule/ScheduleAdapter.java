@@ -18,13 +18,14 @@ import com.example.tripschedule.SelectLocation.Weather;
 
 import java.util.ArrayList;
 
+import javax.security.auth.callback.UnsupportedCallbackException;
+
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ItemViewHolder> implements ItemTouchHelperListener {
     ArrayList<SelectItem> items = new ArrayList<>();
     ArrayList<Weather> weathers = new ArrayList<>();
 
 
     public ScheduleAdapter() {
-
 
     }
 
@@ -44,25 +45,17 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ItemVi
         holder.tv_low.setText(items.get(position).getLowTemp());
 
         try {
+            if (items.get(position).getImage() != null){
                 Glide.with(holder.itemView)
                         .load(items.get(position).getImage())
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .fitCenter()
                         .error(R.drawable.error)
                         .into(holder.list_image);
-
+            }
         }catch(NullPointerException e){
             e.printStackTrace();
-
         }
-
-        holder.list_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
 
     }
 

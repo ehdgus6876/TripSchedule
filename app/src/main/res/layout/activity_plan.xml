@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectLocation.SelectLocation"
+    tools:context=".SelectLocation.SelectLocationActivity"
     android:background="@drawable/schedule_back">
 
     <LinearLayout

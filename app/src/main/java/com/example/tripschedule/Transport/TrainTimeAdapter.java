@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.R;
-import com.example.tripschedule.SelectLocation.SelectLocation;
+import com.example.tripschedule.SelectLocation.SelectLocationActivity;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
             @Override
             public void onClick(View v) {
                 CalendarActivity.arrivaltime=dataList.get(position).getArrivalTime();
-                Intent intent= new Intent(v.getContext(),SelectLocation.class);
+                Intent intent= new Intent(v.getContext(), SelectLocationActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
