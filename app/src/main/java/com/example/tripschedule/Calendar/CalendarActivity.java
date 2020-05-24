@@ -3,6 +3,7 @@ package com.example.tripschedule.Calendar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +14,10 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.tripschedule.R;
-import com.example.tripschedule.SelectLocation.SelectLocation;
+import com.example.tripschedule.SelectLocation.SelectLocationActivity;
 import com.example.tripschedule.Transport.TransportActivity;
 
 import java.text.DateFormat;
@@ -71,11 +73,13 @@ public class CalendarActivity extends AppCompatActivity {
                         }else{
                             sendStartDate=String.valueOf(year)+(month+1)+dayOfMonth;
                         }
+                        Log.d("ssd",sendStartDate);
 
-                        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                         try {
                             Date date = dateFormat.parse(sendStartDate);
                             Calendar cal = Calendar.getInstance();
+                            assert date != null;
                             cal.setTime(date);
                             dateNum= cal.get(Calendar.DAY_OF_WEEK);
 
@@ -108,21 +112,25 @@ public class CalendarActivity extends AppCompatActivity {
                         }else{
                             sendFinishDate=String.valueOf(year)+(month+1)+dayOfMonth;
                         }
+                        Log.d("ssd",sendFinishDate);
+                        try {
+                            if (Integer.parseInt(sendFinishDate) > Integer.parseInt(sendStartDate)) {
+                                finishdate = year + "/" + (month + 1) + "/" + dayOfMonth;
+                                btn_finish.setText(finishdate);
+                                if (!carButton.isChecked() && !transportButton.isChecked()) {
+                                    textView.setText("교통수단을 선택해주세요");
+                                } else {
+                                    textView.setText("결정완료 버튼을 눌러주세요");
+                                }
 
-                        /*if(Integer.parseInt(sendFinishDate)>Integer.parseInt(sendStartDate)){
-                            finishdate=year+"/"+(month+1)+"/"+dayOfMonth;
-                            btn_finish.setText(finishdate);
-                            if(!carButton.isChecked() && !transportButton.isChecked()){
-                                textView.setText("교통수단을 선택해주세요");
+                            } else {
+                                Toast.makeText(CalendarActivity.this, "출발날짜보다 도착날짜가 더 빠릅니다!", Toast.LENGTH_SHORT).show();
                             }
-                            else{
-                                textView.setText("결정완료 버튼을 눌러주세요");
-                            }
-
+                        } catch (NumberFormatException e){
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
                         }
-                        else{
-                            Toast.makeText(CalendarActivity.this,"출발날짜보다 도착날짜가 더 빠릅니다!",Toast.LENGTH_SHORT).show();
-                        }*/
 
 
 
@@ -133,6 +141,7 @@ public class CalendarActivity extends AppCompatActivity {
         carButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                textView.setText("결정완료 버튼을 눌러주세요");
                 transportButton.setChecked(false);
                 transport=1;
             }
@@ -140,6 +149,7 @@ public class CalendarActivity extends AppCompatActivity {
         transportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                textView.setText("결정완료 버튼을 눌러주세요");
                 carButton.setChecked(false);
             }
         });
@@ -150,6 +160,8 @@ public class CalendarActivity extends AppCompatActivity {
                 btn_start.setText("출발날짜");
                 btn_finish.setText("도착날짜");
                 textView.setText("출발날짜 클릭 후 날짜를 선택해주세요");
+                carButton.setChecked(false);
+                transportButton.setChecked(false);
             }
         });
 
@@ -185,7 +197,7 @@ public class CalendarActivity extends AppCompatActivity {
                 arrivaltime="0"+arrivaltime;
             }
             Log.d("dong", arrivaltime);
-            Intent intent = new Intent(getApplicationContext(), SelectLocation.class);
+            Intent intent = new Intent(getApplicationContext(), SelectLocationActivity.class);
             intent.putExtra("startdate",startdate);
             intent.putExtra("finishdate",finishdate);
             startActivity(intent);

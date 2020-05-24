@@ -38,18 +38,18 @@
                     android:layout_width="50dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_low"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:text="최저">
                 </TextView>
                 <TextView
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:layout_width="50dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_max"
                     android:text="최고">
                 </TextView>
                 <TextView
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:layout_width="50dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_weather"
@@ -58,14 +58,7 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_map"
-                android:layout_width="50dp"
-                android:layout_height="100dp"
-                android:layout_gravity="right"
 
-
-                android:text="지도\n보기"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

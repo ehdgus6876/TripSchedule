@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class FoodFragment extends Fragment implements TextWatcher {
     private int tmpcode;
 
 
+
     public FoodFragment(){
 
     }
@@ -52,6 +54,7 @@ public class FoodFragment extends Fragment implements TextWatcher {
         View v=inflater.inflate(R.layout.fragment_food,container,false);
         recyclerView=v.findViewById(R.id.rv_food);
         editText=v.findViewById(R.id.editTextFilter);
+
         recyclerView.setHasFixedSize(true);
         arrayList=new ArrayList<>();
         editText.addTextChangedListener(this);
@@ -59,6 +62,9 @@ public class FoodFragment extends Fragment implements TextWatcher {
         recyclerView.setLayoutManager(layoutManager);
         database=FirebaseDatabase.getInstance();
         arrayListSpinner=new ArrayList<>();
+
+
+
 
 
 

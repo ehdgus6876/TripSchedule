@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.R;
-import com.example.tripschedule.SelectLocation.SelectLocation;
+import com.example.tripschedule.SelectLocation.SelectLocationActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,7 +72,7 @@ public class SpeedAdapter extends RecyclerView.Adapter<SpeedAdapter.ViewHolder> 
                 Log.d("dong","W"+waste);
                 Log.d("dong","S"+star);
                 Log.d("dong", String.valueOf(CalendarActivity.arrivaltime));
-                Intent intent= new Intent(v.getContext(),SelectLocation.class);
+                Intent intent= new Intent(v.getContext(), SelectLocationActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

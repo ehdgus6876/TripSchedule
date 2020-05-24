@@ -20,7 +20,7 @@
         <activity android:name=".MyScheduleActivity"/>
         <activity android:name=".SelectLocation.WebView" />
         <activity android:name=".SelectLocation.SelectBasket" />
-        <activity android:name=".SelectLocation.SelectLocation" />
+        <activity android:name=".SelectLocation.SelectLocationActivity" />
         <activity android:name=".Login.SignUpActivity" />
         <activity android:name=".Calendar.CalendarActivity" />
         <activity android:name=".Transport.BusTimeActivity" />
