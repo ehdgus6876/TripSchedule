@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn_myschedule;
     private ImageButton btn_plsnstart;
     private Button logout_button;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +80,12 @@ public class MainActivity extends AppCompatActivity {
         iv_profile=findViewById(R.id.iv_profile);
         Glide.with(this).load(photoUrl).into(iv_profile); // 프로필 url를 이미지 뷰에 세팅
 
-        btn_myschedule=findViewById(R.id.btn_myschedule);
+        btn_myschedule=findViewById(R.id.my_schedule);
         btn_myschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), MyScheduleActivity.class);
+                startActivity(intent2);
 
             }
         });

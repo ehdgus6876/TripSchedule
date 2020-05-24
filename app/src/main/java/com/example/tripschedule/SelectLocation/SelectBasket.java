@@ -97,6 +97,7 @@ public class SelectBasket extends AppCompatActivity {
         btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count=0;
                 for (int i = 0; i < FoodAdapter.selectItems.size(); i++) {
                     if (FoodAdapter.selectItems.get(i).getCode() == 4) {
                         count++;

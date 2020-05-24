@@ -7,18 +7,28 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
+import com.example.tripschedule.MainActivity;
+import com.example.tripschedule.MySchedule.Scheduleinfo;
 import com.example.tripschedule.R;
 import com.example.tripschedule.SelectLocation.FoodAdapter;
 import com.example.tripschedule.SelectLocation.SelectBasket;
 import com.example.tripschedule.SelectLocation.SelectItem;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
@@ -118,6 +128,7 @@ public class Schedule2Activity extends Fragment {
         btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<SelectItem> plan= new ArrayList<SelectItem>();
                 int k =0;
                 for(int i =0;i<date;i++){
                     al[i].clear();
@@ -131,12 +142,15 @@ public class Schedule2Activity extends Fragment {
                         }
                     }
                 }
-                for(int i =0;i<date;i++) {
-                    for (int j = 0; j < al[i].size(); j++) {
-                        Log.d("일정이름", al[i].get(j).getTitle());
-                        Log.d("일정날씨", al[i].get(j).getDetail());
+                for( int i =0; i<date;i++){
+                    for (int j = 0 ; j<al[i].size();j++){
+                        plan.add(al[i].get(j));
                     }
                 }
+                storeUpload(plan);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+
             }
         });
         return v;
@@ -166,24 +180,33 @@ public class Schedule2Activity extends Fragment {
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     }
-    private void select_location(String x,String y,int code,int day){
-        double j=100000;
-        int k=0;
-        Tm128 Tm_Cafe = new Tm128(Float.parseFloat(x),Float.valueOf(y));
+    private void select_location(String x,String y,int code,int day) {
+        double j = 100000;
+        int k = 0;
+        Tm128 Tm_Cafe = new Tm128(Float.parseFloat(x), Float.valueOf(y));
         LatLng LL_Cafe = Tm_Cafe.toLatLng();
-        for(int i =0 ; i<selectItems.size();i++){
+        for (int i = 0; i < selectItems.size(); i++) {
+            if (code == 1 && selectItems.get(i).getCode() == 4) {
                 Tm128 tm128 = new Tm128(Float.valueOf(selectItems.get(i).getMapx()), Float.valueOf(selectItems.get(i).getMapy()));
                 LatLng cafeLatLng = tm128.toLatLng();
-                if(j>distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude,"kilometer")){
-                    j=distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude,"kilometer");
-                    Log.d("naver결과",selectItems.get(i).getTitle());
-                    Log.d("naver결과", String.valueOf(searchNaver(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude)));
-                    k=i;
+                if (j > distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude, "kilometer")) {
+                    j = distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude, "kilometer");
+                    k = i;
                 }
+            } else if (code == 0 && selectItems.get(i).getCode() != 4) {
+                Tm128 tm128 = new Tm128(Float.valueOf(selectItems.get(i).getMapx()), Float.valueOf(selectItems.get(i).getMapy()));
+                LatLng cafeLatLng = tm128.toLatLng();
+                if (j > distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude, "kilometer")) {
+                    j = distance(LL_Cafe.latitude, LL_Cafe.longitude, cafeLatLng.latitude, cafeLatLng.longitude, "kilometer");
+                    k = i;
+
+                }
+            }
         }
-        day_array[day][code]-=1;
-        al[day].add(selectItems.get(k));
-        selectItems.remove(k);
+            
+            al[day].add(selectItems.get(k));
+            selectItems.remove(k);
+
     }
         public int searchNaver(final double lat1, final double lon1, final double lat2, final double lon2) { // 검색어 = searchObject로 ;
         int result1=0;
@@ -302,23 +325,25 @@ public class Schedule2Activity extends Fragment {
                     al[0].remove(0);
                     Log.d("hhhh", String.valueOf(tmp_sleep));
                     Log.d("hhhh", String.valueOf(al[0].get(0).getTitle()));
-                    p = i;
-                    code_array[1]-=1;
+                        p = i;
+
+                    }
                 }
             }
-        }
-        selectItems.remove(p);
-        long day = date;
-        int amount= (int) (code_array[0]/date);
-        day_array = new int[(int) date][2];
-        if (date==1){
-            day_array[0][0]=code_array[0];
+            code_array[1]-=1;
+            selectItems.remove(p);
+            long day = date;
+            int amount= (int) (code_array[0]/date);
+            day_array = new int[(int) date][2];
             day_array[0][1]=0;
-        }
-        else {
-            if (arrivalTime >= 6 && arrivalTime < 12) {  //도착시간이 6~12시
-                for (int i = 0; i < date; i++) {
-                    if (i == 0) {
+            if (date==1){
+                day_array[0][0]=code_array[0];
+                day_array[0][1]=0;
+            }
+            else {
+                if (arrivalTime >= 6 && arrivalTime < 12) {  //도착시간이 6~12시
+                    for (int i = 0; i < date; i++) {
+                        if (i == 0) {
                         day_array[i][0] = amount;
                         code_array[0] -= day_array[i][0];
                     } else if (i == date - 1) {
@@ -397,11 +422,9 @@ public class Schedule2Activity extends Fragment {
             }
         }
 
-        float max = 0;
-        for (int i = 0; i < day_array[0].length; i++) {
-            if (max < day_array[0][i]) {
-                //max의 값보다 array[i]이 크면 max = array[i]
-                max = day_array[0][i];
+        for (int i =0 ;i <date;i++){
+            for (int j = 0; j<2;j++){
+                Log.d("데이일정", String.valueOf(day_array[i][j]));
             }
         }
         for (int i =0;i<date;i++){
@@ -410,13 +433,39 @@ public class Schedule2Activity extends Fragment {
             }
             for (int j=0;j<day_array[i][0];j++){
                 select_location(al[i].get(al[i].size() - 1).getMapx(), al[i].get(al[i].size() - 1).getMapy(),0,i);
+                Log.d("일정",String.valueOf(day_array[i][0]));
             }
             if( day_array[i][1]>0){
                 select_location(al[i].get(al[i].size() - 1).getMapx(), al[i].get(al[i].size() - 1).getMapy(),1,i);
+
             }
             else if(i!=date-1 && day_array[i][1]==0){
                 al[i].add(al[i].get(0));
             }
         }
+    }
+    private void storeUpload(ArrayList<SelectItem> plan) { //회원가입 했을때 일어나는 것
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Scheduleinfo Scheduleinfo = new Scheduleinfo(plan,user.getUid());
+        db.collection("schedule")
+                .add(Scheduleinfo)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        startToast("여행일정을 저장하였습니다.");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        startToast("여행일정 저장을 실파해였습니다.");
+                    }
+                });
+
+    }
+    private void startToast(String msg){
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
     }
 }

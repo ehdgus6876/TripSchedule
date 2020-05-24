@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
+import com.example.tripschedule.MainActivity;
 import com.example.tripschedule.R;
 import com.example.tripschedule.MySchedule.Scheduleinfo;
 import com.example.tripschedule.SelectLocation.FoodAdapter;
@@ -27,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
@@ -56,7 +59,7 @@ public class ScheduleActivity extends Fragment {
     ScheduleAdapter adapter=new ScheduleAdapter();
     ItemTouchHelper helper;
     Document doc = null;
-    public static ArrayList<SelectItem> al[];
+    public ArrayList<SelectItem> al[];
     String[] date1;
     public ScheduleActivity(){
 
@@ -117,7 +120,7 @@ public class ScheduleActivity extends Fragment {
         btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String plan= "";
+                ArrayList<SelectItem> plan= new ArrayList<SelectItem>();
                 int k =0;
                 for(int i =0;i<date;i++){
                     al[i].clear();
@@ -131,14 +134,17 @@ public class ScheduleActivity extends Fragment {
                         }
                     }
                 }
-                for(int i =0;i<date;i++) {
-                    for (int j = 0; j < al[i].size(); j++) {
-                        plan+=al[i].get(j).getTitle();
-                        Log.d("선택완료일정", al[i].get(j).getTitle());
+                for( int i =0; i<date;i++){
+                    for (int j = 0 ; j<al[i].size();j++){
+                        plan.add(al[i].get(j));
                     }
                 }
-                Log.d("선택완료plan",plan);
                 storeUpload(plan);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+
+
+
 
             }
 
@@ -296,12 +302,9 @@ public class ScheduleActivity extends Fragment {
                     tmp_sleep = distance(latLng.latitude, latLng.longitude, sleep.latitude, sleep.longitude, "kilometer");
                     al[0].add(selectItems.get(i));
                     al[0].remove(0);
-                    Log.d("hhhh", String.valueOf(tmp_sleep));
-                    Log.d("hhhh", String.valueOf(al[0].get(0).getTitle()));
                     p = i;
 
                 }
-
             }
         }
         selectItems.remove(p);
@@ -518,11 +521,11 @@ public class ScheduleActivity extends Fragment {
 
         }
     }
-    private void storeUpload(String schedule) { //회원가입 했을때 일어나는 것
+    private void storeUpload(ArrayList<SelectItem> plan) { //회원가입 했을때 일어나는 것
 
          FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            Scheduleinfo Scheduleinfo = new Scheduleinfo(schedule,user.getUid());
+            Scheduleinfo Scheduleinfo = new Scheduleinfo(plan,user.getUid());
             db.collection("schedule")
                     .add(Scheduleinfo)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -537,12 +540,6 @@ public class ScheduleActivity extends Fragment {
                             startToast("여행일정 저장을 실파해였습니다.");
                         }
                     });
-
-
-
-
-
-
 
     }
     private void startToast(String msg){

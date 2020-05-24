@@ -17,6 +17,7 @@
         tools:targetApi="m">
         <activity android:name=".MySchedule.PlanActivity"></activity>
         <activity android:name=".Map.MapActivity" />
+        <activity android:name=".MyScheduleActivity"/>
         <activity android:name=".SelectLocation.WebView" />
         <activity android:name=".SelectLocation.SelectBasket" />
         <activity android:name=".SelectLocation.SelectLocation" />

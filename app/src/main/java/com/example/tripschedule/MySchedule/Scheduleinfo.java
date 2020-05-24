@@ -1,24 +1,26 @@
 package com.example.tripschedule.MySchedule;
 
+import com.example.tripschedule.SelectLocation.SelectItem;
+
+import java.util.ArrayList;
+
 public class Scheduleinfo {
-    private String schedule;
+    private ArrayList<SelectItem> plan;
     private String publisher;
-    public Scheduleinfo(String schedule,String publisher) {
-        this.schedule = schedule;
+    public Scheduleinfo(ArrayList<SelectItem> plan,String publisher) {
+        this.plan=plan;
         this.publisher=publisher;
 
     }
 
 
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
+    public ArrayList<SelectItem> getPlan() {
+        return plan;
     }
 
-    public String getSchedule() {
-        return schedule;
+    public void setPlan(ArrayList<SelectItem> plan) {
+        this.plan = plan;
     }
-
-
 
     public String getPublisher() {
         return publisher;
