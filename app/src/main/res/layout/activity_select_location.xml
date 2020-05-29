@@ -25,7 +25,7 @@
                 android:layout_width="323dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:fontFamily="@font/fonta"
                 android:text="음식"
                 android:background="#ffffff"/>
 
@@ -34,7 +34,7 @@
                 android:layout_width="323dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:fontFamily="@font/fonta"
                 android:text="관광"
                 android:background="#ffffff"/>
 
@@ -43,7 +43,7 @@
                 android:layout_width="323dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:fontFamily="@font/fonta"
                 android:text="숙박"
                 android:background="#ffffff"/>
 
@@ -63,8 +63,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/wish"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
                     app:fabSize="normal"
                     app:borderWidth="0dp"
                     android:layout_margin="16dp"

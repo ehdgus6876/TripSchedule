@@ -23,7 +23,7 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
     public static List<String> delete = new ArrayList<>();
 
     SelectAdapter(){
-        dataList= FoodAdapter.selectItems;
+        dataList= LocationAdapter.selectItems;
     }
 
     @NonNull
@@ -49,8 +49,8 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete.add(FoodAdapter.selectItems.get(position).getTitle());
-                FoodAdapter.selectItems.remove(position);
+                delete.add(LocationAdapter.selectItems.get(position).getTitle());
+                LocationAdapter.selectItems.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,dataList.size());
                 for(int i =0;i<delete.size();i++){

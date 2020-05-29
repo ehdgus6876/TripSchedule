@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
@@ -39,7 +39,7 @@ public class SelectBasket extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private SelectAdapter adapter;
-    private Button btn_select, btn_map;
+    private ImageButton btn_map,btn_select;
     int count = 0;
     Document doc = null;
     public static ArrayList<Weather> weathers = new ArrayList<>();
@@ -98,8 +98,8 @@ public class SelectBasket extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 count=0;
-                for (int i = 0; i < FoodAdapter.selectItems.size(); i++) {
-                    if (FoodAdapter.selectItems.get(i).getCode() == 4) {
+                for (int i = 0; i < LocationAdapter.selectItems.size(); i++) {
+                    if (LocationAdapter.selectItems.get(i).getCode() == 4) {
                         count++;
                     }
                 }

@@ -20,7 +20,7 @@ import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.MainActivity;
 import com.example.tripschedule.R;
 import com.example.tripschedule.MySchedule.Scheduleinfo;
-import com.example.tripschedule.SelectLocation.FoodAdapter;
+import com.example.tripschedule.SelectLocation.LocationAdapter;
 import com.example.tripschedule.SelectLocation.SelectBasket;
 import com.example.tripschedule.SelectLocation.SelectItem;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
 import com.naver.maps.geometry.WebMercatorCoord;
@@ -70,7 +69,7 @@ public class ScheduleActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.activity_schedule,container,false);
         selectItems = new ArrayList<>();
-        selectItems.addAll(FoodAdapter.selectItems) ;
+        selectItems.addAll(LocationAdapter.selectItems) ;
         btn_scheduleselect=v.findViewById(R.id.btn_scheduleselect);
         rv = v.findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);

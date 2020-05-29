@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -33,13 +32,13 @@ public class FoodFragment extends Fragment implements TextWatcher {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private EditText editText;
-    private ArrayList<FoodItem> arrayList;
+    private ArrayList<LocationItem> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private Spinner spinner;
     private ArrayList<String> arrayListSpinner;
     private ArrayAdapter<String> arrayAdapterSpinner;
-    private FoodAdapter adapter;
+    private LocationAdapter adapter;
     private int tmpcode;
 
 
@@ -215,8 +214,8 @@ public class FoodFragment extends Fragment implements TextWatcher {
                 arrayList.clear();
                 int i=0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    FoodItem foodItem=snapshot.getValue(FoodItem.class);
-                    arrayList.add(foodItem);
+                    LocationItem locationItem =snapshot.getValue(LocationItem.class);
+                    arrayList.add(locationItem);
                     arrayList.get(i).setCode(tmpcode);
                     i++;
 
@@ -229,7 +228,7 @@ public class FoodFragment extends Fragment implements TextWatcher {
                 Log.e("FoodFragment", String.valueOf(databaseError.toException()));
             }
         });
-        adapter=new FoodAdapter(arrayList,getActivity().getApplicationContext());
+        adapter=new LocationAdapter(arrayList,getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
 
     }

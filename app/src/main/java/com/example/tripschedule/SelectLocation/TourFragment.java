@@ -1,5 +1,6 @@
 package com.example.tripschedule.SelectLocation;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,13 +33,13 @@ public class TourFragment extends Fragment implements TextWatcher {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private EditText editText;
-    private ArrayList<TourItem> arrayList;
+    private ArrayList<LocationItem> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private Spinner spinner;
     private ArrayList<String> arrayListSpinner;
     private ArrayAdapter<String> arrayAdapterSpinner;
-    private TourAdapter adapter;
+    private LocationAdapter adapter;
     private int tmpcode;
 
     public TourFragment(){
@@ -135,8 +136,8 @@ public class TourFragment extends Fragment implements TextWatcher {
                 arrayList.clear();
                 int i =0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    TourItem tourItem=snapshot.getValue(TourItem.class);
-                    arrayList.add(tourItem);
+                    LocationItem locationItem=snapshot.getValue(LocationItem.class);
+                    arrayList.add(locationItem);
                     arrayList.get(i).setCode(tmpcode);
                     i++;
                 }
@@ -149,7 +150,7 @@ public class TourFragment extends Fragment implements TextWatcher {
                 Log.e("TourFragment", String.valueOf(databaseError.toException()));
             }
         });
-        adapter=new TourAdapter(arrayList,getActivity().getApplicationContext());
+        adapter=new LocationAdapter(arrayList,getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
 
     }

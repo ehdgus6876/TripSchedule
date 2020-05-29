@@ -1,6 +1,8 @@
 package com.example.tripschedule.SelectLocation;
 
-public class TourItem {
+import java.io.Serializable;
+
+public class LocationItem {
     private String address;
     private String detail;
     private String mapx;
@@ -9,19 +11,7 @@ public class TourItem {
     private String tel;
     private String title;
     private String image;
-    private String link;
     private int code;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-
-
     public String getImage() {
         return image;
     }
@@ -89,12 +79,13 @@ public class TourItem {
         this.title = title;
     }
 
-    public String getLink() {
-        return link;
+    public int getCode() {
+        return code;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setCode(int code) {
+        this.code = code;
     }
+
 
 }

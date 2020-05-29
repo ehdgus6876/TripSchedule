@@ -22,15 +22,15 @@ import com.example.tripschedule.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> implements Filterable {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.FoodViewHolder> implements Filterable {
     public static final ArrayList<SelectItem> selectItems = new ArrayList<>();
-    private ArrayList<FoodItem> filteredItemList;
-    private ArrayList<FoodItem> unFilteredList;
+    private ArrayList<LocationItem> filteredItemList;
+    private ArrayList<LocationItem> unFilteredList;
     private Context context;
     private List<String> click = new ArrayList<>();
     private SparseBooleanArray mSelecteditems = new SparseBooleanArray(0);
 
-    public FoodAdapter(ArrayList<FoodItem> arrayList, Context context) {
+    public LocationAdapter(ArrayList<LocationItem> arrayList, Context context) {
         super();
         this.context = context;
         this.unFilteredList = arrayList;
@@ -49,7 +49,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final FoodAdapter.FoodViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final LocationAdapter.FoodViewHolder holder, final int position) {
 
         holder.tv_title.setText(filteredItemList.get(position).getTitle());
         holder.tv_phone.setText(filteredItemList.get(position).getTel());
@@ -148,8 +148,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                     filteredItemList = unFilteredList;
                 } else {
 
-                    ArrayList<FoodItem> filteringList = new ArrayList<>();
-                    for (FoodItem item : unFilteredList) {
+                    ArrayList<LocationItem> filteringList = new ArrayList<>();
+                    for (LocationItem item : unFilteredList) {
                         if (item.getTitle().toLowerCase().contains(charString.toLowerCase())) {
                             filteringList.add(item);
                         }
@@ -166,7 +166,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredItemList = (ArrayList<FoodItem>) results.values;
+                filteredItemList = (ArrayList<LocationItem>) results.values;
                 notifyDataSetChanged();
             }
         };

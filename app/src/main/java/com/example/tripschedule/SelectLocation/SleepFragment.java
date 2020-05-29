@@ -32,13 +32,13 @@ public class SleepFragment extends Fragment implements TextWatcher {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private EditText editText;
-    private ArrayList<SleepItem> arrayList;
+    private ArrayList<LocationItem> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private Spinner spinner;
     private ArrayList<String> arrayListSpinner;
     private ArrayAdapter<String> arrayAdapterSpinner;
-    private SleepAdapter adapter;
+    private LocationAdapter adapter;
     private int tmpcode;
 
     public SleepFragment(){
@@ -118,7 +118,7 @@ public class SleepFragment extends Fragment implements TextWatcher {
                 arrayList.clear();
                 int i =0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    SleepItem sleepItem=snapshot.getValue(SleepItem.class);
+                    LocationItem sleepItem=snapshot.getValue(LocationItem.class);
                     arrayList.add(sleepItem);
                     arrayList.get(i).setCode(tmpcode);
                     i++;
@@ -132,7 +132,7 @@ public class SleepFragment extends Fragment implements TextWatcher {
                 Log.e("SleepFragment", String.valueOf(databaseError.toException()));
             }
         });
-        adapter=new SleepAdapter(arrayList,getActivity().getApplicationContext());
+        adapter=new LocationAdapter( arrayList,getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
 
     }
