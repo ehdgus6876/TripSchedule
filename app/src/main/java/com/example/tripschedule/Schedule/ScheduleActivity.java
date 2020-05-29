@@ -14,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.MainActivity;
+import com.example.tripschedule.Map.MapActivity;
+import com.example.tripschedule.Map.MapActivity2;
 import com.example.tripschedule.R;
 import com.example.tripschedule.MySchedule.Scheduleinfo;
 import com.example.tripschedule.SelectLocation.LocationAdapter;
@@ -46,6 +49,7 @@ public class ScheduleActivity extends Fragment {
     public static long date;
     private  int arrivalTime;
     private Button btn_scheduleselect;
+    private Button btn_maps;
     private SimpleDateFormat df;
     private float[] code_array={0,0,0,0,0};
     private float[] first_array={0,0,0,0,0};
@@ -58,7 +62,7 @@ public class ScheduleActivity extends Fragment {
     ScheduleAdapter adapter=new ScheduleAdapter();
     ItemTouchHelper helper;
     Document doc = null;
-    public ArrayList<SelectItem> al[];
+    public static ArrayList<SelectItem> al[];
     String[] date1;
     public ScheduleActivity(){
 
@@ -70,6 +74,7 @@ public class ScheduleActivity extends Fragment {
         View v=inflater.inflate(R.layout.activity_schedule,container,false);
         selectItems = new ArrayList<>();
         selectItems.addAll(LocationAdapter.selectItems) ;
+        btn_maps=v.findViewById(R.id.btn_maps);
         btn_scheduleselect=v.findViewById(R.id.btn_scheduleselect);
         rv = v.findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
@@ -110,6 +115,13 @@ public class ScheduleActivity extends Fragment {
                 //Log.d("dong:weather1",weathers1.get(i).getDate());
             }
         }
+        btn_maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapActivity2.class);
+                startActivity(intent);
+            }
+        });
         btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,9 +147,6 @@ public class ScheduleActivity extends Fragment {
                 storeUpload(plan);
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
-
-
-
 
             }
 
@@ -524,6 +533,7 @@ public class ScheduleActivity extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
+
                             startToast("여행일정을 저장하였습니다.");
                         }
                     })

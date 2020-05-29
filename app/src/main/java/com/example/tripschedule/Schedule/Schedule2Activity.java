@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.MainActivity;
+import com.example.tripschedule.Map.MapActivity2;
+import com.example.tripschedule.Map.MapActivity3;
 import com.example.tripschedule.MySchedule.Scheduleinfo;
 import com.example.tripschedule.R;
 import com.example.tripschedule.SelectLocation.LocationAdapter;
@@ -59,6 +61,7 @@ public class Schedule2Activity extends Fragment {
     private  int arrivalTime;
     Button btn_scheduleselect;
     private SimpleDateFormat df;
+    private Button btn_maps;
     private int[] code_array={0,0};
     private int[] first_array={0,0}; //첫날
     private LatLng latLng;
@@ -70,7 +73,7 @@ public class Schedule2Activity extends Fragment {
     ScheduleAdapter adapter=new ScheduleAdapter();
     ItemTouchHelper helper;
     Document doc = null;
-    public static ArrayList<SelectItem> al[];
+    public static ArrayList<SelectItem> al1[];
     String[] date1;
     BufferedReader br;
     StringBuilder searchResult;
@@ -80,6 +83,7 @@ public class Schedule2Activity extends Fragment {
         selectItems = new ArrayList<>();
         selectItems.addAll(LocationAdapter.selectItems) ;
         btn_scheduleselect=v.findViewById(R.id.btn_scheduleselect);
+        btn_maps=v.findViewById(R.id.btn_maps);
         rv = v.findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
         LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -120,21 +124,28 @@ public class Schedule2Activity extends Fragment {
                 }
             }
             adapter.addItem(selectItem);
-            for(int j =0;j<al[i].size();j++){
-                adapter.addItem(al[i].get(j));
+            for(int j =0;j<al1[i].size();j++){
+                adapter.addItem(al1[i].get(j));
                 //Log.d("dong:weather1",weathers1.get(i).getDate());
             }
         }
+        btn_maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapActivity3.class);
+                startActivity(intent);
+            }
+        });
         btn_scheduleselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<SelectItem> plan= new ArrayList<SelectItem>();
                 int k =0;
                 for(int i =0;i<date;i++){
-                    al[i].clear();
+                    al1[i].clear();
                     for(int j = k ; j<adapter.getArray().size();j++){
                         if(!adapter.getArray().get(j).getTitle().equals((i+2)+"일차")) {
-                            al[i].add(adapter.getArray().get(j));
+                            al1[i].add(adapter.getArray().get(j));
                         }
                         else {
                             k=j;
@@ -143,8 +154,8 @@ public class Schedule2Activity extends Fragment {
                     }
                 }
                 for( int i =0; i<date;i++){
-                    for (int j = 0 ; j<al[i].size();j++){
-                        plan.add(al[i].get(j));
+                    for (int j = 0 ; j<al1[i].size();j++){
+                        plan.add(al1[i].get(j));
                     }
                 }
                 storeUpload(plan);
@@ -203,8 +214,8 @@ public class Schedule2Activity extends Fragment {
                 }
             }
         }
-            
-            al[day].add(selectItems.get(k));
+
+            al1[day].add(selectItems.get(k));
             selectItems.remove(k);
 
     }
@@ -283,10 +294,10 @@ public class Schedule2Activity extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        al = new ArrayList[(int) date];
+        al1 = new ArrayList[(int) date];
 
         for (int i = 0; i < date; i++) {
-            al[i] = new ArrayList<>();
+            al1[i] = new ArrayList<>();
         }
         if (CalendarActivity.transport == 1) {
             WebMercatorCoord webMercatorCoord = new WebMercatorCoord(14388405.8808019, 4239075.7671820);
@@ -305,7 +316,7 @@ public class Schedule2Activity extends Fragment {
             latLng = webMercatorCoord.toLatLng();
         }
         arrivalTime = Integer.valueOf(CalendarActivity.arrivaltime.substring(0, 2));
-        al[0].add(selectItems.get(0));
+        al1[0].add(selectItems.get(0));
         for (int i = 0; i < selectItems.size(); i++) {
             if (selectItems.get(i).getCode() == 0) {
                 code_array[0] += 1;
@@ -321,10 +332,10 @@ public class Schedule2Activity extends Fragment {
                 LatLng sleep = tm128.toLatLng();
                 if (tmp_sleep > distance(latLng.latitude, latLng.longitude, sleep.latitude, sleep.longitude, "kilometer")) {
                     tmp_sleep = distance(latLng.latitude, latLng.longitude, sleep.latitude, sleep.longitude, "kilometer");
-                    al[0].add(selectItems.get(i));
-                    al[0].remove(0);
+                    al1[0].add(selectItems.get(i));
+                    al1[0].remove(0);
                     Log.d("hhhh", String.valueOf(tmp_sleep));
-                    Log.d("hhhh", String.valueOf(al[0].get(0).getTitle()));
+                    Log.d("hhhh", String.valueOf(al1[0].get(0).getTitle()));
                         p = i;
 
                     }
@@ -430,18 +441,18 @@ public class Schedule2Activity extends Fragment {
         for (int i =0;i<date;i++){
             Log.d("일정",String.valueOf((day_array[i][0])+day_array[i][1]));
             if(i!=0){
-                al[i].add(al[i-1].get(al[i-1].size()-1));
+                al1[i].add(al1[i-1].get(al1[i-1].size()-1));
             }
             for (int j=0;j<day_array[i][0];j++){
-                select_location(al[i].get(al[i].size() - 1).getMapx(), al[i].get(al[i].size() - 1).getMapy(),0,i);
+                select_location(al1[i].get(al1[i].size() - 1).getMapx(), al1[i].get(al1[i].size() - 1).getMapy(),0,i);
                 Log.d("일정",String.valueOf(day_array[i][0]));
             }
             if( day_array[i][1]>0){
-                select_location(al[i].get(al[i].size() - 1).getMapx(), al[i].get(al[i].size() - 1).getMapy(),1,i);
+                select_location(al1[i].get(al1[i].size() - 1).getMapx(), al1[i].get(al1[i].size() - 1).getMapy(),1,i);
 
             }
             else if(i!=date-1 && day_array[i][1]==0){
-                al[i].add(al[i].get(0));
+                al1[i].add(al1[i].get(0));
             }
         }
     }

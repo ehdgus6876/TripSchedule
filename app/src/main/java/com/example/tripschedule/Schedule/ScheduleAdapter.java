@@ -50,7 +50,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ItemVi
                         .load(items.get(position).getImage())
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .fitCenter()
-                        .error(R.drawable.error)
+                        .error(R.drawable.white)
                         .into(holder.list_image);
             }
         }catch(NullPointerException e){

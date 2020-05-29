@@ -15,13 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".OnlyDateActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".OnlyDateActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".MySchedule.PlanActivity" />
         <activity android:name=".Map.MapActivity" />
         <activity android:name=".MyScheduleActivity" />
@@ -35,6 +30,8 @@
         <activity android:name=".Transport.SpeedBusTimeActivity" />
         <activity android:name=".Transport.TrainTimeActivity" />
         <activity android:name=".Login.MemberAcivity" />
+        <activity android:name=".Map.MapActivity2"/>
+        <activity android:name=".Map.MapActivity3"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".Login.PassswordActivity" />
         <activity android:name=".Splash.Splashscreen">
@@ -45,6 +42,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

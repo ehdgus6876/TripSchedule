@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
-        Log.d("dong 결과",String.valueOf(searchNaver()));
+
 
 
     }
@@ -200,72 +200,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-    public int searchNaver() { // 검색어 = searchObject로 ;
-        int result1=0;
-        final String clientId = "7e7cc797q1";
-        final String clientSecret = "MrCQ9XX0nfNXHb1vw45otjiB7xGay2rxUC2q5jhu";
-        String result = "";
 
-        // 네트워크 연결은 Thread 생성 필요
-        ExecutorService mPool = Executors.newFixedThreadPool(5);
-        Future<Integer> mFuture = mPool.submit(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                WebMercatorCoord webMercatorCoord = new WebMercatorCoord(14387795.3645812, 4238022.0645391);
-                LatLng location = webMercatorCoord.toLatLng();
-                WebMercatorCoord webMercatorCoord1 = new WebMercatorCoord(14396665.8571710, 4237453.8689881);
-                LatLng location1 = webMercatorCoord1.toLatLng();
-
-                String apiURL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?" +
-                        "start=" + location.longitude + "," + location.latitude + "&goal=" + location1.longitude + "," + location1.latitude + "&option=trafast"; // json 결과
-                // Json 형태로 결과값을 받아옴.
-
-                URL url = new URL(apiURL);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
-                con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
-                con.connect();
-
-                int responseCode = con.getResponseCode();
-
-
-                if (responseCode == 200) { // 정상 호출
-                    br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                } else {  // 에러 발생
-                    br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                }
-
-                searchResult = new StringBuilder();
-                String inputLine;
-                while ((inputLine = br.readLine()) != null) {
-                    searchResult.append(inputLine + "\n");
-
-                }
-
-                br.close();
-                con.disconnect();
-                JSONObject json = new JSONObject(String.valueOf(searchResult));
-                JSONObject json1 = json.getJSONObject("route");
-                JSONArray json2 = json1.getJSONArray("trafast");
-                JSONObject json3 = json2.getJSONObject(0);
-                JSONObject json4 = json3.getJSONObject("summary");
-                naver = json4.getInt("distance");
-                Log.d("dong : distance", String.valueOf(json4.getInt("distance")));
-                return json4.getInt("distance");
-            }
-        });
-        try{
-            result1=mFuture.get();
-            Log.d("dong result1",String.valueOf(result1));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return result1;
-    }
 }
 

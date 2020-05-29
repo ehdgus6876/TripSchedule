@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.tripschedule.R;
+import com.example.tripschedule.Schedule.ScheduleActivity;
 import com.example.tripschedule.SelectLocation.LocationAdapter;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Tm128;
@@ -21,12 +25,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private MapView mapView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         mapView=findViewById(R.id.map_view);
         mapView.getMapAsync(this);
+
     }
 
     @Override

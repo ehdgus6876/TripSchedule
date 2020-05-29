@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         btn_myschedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(getApplicationContext(), MyScheduleActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), OnlyDateActivity.class);
                 startActivity(intent2);
 
             }

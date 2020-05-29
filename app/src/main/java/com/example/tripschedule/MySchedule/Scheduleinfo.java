@@ -8,7 +8,6 @@ public class Scheduleinfo {
     private ArrayList<SelectItem> plan;
     private String publisher;
 
-
     private String Startdate;
     private String Enddate;
     public Scheduleinfo(ArrayList<SelectItem> plan,String publisher,String Startdate,String Enddate) {
@@ -16,6 +15,7 @@ public class Scheduleinfo {
         this.publisher=publisher;
         this.Startdate=Startdate;
         this.Enddate=Enddate;
+
     }
     public String getStartdate() { return Startdate; }
     public void setStartdate(String startdate) { Startdate = startdate; }
@@ -33,6 +33,7 @@ public class Scheduleinfo {
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
+
 
 
 }

@@ -60,6 +60,8 @@ class OnlyDateAdapter extends RecyclerView.Adapter<OnlyDateAdapter.ItemViewHolde
                 Intent intent = new Intent(v.getContext(),MyScheduleActivity.class);
                 intent.putExtra("start",items.get(position).getStartdate());
                 intent.putExtra("end",items.get(position).getEnddate());
+                intent.putExtra("id",items.get(position).getId());
+                v.getContext().startActivity(intent);
             }
         });
 

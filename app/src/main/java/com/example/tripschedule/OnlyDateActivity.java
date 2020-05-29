@@ -50,12 +50,14 @@ public class OnlyDateActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("성공", document.getId() + " => " + document.getData());
-                                onlyDateAdapter.addItem(new OnlyDateItem(document.getData().get("strartdate").toString(),
-                                        document.getData().get("enddate").toString()));
-                                rv.setAdapter(onlyDateAdapter);
+                                Log.d("성공함",document.getData().get("startdate").toString()+document.getData().get("enddate").toString()+document.getId());
+                                onlyDateAdapter.addItem(new OnlyDateItem(document.getData().get("startdate").toString(),
+                                        document.getData().get("enddate").toString(),document.getId()));
+
 
 
                             }
+                            rv.setAdapter(onlyDateAdapter);
                         } else {
                             Log.d("실패", "Error getting documents: ", task.getException());
                         }
