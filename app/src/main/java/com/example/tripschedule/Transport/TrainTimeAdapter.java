@@ -41,7 +41,7 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
         holder.tv_twtime.setText(dataList.get(position).getWasteTime());
         holder.tv_tcost.setText(dataList.get(position).getFare());
 
-        holder.btn_tsel.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CalendarActivity.arrivaltime=dataList.get(position).getArrivalTime();
@@ -58,7 +58,6 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
     public class TrainTimeViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_ttitle,tv_tclass,tv_tstime,tv_tdtime,tv_twtime,tv_tcost;
-        Button btn_tsel;
 
         public TrainTimeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,7 +68,7 @@ public class TrainTimeAdapter extends RecyclerView.Adapter<TrainTimeAdapter.Trai
             tv_tdtime=itemView.findViewById(R.id.tv_tdtime);
             tv_twtime=itemView.findViewById(R.id.tv_twtime);
             tv_tcost=itemView.findViewById(R.id.tv_tcost);
-            btn_tsel=itemView.findViewById(R.id.btn_tsel);
+
 
 
 

@@ -57,7 +57,5 @@ public class TransportActivity extends AppCompatActivity {
                 transaction.commit();
             }
         });
-
-
     }
 }

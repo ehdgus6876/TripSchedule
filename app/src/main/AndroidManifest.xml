@@ -24,6 +24,9 @@
         <activity android:name=".Login.SignUpActivity" />
         <activity android:name=".Calendar.CalendarActivity" />
         <activity android:name=".Transport.BusTimeActivity" />
+        <activity android:name=".Transport.TransportActivity"/>
+        <activity android:name=".Transport.SpeedBusTimeActivity"/>
+        <activity android:name=".Transport.TrainTimeActivity"/>
         <activity android:name=".Login.MemberAcivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Login.PassswordActivity" />
