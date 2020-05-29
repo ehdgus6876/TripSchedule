@@ -27,19 +27,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="제목"
-        android:layout_weight="5"/>
+        android:layout_weight="5"
+        android:fontFamily="@font/fonta"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/phone" />
+        android:background="@drawable/phone"
+        android:fontFamily="@font/fonta"/>
 
     <TextView
         android:id="@+id/tv_phone"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:text="전화번호" />
+        android:text="전화번호"
+        android:fontFamily="@font/fonta"/>
 
 
 
@@ -80,7 +83,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="주소" />
+                        android:text="주소"
+                        android:fontFamily="@font/fonta"/>
 
                 </LinearLayout>
                 <LinearLayout
