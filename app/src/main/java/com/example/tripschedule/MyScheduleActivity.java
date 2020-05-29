@@ -17,6 +17,8 @@ import com.example.tripschedule.Schedule.ItemTouchHelperCallback;
 import com.example.tripschedule.SelectLocation.SelectItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,7 +32,6 @@ import java.util.List;
 public class MyScheduleActivity extends AppCompatActivity {
     Button btn_save,btn_back;
     MyScheduleadapter adapter=new MyScheduleadapter();
-    private ArrayList<SelectItem> plan = new ArrayList<>();
     ItemTouchHelper helper;
 
     @Override
@@ -43,9 +44,10 @@ public class MyScheduleActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter)); //RecyclerView에 ItemTouchHelper 붙이기
         helper.attachToRecyclerView(recyclerView);
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("schedule")
+                .whereEqualTo("publisher",user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -15,41 +15,41 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".MySchedule.PlanActivity"></activity>
-        <activity android:name=".Map.MapActivity" />
-        <activity android:name=".MyScheduleActivity"/>
-        <activity android:name=".SelectLocation.WebView" />
-        <activity android:name=".SelectLocation.SelectBasket" />
-        <activity android:name=".SelectLocation.SelectLocationActivity" />
-        <activity android:name=".Login.SignUpActivity" />
-        <activity android:name=".Calendar.CalendarActivity" />
-        <activity android:name=".Transport.BusTimeActivity" />
-        <activity android:name=".Transport.TransportActivity"/>
-        <activity android:name=".Transport.SpeedBusTimeActivity"/>
-        <activity android:name=".Transport.TrainTimeActivity"/>
-        <activity android:name=".Login.MemberAcivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Login.PassswordActivity" />
-        <activity android:name=".Splash.Splashscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            <category android:name = "android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".OnlyDateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MySchedule.PlanActivity" />
+        <activity android:name=".Map.MapActivity" />
+        <activity android:name=".MyScheduleActivity" />
+        <activity android:name=".SelectLocation.WebView" />
+        <activity android:name=".SelectLocation.SelectBasket" />
+        <activity android:name=".SelectLocation.SelectLocationActivity" />
+        <activity android:name=".Login.SignUpActivity" />
+        <activity android:name=".Calendar.CalendarActivity" />
+        <activity android:name=".Transport.BusTimeActivity" />
+        <activity android:name=".Transport.TransportActivity" />
+        <activity android:name=".Transport.SpeedBusTimeActivity" />
+        <activity android:name=".Transport.TrainTimeActivity" />
+        <activity android:name=".Login.MemberAcivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login.PassswordActivity" />
+        <activity android:name=".Splash.Splashscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Login.LoginActivity">
+        </activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="7e7cc797q1" />
-
-
-
     </application>
 
 </manifest>

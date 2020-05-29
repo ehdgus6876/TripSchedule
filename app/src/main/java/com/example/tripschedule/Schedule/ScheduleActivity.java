@@ -95,12 +95,6 @@ public class ScheduleActivity extends Fragment {
             cal.add(Calendar.DATE, i);
             date1[i]=dateFormat.format(cal.getTime());
         }
-        for ( int i =0;i<date1.length;i++){
-            Log.d("날짜",date1[i]);
-        }
-        for(int i = 0; i< SelectBasket.weathers.size(); i++) {
-            Log.d("날씨날짜" ,SelectBasket.weathers.get(i).getDate());
-        }
         for(int i=0 ; i <date;i++){
             SelectItem selectItem = new SelectItem((i+1)+"일차",null,null,null,"",null,null,9999);
             for(int j =0;j<SelectBasket.weathers.size();j++){
@@ -108,9 +102,6 @@ public class ScheduleActivity extends Fragment {
                     selectItem.setLowTemp(SelectBasket.weathers.get(j).getLowTemp());
                     selectItem.setHighTemp(SelectBasket.weathers.get(j).getHighTemp());
                     selectItem.setWeather(SelectBasket.weathers.get(j).getWeather());
-                    Log.d("날씨 최저" ,SelectBasket.weathers.get(i).getDate()+SelectBasket.weathers.get(j).getLowTemp());
-                    Log.d("날씨 최고" ,SelectBasket.weathers.get(i).getDate()+SelectBasket.weathers.get(j).getHighTemp());
-                    Log.d("날씨 날씨" ,SelectBasket.weathers.get(i).getDate()+SelectBasket.weathers.get(j).getWeather());
                 }
             }
             adapter.addItem(selectItem);
@@ -527,7 +518,7 @@ public class ScheduleActivity extends Fragment {
 
          FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            Scheduleinfo Scheduleinfo = new Scheduleinfo(plan,user.getUid());
+            Scheduleinfo Scheduleinfo = new Scheduleinfo(plan,user.getUid(),CalendarActivity.sendStartDate,CalendarActivity.sendFinishDate);
             db.collection("schedule")
                     .add(Scheduleinfo)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

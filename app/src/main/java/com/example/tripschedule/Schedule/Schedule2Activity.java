@@ -449,7 +449,7 @@ public class Schedule2Activity extends Fragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Scheduleinfo Scheduleinfo = new Scheduleinfo(plan,user.getUid());
+        Scheduleinfo Scheduleinfo = new Scheduleinfo(plan,user.getUid(),CalendarActivity.sendStartDate,CalendarActivity.sendFinishDate);
         db.collection("schedule")
                 .add(Scheduleinfo)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
