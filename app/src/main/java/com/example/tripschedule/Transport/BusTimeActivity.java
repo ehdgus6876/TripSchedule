@@ -145,9 +145,6 @@ public class BusTimeActivity extends AppCompatActivity {
 
                     JSONArray json2=json1.getJSONArray("station");
 
-
-
-
                     for(int k=0;k<json2.length();k++){
 
                         JSONObject json3 =json2.getJSONObject(k);

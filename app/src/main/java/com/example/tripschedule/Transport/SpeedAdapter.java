@@ -50,7 +50,7 @@ public class SpeedAdapter extends RecyclerView.Adapter<SpeedAdapter.ViewHolder> 
 
 
 
-        holder.btn_sel.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 df=new SimpleDateFormat("HHmm");
@@ -85,14 +85,14 @@ public class SpeedAdapter extends RecyclerView.Adapter<SpeedAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title,tv_time,tv_cost,tv_stime;
-        Button btn_sel;
+
         ViewHolder(@NonNull final View itemView) {
             super(itemView);
             this.tv_title=itemView.findViewById(R.id.tv_title);
             this.tv_time=itemView.findViewById(R.id.tv_time);
             this.tv_cost=itemView.findViewById(R.id.tv_cost);
             this.tv_stime=itemView.findViewById(R.id.tv_stime);
-            this.btn_sel=itemView.findViewById(R.id.btn_sel);
+
 
         }
 
