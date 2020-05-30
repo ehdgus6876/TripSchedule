@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.tripschedule.Schedule.ItemTouchHelperCallback;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MyScheduleActivity extends AppCompatActivity {
-    Button btn_save,btn_back,btn_del;
+    ImageButton btn_save,btn_back,btn_del;
     MyScheduleadapter adapter=new MyScheduleadapter();
     ItemTouchHelper helper;
     ArrayList<SelectItem> selectItems = new ArrayList<>();

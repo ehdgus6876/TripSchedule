@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.tripschedule.R;
@@ -22,8 +23,8 @@ public class MemberAcivity extends AppCompatActivity {
     private EditText Telphone;
     private EditText Birthday;
     private EditText Address;
-    private Button Check_button;
-    private Button Cancel_button;
+    private ImageButton Check_button;
+    private ImageButton Cancel_button;
     private FirebaseAuth auth;// 파이어 베이스 인증 객체
 
     @Override

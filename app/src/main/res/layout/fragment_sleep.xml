@@ -15,6 +15,7 @@
             android:orientation="horizontal">
             <EditText
                 android:hint="검색어를 입력하세요"
+                android:drawableRight="@drawable/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="26sp"

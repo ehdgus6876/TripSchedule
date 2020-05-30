@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView iv_profile; // 이미지 뷰
     private ImageButton btn_myschedule;
     private ImageButton btn_plsnstart;
-    private Button logout_button;
+    private ImageButton logout_button;
 
     @SuppressLint("WrongViewCast")
     @Override

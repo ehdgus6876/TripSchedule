@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PassswordActivity extends AppCompatActivity {
     private EditText email;
-    private Button send_button;
-    private Button Cancel_button;
+    private ImageButton send_button;
+    private ImageButton Cancel_button;
     private FirebaseAuth auth;// 파이어 베이스 인증 객체
 
     @Override

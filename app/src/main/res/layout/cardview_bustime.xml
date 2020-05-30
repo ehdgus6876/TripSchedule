@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="제목"
+            android:textSize="16sp"
             android:fontFamily="@font/fonta"/>
 
         <LinearLayout
@@ -43,6 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="출발시간(등급)"
+                        android:textSize="16sp"
                         android:fontFamily="@font/fonta"/>
 
                     <TextView
@@ -51,6 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="출발시간(등급)"
+                        android:textSize="16sp"
                         android:fontFamily="@font/fonta"/>
                 </LinearLayout>
                 <LinearLayout
@@ -63,6 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="소요시간"
+                        android:textSize="16sp"
                         android:fontFamily="@font/fonta"/>
 
                     <TextView
@@ -71,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="소요시간"
+                        android:textSize="16sp"
                         android:fontFamily="@font/fonta"/>
                 </LinearLayout>
 
@@ -84,6 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="요금"
+                        android:textSize="16sp"
                         android:fontFamily="@font/fonta"/>
 
                     <TextView
@@ -92,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="요금"
+                        android:textSize="16sp"
                         android:fontFamily="@font/fonta"/>
                 </LinearLayout>
 

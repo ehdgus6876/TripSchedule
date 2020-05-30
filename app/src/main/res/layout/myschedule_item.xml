@@ -14,7 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="15dp">
 
             <TextView
                 android:id="@+id/list_name"
@@ -22,7 +23,8 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/fonta" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

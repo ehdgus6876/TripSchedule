@@ -85,27 +85,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <Button
+    <ImageButton
         android:id="@+id/Check_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:text="등 록 하 기"
-        android:textSize="20dp"
+        android:background="@drawable/register_button"
         app:layout_constraintBottom_toTopOf="@+id/Cancel_button2"
         app:layout_constraintEnd_toEndOf="@+id/Address"
         app:layout_constraintStart_toStartOf="@+id/Address"
         app:layout_constraintTop_toBottomOf="@+id/Address" />
 
-    <Button
+    <ImageButton
         android:id="@+id/Cancel_button2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="179dp"
-        android:text="돌 아 가 기"
-        android:textSize="20dp"
+        android:background="@drawable/back_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/Check_button"
         app:layout_constraintStart_toStartOf="@+id/Check_button"

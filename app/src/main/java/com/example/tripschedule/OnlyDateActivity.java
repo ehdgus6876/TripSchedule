@@ -42,7 +42,7 @@ public class OnlyDateActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("schedule")
-                .whereEqualTo("publisher","ALPIW4FxZoTdryTnjb84zgEfdpV2")
+                .whereEqualTo("publisher",user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

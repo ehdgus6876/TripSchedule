@@ -19,39 +19,34 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_del"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:text="삭제하기"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/trash"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_save"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_save"
+        app:layout_constraintTop_toBottomOf="@+id/scheduleRecycle" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:text="저장하기"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_back"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleRecycle" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="16dp"
-        android:text="뒤로가기"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/back_plan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleRecycle" />

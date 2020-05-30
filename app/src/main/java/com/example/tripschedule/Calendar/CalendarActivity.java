@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,8 +31,8 @@ public class CalendarActivity extends AppCompatActivity {
     private CalendarView calendar;
     private Button btn_start;
     private Button btn_finish;
-    private Button btn_re;
-    private Button btn_complete;
+    private ImageButton btn_re;
+    private ImageButton btn_complete;
     private String startdate;
     private String finishdate;
     private TextView textView;

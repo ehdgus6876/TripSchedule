@@ -103,14 +103,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:background="@drawable/delete" />
 
 
                     <ImageButton
                         android:id="@+id/btn_detail"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:background="@drawable/detail" />
 
                 </LinearLayout>

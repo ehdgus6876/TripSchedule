@@ -30,7 +30,8 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/fonta"/>
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="100dp"
@@ -40,21 +41,24 @@
                     android:layout_height="33dp"
                     android:id="@+id/tv_low"
                     android:textSize="15dp"
-                    android:text="최저">
+                    android:text="최저"
+                    android:fontFamily="@font/fonta">
                 </TextView>
                 <TextView
                     android:textSize="15dp"
                     android:layout_width="50dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_max"
-                    android:text="최고">
+                    android:text="최고"
+                    android:fontFamily="@font/fonta">
                 </TextView>
                 <TextView
                     android:textSize="15dp"
                     android:layout_width="50dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_weather"
-                    android:text="날씨">
+                    android:text="날씨"
+                    android:fontFamily="@font/fonta">
                 </TextView>
 
             </LinearLayout>

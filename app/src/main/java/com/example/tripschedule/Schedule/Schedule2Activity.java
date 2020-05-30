@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
@@ -59,9 +60,9 @@ public class Schedule2Activity extends Fragment {
 
     public static long date;
     private  int arrivalTime;
-    Button btn_scheduleselect;
+    ImageButton btn_scheduleselect;
     private SimpleDateFormat df;
-    private Button btn_maps;
+    private ImageButton btn_maps;
     private int[] code_array={0,0};
     private int[] first_array={0,0}; //첫날
     private LatLng latLng;
