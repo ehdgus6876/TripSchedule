@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         if(user==null){
                 MyStartActivity(LoginActivity.class);
         }else {
+
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("schedule")
                     .whereEqualTo("publisher",user.getUid())
