@@ -2,6 +2,8 @@ package com.example.tripschedule;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,71 +26,57 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "로그";
-    private TextView tv_result; // 닉네임 text
-    private ImageView iv_profile; // 이미지 뷰
-    private ImageButton btn_myschedule;
     private ImageButton btn_plsnstart;
     private ImageButton logout_button;
+    private RecyclerView rv;
+    private OnlyDateAdapter onlyDateAdapter=new OnlyDateAdapter();
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        rv= findViewById(R.id.rv);
+        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(manager);
 
 
-        Intent intent = getIntent();
-        String nickName=intent.getStringExtra("nickName");
-        String photoUrl=intent.getStringExtra("photoUrl");
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user==null){
                 MyStartActivity(LoginActivity.class);
         }else {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference docRef = db.collection("users").document(user.getUid());
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if(document !=null){
-                            if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+            db.collection("schedule")
+                    .whereEqualTo("publisher",user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    onlyDateAdapter.addItem(new OnlyDateItem(document.getData().get("startdate").toString(),
+                                            document.getData().get("enddate").toString(),document.getId()));
 
+                                }
+                                rv.setAdapter(onlyDateAdapter);
                             } else {
-                                Log.d(TAG, "No such document");
-                                MyStartActivity(MemberAcivity.class);
+                                Log.d("실패", "Error getting documents: ", task.getException());
                             }
-                        }
-                    } else {
-                        Log.d(TAG, "get failed with ", task.getException());
 
-                    }
-                }
-            });
+                        }
+                    });
 
         }
 
-        tv_result = findViewById(R.id.tv_result);
-        tv_result.setText(nickName);
-
-        iv_profile=findViewById(R.id.iv_profile);
-        Glide.with(this).load(photoUrl).into(iv_profile); // 프로필 url를 이미지 뷰에 세팅
-
-        btn_myschedule=findViewById(R.id.my_schedule);
-        btn_myschedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(getApplicationContext(), OnlyDateActivity.class);
-                startActivity(intent2);
-
-            }
-        });
 
         btn_plsnstart=findViewById(R.id.btn_planstart);
         btn_plsnstart.setOnClickListener(new View.OnClickListener() {

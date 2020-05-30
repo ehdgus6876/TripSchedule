@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".OnlyDateActivity"/>
 
         <activity android:name=".MySchedule.PlanActivity" />
         <activity android:name=".Map.MapActivity" />

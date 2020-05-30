@@ -108,7 +108,7 @@ public class MyScheduleActivity extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                             }
                         });
-                Intent intent = new Intent(getApplicationContext(),OnlyDateActivity.class);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
 
 
@@ -136,7 +136,7 @@ public class MyScheduleActivity extends AppCompatActivity {
 
                             }
                         });
-                Intent intent = new Intent(getApplicationContext(),OnlyDateActivity.class);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -145,7 +145,7 @@ public class MyScheduleActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),OnlyDateActivity.class);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
 
             }
