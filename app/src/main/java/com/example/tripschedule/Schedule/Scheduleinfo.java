@@ -1,4 +1,4 @@
-package com.example.tripschedule.MySchedule;
+package com.example.tripschedule.Schedule;
 
 import com.example.tripschedule.SelectLocation.SelectItem;
 

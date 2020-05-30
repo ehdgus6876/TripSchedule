@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.Map.MapActivity;
-import com.example.tripschedule.MySchedule.PlanActivity;
+import com.example.tripschedule.Schedule.PlanActivity;
 import com.example.tripschedule.R;
 
 import org.w3c.dom.Document;

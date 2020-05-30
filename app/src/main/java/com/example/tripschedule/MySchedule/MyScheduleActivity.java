@@ -1,8 +1,7 @@
-package com.example.tripschedule;
+package com.example.tripschedule.MySchedule;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.tripschedule.MainActivity;
+import com.example.tripschedule.R;
 import com.example.tripschedule.Schedule.ItemTouchHelperCallback;
 import com.example.tripschedule.SelectLocation.SelectItem;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,9 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,7 +106,7 @@ public class MyScheduleActivity extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                             }
                         });
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
 
 

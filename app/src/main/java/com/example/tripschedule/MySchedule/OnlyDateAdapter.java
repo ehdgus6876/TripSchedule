@@ -1,38 +1,17 @@
-package com.example.tripschedule;
+package com.example.tripschedule.MySchedule;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
-import com.example.tripschedule.Schedule.ItemTouchHelperListener;
-import com.example.tripschedule.SelectLocation.SelectItem;
-import com.example.tripschedule.SelectLocation.Weather;
+import com.example.tripschedule.R;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 class OnlyDateAdapter extends RecyclerView.Adapter<OnlyDateAdapter.ItemViewHolder>  {
     ArrayList<OnlyDateItem> items = new ArrayList<>();

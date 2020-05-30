@@ -1,4 +1,4 @@
-package com.example.tripschedule;
+package com.example.tripschedule.MySchedule;
 
 public class OnlyDateItem {
 

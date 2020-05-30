@@ -1,4 +1,4 @@
-package com.example.tripschedule.MySchedule;
+package com.example.tripschedule.Schedule;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;

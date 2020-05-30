@@ -13,17 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.tripschedule.Calendar.CalendarActivity;
 import com.example.tripschedule.MainActivity;
-import com.example.tripschedule.Map.MapActivity;
 import com.example.tripschedule.Map.MapActivity2;
 import com.example.tripschedule.R;
-import com.example.tripschedule.MySchedule.Scheduleinfo;
 import com.example.tripschedule.SelectLocation.LocationAdapter;
 import com.example.tripschedule.SelectLocation.SelectBasket;
 import com.example.tripschedule.SelectLocation.SelectItem;
