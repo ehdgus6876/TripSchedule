@@ -34,7 +34,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="50dp"
+                    android:id="@+id/size"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -42,22 +43,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="등급"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_tclass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="등급"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="60dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -65,22 +66,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="출발시간"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_tstime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="출발시간"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="60dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -88,22 +89,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="도착시간"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_tdtime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="도착시간"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="60dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -111,18 +112,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="소요시간"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_twtime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="소요시간"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -134,18 +135,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="요금"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_tcost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/fonta"
                         android:text="요금"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/fonta"/>
+                        android:textSize="15dp" />
                 </LinearLayout>
 
 

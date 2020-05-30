@@ -36,25 +36,25 @@
                 android:layout_width="50dp"
                 android:layout_height="100dp"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="33dp"
                     android:id="@+id/tv_low"
-                    android:textSize="15dp"
+                    android:layout_width="60dp"
+                    android:layout_height="33dp"
+                    android:fontFamily="@font/fonta"
                     android:text="최저"
-                    android:fontFamily="@font/fonta">
-                </TextView>
+                    android:textSize="13dp"></TextView>
                 <TextView
-                    android:textSize="15dp"
-                    android:layout_width="50dp"
+                    android:textSize="13dp"
+                    android:layout_width="60dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_max"
                     android:text="최고"
                     android:fontFamily="@font/fonta">
                 </TextView>
                 <TextView
-                    android:textSize="15dp"
-                    android:layout_width="50dp"
+                    android:textSize="13dp"
+                    android:layout_width="60dp"
                     android:layout_height="33dp"
                     android:id="@+id/tv_weather"
                     android:text="날씨"

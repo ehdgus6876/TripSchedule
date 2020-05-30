@@ -38,7 +38,6 @@ public class SignUpActivity extends AppCompatActivity {
         passwordCheck = findViewById(R.id.PasswordCheck);
         signup_button = findViewById(R.id.send_button);
         Cancel_button = findViewById(R.id.Cancle_button);
-        Log.d("dong naver", String.valueOf(LoginActivity.naver));
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

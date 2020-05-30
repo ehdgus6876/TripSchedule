@@ -13,7 +13,7 @@ import com.example.tripschedule.R;
 
 import java.util.ArrayList;
 
-class OnlyDateAdapter extends RecyclerView.Adapter<OnlyDateAdapter.ItemViewHolder>  {
+public class OnlyDateAdapter extends RecyclerView.Adapter<OnlyDateAdapter.ItemViewHolder>  {
     ArrayList<OnlyDateItem> items = new ArrayList<>();
 
     public OnlyDateAdapter() {
