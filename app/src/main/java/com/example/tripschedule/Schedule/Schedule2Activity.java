@@ -84,6 +84,7 @@ public class Schedule2Activity extends Fragment {
         selectItems.addAll(LocationAdapter.selectItems) ;
         btn_scheduleselect=v.findViewById(R.id.btn_scheduleselect);
         btn_maps=v.findViewById(R.id.btn_maps);
+
         rv = v.findViewById(R.id.rv); //RecyclerView의 레이아웃 방식을 지정
         LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
