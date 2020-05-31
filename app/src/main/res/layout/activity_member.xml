@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="179dp"
-        android:background="@drawable/back_selector"
+        android:background="@drawable/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/Check_button"
         app:layout_constraintStart_toStartOf="@+id/Check_button"

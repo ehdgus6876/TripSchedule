@@ -84,7 +84,6 @@ public class TrainTimeActivity extends AppCompatActivity {
                         JSONObject json1 = odsayData.getJson().getJSONObject("result");
                         JSONArray json2 = odsayData.getJson().getJSONObject("result").getJSONArray("station");
                         String startStation,endStation,trainClass,departureTime,arrivalTime,wasteTime,fare;
-                        Log.d("기차API",String.valueOf(json2));
                         for (int k = 0; k < json2.length(); k++) {
 
                             JSONObject json3 = json2.getJSONObject(k);

@@ -63,7 +63,6 @@ public class BusTimeActivity extends AppCompatActivity {
         odsayService.setReadTimeout(5000);
         // 데이터 획득 제한 시간(단위(초), default : 5초)
         odsayService.setConnectionTimeout(5000);
-
         // 콜백 함수 구현
         OnResultCallbackListener onResultCallbackListener = new OnResultCallbackListener() {
             // 호출 성공 시 실행
@@ -74,7 +73,6 @@ public class BusTimeActivity extends AppCompatActivity {
                     if (api == API.INTERCITY_SERVICE_TIME) {
                         String[] scheduleArr;
                         JSONArray json2 = odsayData.getJson().getJSONObject("result").getJSONArray("station");
-                        Log.d("시외버스API",String.valueOf(json2));
                         for(int k=0;k<json2.length();k++){
 
                             JSONObject json3 =json2.getJSONObject(k);
@@ -131,7 +129,6 @@ public class BusTimeActivity extends AppCompatActivity {
                                 return 0;
                             }
                         });
-
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();

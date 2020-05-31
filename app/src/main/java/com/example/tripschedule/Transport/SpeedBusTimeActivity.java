@@ -84,7 +84,6 @@ public class SpeedBusTimeActivity extends AppCompatActivity {
                     if (api == API.EXPRESS_SERVICE_TIME) {
                         String[] scheduleArr;
                         JSONArray json2 = odsayData.getJson().getJSONObject("result").getJSONArray("station");
-                        Log.d("고속버스API",String.valueOf(json2));
                         for(int k=0;k<json2.length();k++){
 
                             JSONObject json3 =json2.getJSONObject(k);
