@@ -4,7 +4,7 @@
 *사용 스택 : Android, Java, Python, AWS EC2, REST API, Firebase, Ubuntu, Slack API
 
 ### 1. Main Image
-![initial](https://user-images.githubusercontent.com/40512570/84156622-b1a59a00-aaa4-11ea-9ea0-9506018a5874.jpg){: width="100" height="100"}
+![initial](https://user-images.githubusercontent.com/40512570/84156622-b1a59a00-aaa4-11ea-9ea0-9506018a5874.jpg)
 
 ### 2. Select Date
 ![initial](https://user-images.githubusercontent.com/40512570/84156846-f7faf900-aaa4-11ea-83a9-b757621719ae.jpg)
