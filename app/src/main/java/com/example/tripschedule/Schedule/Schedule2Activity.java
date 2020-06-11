@@ -107,12 +107,6 @@ public class Schedule2Activity extends Fragment {
             cal.add(Calendar.DATE, i);
             date1[i]=dateFormat.format(cal.getTime());
         }
-        for ( int i =0;i<date1.length;i++){
-            Log.d("날짜",date1[i]);
-        }
-        for(int i = 0; i< SelectBasket.weathers.size(); i++) {
-            Log.d("날씨날짜" ,SelectBasket.weathers.get(i).getDate());
-        }
         for(int i=0 ; i <date;i++){
             SelectItem selectItem = new SelectItem((i+1)+"일차",null,null,null,"",null,null,9999);
             for(int j =0;j<SelectBasket.weathers.size();j++){
@@ -158,6 +152,7 @@ public class Schedule2Activity extends Fragment {
                     }
                 }
                 storeUpload(plan);
+                LocationAdapter.selectItems.clear();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
 

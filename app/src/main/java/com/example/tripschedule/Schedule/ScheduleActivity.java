@@ -142,6 +142,7 @@ public class ScheduleActivity extends Fragment {
                     }
                 }
                 storeUpload(plan);
+                LocationAdapter.selectItems.clear();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
 
@@ -248,7 +249,7 @@ public class ScheduleActivity extends Fragment {
     }
     private void initAlgorithm(){
         try {
-            df = new SimpleDateFormat("yyyymmdd");
+            df = new SimpleDateFormat("yyyyMMdd");
             Date scal = df.parse(CalendarActivity.sendStartDate);
             Date dcal = df.parse(CalendarActivity.sendFinishDate);
 
@@ -306,6 +307,7 @@ public class ScheduleActivity extends Fragment {
                 }
             }
         }
+        Log.d("일정", String.valueOf(code_array[0])+" "+code_array[1]+" "+code_array[2]+" "+code_array[3]+" "+code_array[4]);
         selectItems.remove(p);
         long day = date;
         day_array = new int[(int) date][5];
@@ -455,16 +457,19 @@ public class ScheduleActivity extends Fragment {
             }
         }
         int Q=day_array[0][2];
+        for ( int i =0;i<date;i++){
+            Log.d("일정", String.valueOf(day_array[i][0])+" "+day_array[i][1]+" "+day_array[i][2]+" "+day_array[i][3]+" "+day_array[i][4]);
+        }
 
 
         for (int i = 0; i < max; i++) {
-            if (day_array[0][1] > 0) {
+            if (day_array[0][1] >=1) {
                 select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 1, 0);
             }
-            if (day_array[0][0] > 0) {
+            if (day_array[0][0] >=1) {
                 select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 0, 0);
             }
-            if (day_array[0][3] > 0) {
+            if (day_array[0][3] >=1) {
                 select_location(al[0].get(al[0].size() - 1).getMapx(), al[0].get(al[0].size() - 1).getMapy(), 3, 0);
             }
         }for(int i =0 ; i<Q;i++ )

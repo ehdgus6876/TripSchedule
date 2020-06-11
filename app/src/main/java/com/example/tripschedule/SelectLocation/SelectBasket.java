@@ -70,14 +70,15 @@ public class SelectBasket extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         try {
-            df = new SimpleDateFormat("yyyymmdd");
+            df = new SimpleDateFormat("yyyyMMdd");
             Date scal = df.parse(CalendarActivity.sendStartDate);
             Date dcal = df.parse(CalendarActivity.sendFinishDate);
+            Log.d("날짜",String.valueOf(scal)+dcal);
 
             long calDate = dcal.getTime() - scal.getTime();
             date = calDate / (24 * 60 * 60 * 1000);
             date = Math.abs(date) + 1;
-
+            Log.d("날짜", String.valueOf(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -110,6 +111,7 @@ public class SelectBasket extends AppCompatActivity {
                 } else {
                     Intent intent1 = new Intent(getApplicationContext(), PlanActivity.class);
                     startActivity(intent1);
+
                 }
             }
         });

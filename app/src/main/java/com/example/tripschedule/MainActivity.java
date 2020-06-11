@@ -71,28 +71,28 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+            db.collection("schedule")
+                    .whereEqualTo("publisher",user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    onlyDateAdapter.addItem(new OnlyDateItem(document.getData().get("startdate").toString(),
+                                            document.getData().get("enddate").toString(),document.getId()));
+
+                                }
+                                rv.setAdapter(onlyDateAdapter);
+                            } else {
+                                Log.d("실패", "Error getting documents: ", task.getException());
+                            }
+
+                        }
+                    });
 
         }
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("schedule")
-                .whereEqualTo("publisher",user.getUid())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                onlyDateAdapter.addItem(new OnlyDateItem(document.getData().get("startdate").toString(),
-                                        document.getData().get("enddate").toString(),document.getId()));
 
-                            }
-                            rv.setAdapter(onlyDateAdapter);
-                        } else {
-                            Log.d("실패", "Error getting documents: ", task.getException());
-                        }
-
-                    }
-                });
 
 
         btn_plsnstart=findViewById(R.id.btn_planstart);

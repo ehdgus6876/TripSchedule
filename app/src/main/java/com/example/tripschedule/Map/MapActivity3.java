@@ -58,7 +58,7 @@ public class MapActivity3 extends AppCompatActivity implements OnMapReadyCallbac
 
         for(int i = 0; i< Schedule2Activity.al1.length; i++){
             List<LatLng> latLngs=new ArrayList<>();
-            for(int j=0;j<Schedule2Activity.al1[i].size();j++){
+            for(int j=1;j<Schedule2Activity.al1[i].size();j++){
                 marker=new Marker();
 
 
