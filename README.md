@@ -1,4 +1,4 @@
-#U-RAVEL
+# U-RAVEL
 울산 여행이란 주제로 가고 싶은 장소를 선택하는 것만으로 일정을 자동으로 수립해주는 안드로이드 어플
 
 *사용 스택 : Android, Java, Python, AWS EC2, REST API, Firebase, Ubuntu, Slack API
